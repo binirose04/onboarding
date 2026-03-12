@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDEA StatiCa | Enterprise Onboarding</title>
+    
+    <!-- Modern Phosphor Icons (Replaces FontAwesome) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Enterprise SaaS Color Palette */
+            --primary-color: #ff5000; 
+            --primary-dark: #f46721;
+            --secondary-color: #000000; 
+            --text-main: #1e293b; /* Rich slate for readability */
+            --text-muted: #64748b; /* Soft slate for secondary text */
+            --bg-body: #f8fafc; /* Slate 50 */
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0; /* Slate 200 */
+            --disabled-bg: transparent;
+            --linkedin-blue: #0a66c2;
+            --success-color: #1e8e3e; 
+            
+            /* Modern diffuse shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            --shadow-orange: 0 10px 15px -3px rgba(255, 80, 0, 0.1), 0 4px 6px -4px rgba(255, 80, 0, 0.05);
+            --shadow-btn: 0 4px 14px 0 rgba(255, 80, 0, 0.39);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        #onboarding-app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        /* STRICT PAGINATION LOGIC WITH PREMIUM ANIMATION */
+        #onboarding-app .page { display: none !important; }
+        #onboarding-app .page.active { 
+            display: block !important; 
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        
+        /* LANGUAGE VISIBILITY */
+        #onboarding-app.en-active .lang-ar { display: none !important; }
+        #onboarding-app.ar-active .lang-en { display: none !important; }
+
+        /* HEADER */
+        .brand-header {
+            width: 100%; 
+            background: var(--bg-card); 
+            padding: 16px 48px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            box-sizing: border-box;
+            z-index: 10;
+        }
+        .brand-logo, .partner-logo { display: flex; align-items: center; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .brand-logo:hover, .partner-logo:hover { transform: scale(1.02); }
+        .brand-logo img { height: 50px; width: auto; object-fit: contain; }
+        .partner-logo img { height: 38px; width: auto; object-fit: contain; }
+
+        /* LANGUAGE TOGGLE */
+        .lang-bar { 
+            width: 100%; 
+            background: var(--bg-card); 
+            border-bottom: 1px solid var(--border-color); 
+            padding: 12px; 
+            display: flex; 
+            justify-content: center; 
+            box-sizing: border-box;
+        }
+        .lang-toggle {
+            position: relative;
+            display: inline-flex;
+            background: var(--border-color);
+            border-radius: 24px;
+            padding: 4px;
+            cursor: pointer;
+            user-select: none;
+            width: 200px;
+        }
+        .lang-toggle-slider {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            left: 4px;
+            width: 96px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+        }
+        .lang-toggle.ar-selected .lang-toggle-slider {
+            transform: translateX(96px);
+        }
+        .lang-option {
+            position: relative;
+            z-index: 2;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+        .lang-option.active {
+            color: var(--primary-dark);
+        }
+
+        /* MAIN CARD */
+        .main-card { 
+            width: 1000px; 
+            max-width: 92%; 
+            background: var(--bg-card); 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-lg);
+            margin-top: 40px; 
+            overflow: hidden; 
+            border: 1px solid var(--border-color); 
+        }
+
+        /* NAVIGATION TABS (Pill Style) */
+        .nav-bar { 
+            display: flex; 
+            background: var(--bg-card); 
+            border-bottom: 1px solid var(--border-color); 
+            padding: 12px 24px;
+            gap: 8px;
+            box-sizing: border-box;
+        }
+        .nav-item { 
+            flex: 1; 
+            padding: 12px 10px; 
+            text-align: center; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            color: var(--text-muted); 
+            border-radius: 8px;
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: center;
+            gap: 8px; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: default;
+        }
+        .nav-item i { font-size: 1.2rem; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .nav-item.active { 
+            color: var(--primary-color); 
+            background: rgba(255, 80, 0, 0.08);
+        }
+        .nav-item.active i { transform: scale(1.15); }
+
+        /* CONTENT AREA */
+        .content-area { 
+            padding: 48px 64px; 
+            min-height: 480px; 
+            box-sizing: border-box;
+        }
+        h1, h2, h3 { letter-spacing: -0.02em; }
+        h1 { 
+            color: var(--secondary-color); 
+            font-size: 2rem; 
+            font-weight: 800; 
+            margin-top: 0; 
+            margin-bottom: 16px;
+        }
+        p { 
+            line-height: 1.7; 
+            font-size: 1rem; 
+            color: var(--text-muted); 
+            margin-top: 0;
+        }
+
+        /* HIGHLIGHT BOX */
+        .highlight-box {
+            background: var(--bg-card);
+            padding: 24px;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 12px;
+            margin: 24px 0;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .highlight-box:hover { box-shadow: var(--shadow-lg); }
+        .highlight-box p { margin: 0; color: var(--text-main); font-weight: 500; }
+
+        /* EMAIL COLLECTION */
+        .email-collection-box {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 24px;
+            box-shadow: var(--shadow-md);
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-sizing: border-box;
+        }
+        .email-collection-box label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+        .email-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+        .email-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 80, 0, 0.15);
+        }
+
+        /* ENTERPRISE SHOWCASE */
+        .enterprise-showcase {
+            margin-top: 32px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .enterprise-showcase:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        .showcase-text { padding: 32px; flex: 1.6; }
+        .showcase-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .showcase-text h2 { font-size: 1.4rem; margin: 0 0 12px 0; color: var(--secondary-color); }
+        .showcase-text p { font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6; }
+        .showcase-features { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .showcase-features li { font-size: 0.9rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .showcase-features li i { color: var(--primary-color); }
+        
+        .showcase-graphics {
+            flex: 1;
+            background: transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid var(--border-color);
+        }
+        .abstract-joint { position: relative; width: 120px; height: 120px; }
+        .beam { position: absolute; background: transparent; border: 2px solid var(--border-color); }
+        .beam-main { width: 32px; height: 120px; left: 44px; top: 0; border-radius: 4px; }
+        .beam-sub { width: 76px; height: 28px; left: 44px; top: 46px; border-radius: 4px; }
+        .bolt-grid {
+            position: absolute; width: 20px; height: 20px; left: 50px; top: 50px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4px; z-index: 2;
+        }
+        .bolt-grid span { background: var(--primary-color); border-radius: 50%; width: 6px; height: 6px; }
+
+        /* ACCORDION CHECKLIST */
+        .checklist-item { 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            margin-bottom: 16px; 
+            background: var(--bg-card); 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .checklist-item:not(.locked):hover { box-shadow: var(--shadow-md); }
+        
+        /* State: Active (Open, but not completed) */
+        .checklist-item.is-open:not(.completed) {
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--shadow-orange);
+        }
+        
+        /* State: Locked */
+        .checklist-item.locked { 
+            background: transparent; 
+            opacity: 0.5; 
+            border-color: transparent;
+            box-shadow: none;
+        }
+        .checklist-item.locked .checklist-header { cursor: not-allowed; }
+        
+        /* State: Completed */
+        .checklist-item.completed { 
+            background: #ffffff; 
+            border-color: var(--border-color);
+        }
+        
+        .checklist-header { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .checklist-header-left {
+            display: flex; 
+            align-items: center; 
+            gap: 16px; 
+        }
+        
+        /* Custom Premium Checkbox */
+        .check-box { 
+            appearance: none;
+            -webkit-appearance: none;
+            width: 24px; 
+            height: 24px; 
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer; 
+            margin: 0;
+            background-color: var(--bg-card);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            flex-shrink: 0;
+        }
+        .check-box:active { transform: scale(0.85); }
+        .check-box:checked { 
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: scale(1.1); 
+            animation: checkPop 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .check-box:checked::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .item-title { 
+            font-size: 1.1rem; 
+            color: var(--text-main); 
+            font-weight: 700; 
+        }
+        .accordion-chevron {
+            color: var(--text-muted);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .checklist-item.is-open .accordion-chevron {
+            transform: rotate(180deg);
+        }
+        
+        /* Accordion Body */
+        .accordion-body {
+            display: none;
+            padding: 0 24px 24px 24px;
+            border-top: 1px solid var(--border-color);
+        }
+        .checklist-item.is-open .accordion-body {
+            display: block;
+            animation: slideDownFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .checklist-item.completed.is-open .accordion-body {
+            border-top-color: var(--border-color);
+        }
+
+        /* Tech-Savvy Quick Flow - Flattened */
+        .quick-flow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: transparent;
+            padding: 0;
+            margin: 12px 0 20px 0;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .quick-flow-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-right: 4px; }
+        .quick-flow-step {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.2s, transform 0.2s;
+        }
+        a.quick-flow-step { color: var(--linkedin-blue); }
+        a.quick-flow-step:hover { text-decoration: underline; color: #084e96; transform: translateY(-1px); }
+        .quick-flow-sep { color: #cbd5e1; font-size: 0.8rem; }
+
+        /* EXPANDABLE DETAILS TOGGLE */
+        .details-wrapper { margin-top: 16px; }
+        .details-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            margin-left: -12px; /* Flush alignment */
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .details-toggle:hover { 
+            background: var(--bg-body); 
+            color: var(--primary-color);
+        }
+        .details-toggle i { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .details-toggle.is-open i { transform: rotate(180deg); }
+
+        .details-content {
+            display: none;
+            margin-top: 12px;
+            padding-top: 24px;
+            border-top: 1px dashed var(--border-color);
+        }
+        .details-content.is-open {
+            display: block;
+            animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* DOWNLOAD BOX REPLICA */
+        .download-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+        .download-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .download-box h3 {
+            font-family: 'Inter', sans-serif; 
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin: 0 0 8px 0;
+        }
+        .download-box .release-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .download-box p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 0 25px 0;
+            max-width: 90%;
+        }
+        .download-btn {
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 14px 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .download-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-btn);
+        }
+
+        /* RESPONSIVE VIDEO EMBED */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .video-wrapper:hover { transform: translateY(-2px); box-shadow: var(--shadow-md) !important; }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Detail Cards - Flattened to Timeline/List style */
+        .detail-cards-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .detail-card {
+            border: none;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .detail-card-step { 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            color: var(--secondary-color); 
+            background: rgba(0,0,0,0.04);
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            white-space: nowrap;
+        }
+        .detail-card p { font-size: 0.95rem; margin: 2px 0 0 0; color: var(--text-main); line-height: 1.5; }
+
+        /* DYNAMIC FAQ BOX */
+        .faq-box {
+            width: 1000px; 
+            max-width: 92%; 
+            background: var(--bg-card); 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-lg);
+            margin-top: 24px; 
+            border: 1px solid var(--border-color);
+            padding: 32px 64px;
+            box-sizing: border-box;
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .faq-group { display: none; }
+        .faq-group.active { display: block; animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .faq-group h2 { font-size: 1.4rem; color: var(--secondary-color); margin-top: 0; margin-bottom: 20px; }
+        .faq-list { display: flex; flex-direction: column; }
+        .faq-item { border-bottom: 1px solid var(--border-color); }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question {
+            padding: 18px 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+            transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .faq-question:hover { color: var(--primary-color); }
+        .faq-icon {
+            margin-right: 15px;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        [dir="rtl"] .faq-icon { margin-right: 0; margin-left: 15px; transform: scaleX(-1); }
+        .faq-answer {
+            display: none;
+            padding-bottom: 18px;
+            padding-left: 31px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        [dir="rtl"] .faq-answer { padding-left: 0; padding-right: 31px; }
+        .faq-item.active .faq-answer { display: block; animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .faq-item.active .faq-icon { transform: rotate(90deg); }
+        [dir="rtl"] .faq-item.active .faq-icon { transform: scaleX(-1) rotate(-90deg); }
+
+        /* SCHEDULE PAGE */
+        .premium-schedule { 
+            background: radial-gradient(circle at top, rgba(255, 80, 0, 0.08) 0%, #ffffff 40%);
+            background-color: #ffffff;
+            color: var(--text-main); 
+            padding: 64px 48px; 
+            border-radius: 16px; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-top: 6px solid var(--primary-color);
+            box-shadow: var(--shadow-lg);
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-sizing: border-box;
+        }
+        .premium-schedule h1 { color: var(--secondary-color); margin-bottom: 16px; font-size: 2.2rem; }
+        .premium-schedule p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; }
+        
+        .cta-btn { 
+            background: var(--primary-color); 
+            color: white; 
+            padding: 16px 40px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            font-size: 1rem; 
+            border: none; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-sm);
+            font-family: inherit;
+        }
+        .cta-btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-btn); }
+
+        /* FOOTER ACTIONS */
+        .footer-actions { 
+            padding: 20px 64px; 
+            background: var(--bg-body); 
+            border-top: 1px solid var(--border-color); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .btn { 
+            padding: 10px 24px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            border: none; 
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .btn-next { background: var(--primary-color); color: white; box-shadow: var(--shadow-sm); }
+        .btn-next:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-btn); }
+        .btn-next:disabled { background: var(--border-color); color: var(--text-muted); box-shadow: none; transform: none; cursor: not-allowed; }
+        .btn-back { background: transparent; color: var(--text-muted); font-weight: 600; border: 1px solid var(--border-color); }
+        .btn-back:hover { background: var(--bg-card); color: var(--text-main); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+        /* RTL specific tweaks */
+        [dir="rtl"] .highlight-box { border-left: none; border-right: 4px solid var(--primary-color); }
+        [dir="rtl"] .showcase-graphics { border-left: none; border-right: 1px solid var(--border-color); }
+        [dir="rtl"] .quick-flow-label { margin-right: 0; margin-left: 8px; }
+        [dir="rtl"] .detail-card { flex-direction: row; }
+        [dir="rtl"] .details-toggle { margin-left: 0; margin-right: -12px; }
+
+        /* LINKEDIN GROUP HEADER (Mimics Official UI) */
+        .li-custom-card {
+            width: 100%;
+            max-width: 750px;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: left;
+            box-shadow: var(--shadow-sm);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .li-custom-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .li-custom-banner {
+            height: 140px;
+            background: #005A9C url('https://images.unsplash.com/photo-1541888062820-c6326e5d8360?q=80&w=1200&auto=format&fit=crop') center/cover;
+            position: relative;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .li-custom-banner::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 55%;
+            height: 250px;
+            background: #000;
+            transform: rotate(15deg);
+            transform-origin: top right;
+            border-left: 4px solid var(--primary-color);
+        }
+        .li-banner-logo {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            z-index: 2;
+            height: 28px;
+            filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+        }
+        .li-custom-body { padding: 0 24px 24px; position: relative; }
+        .li-custom-logo {
+            width: 104px;
+            height: 104px;
+            background: #fff;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+            position: absolute;
+            top: -52px;
+            left: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 3;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .li-custom-card:hover .li-custom-logo { transform: scale(1.05); }
+        .li-custom-logo img { width: 95%; height: auto; }
+        .li-custom-actions {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 16px;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .li-icon-btn { color: #666; font-size: 1.4rem; cursor: pointer; transition: color 0.2s, transform 0.2s; }
+        .li-icon-btn:hover { color: #000; transform: scale(1.1); }
+        .li-req-btn {
+            background: var(--linkedin-blue);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 6px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+        .li-req-btn:hover { background: #004182; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,119,181,0.3); }
+        .li-custom-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: rgba(0,0,0,0.9);
+            margin: 0 0 4px 0;
+            transition: color 0.2s;
+        }
+        .li-custom-card:hover .li-custom-title { color: var(--linkedin-blue); }
+        .li-custom-subtitle {
+            font-size: 0.9rem;
+            color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0;
+        }
+
+        /* RTL specific tweaks for LinkedIn Card */
+        [dir="rtl"] .li-custom-card { text-align: right; }
+        [dir="rtl"] .li-custom-banner::after { right: auto; left: -50px; transform-origin: top left; transform: rotate(-15deg); border-left: none; border-right: 4px solid var(--primary-color); }
+        [dir="rtl"] .li-banner-logo { right: auto; left: 24px; }
+        [dir="rtl"] .li-custom-logo { left: auto; right: 24px; }
+
+        /* DOCUMENT LIBRARY */
+        .doc-library-wrapper {
+            margin-top: 56px;
+            padding-top: 40px;
+            border-top: 1px dashed var(--border-color);
+            text-align: left;
+        }
+        [dir="rtl"] .doc-library-wrapper { text-align: right; }
+        
+        .doc-library-header { margin-bottom: 32px; }
+        .doc-library-header h3 { font-size: 1.25rem; color: var(--secondary-color); margin: 0 0 8px 0; font-weight: 700; letter-spacing: -0.02em; }
+        .doc-library-header p { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
+        
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 32px 24px;
+            justify-items: center;
+        }
+        
+        .doc-card {
+            width: 100%;
+            max-width: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .doc-card:hover .doc-thumbnail {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .doc-card:hover .doc-title {
+            color: var(--primary-color);
+        }
+        
+        .doc-thumbnail {
+            width: 110px;
+            height: 140px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+            margin-bottom: 16px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Faint visual hints of file content */
+        .doc-preview-text { width: 60%; height: 70%; display: flex; flex-direction: column; gap: 6px; opacity: 0.4; }
+        .doc-preview-text span { background: #cbd5e1; height: 3px; border-radius: 2px; width: 100%; }
+        .doc-preview-text span:nth-child(2) { width: 80%; }
+        .doc-preview-text span:nth-child(4) { width: 90%; }
+        .doc-preview-text span:last-child { width: 50%; }
+        
+        .doc-preview-grid { width: 70%; height: 60%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; opacity: 0.4; }
+        .doc-preview-grid span { background: transparent; border: 1px solid #cbd5e1; border-radius: 1px; }
+        .doc-preview-grid span:nth-child(1), .doc-preview-grid span:nth-child(4) { background: #f1f5f9; }
+        
+        .doc-preview-slide { width: 70%; height: 50%; border: 2px solid #cbd5e1; border-radius: 4px; opacity: 0.4; position: relative; }
+        .doc-preview-slide::after { content: ''; position: absolute; bottom: 4px; left: 4px; width: 40%; height: 4px; background: #cbd5e1; border-radius: 2px; }
+
+        .doc-preview-pdf { width: 50%; height: 60%; border: 2px solid #cbd5e1; border-radius: 4px; opacity: 0.4; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; }
+        .doc-preview-pdf span { background: #cbd5e1; height: 3px; border-radius: 2px; width: 60%; }
+        
+        /* App Colored Badges */
+        .doc-badge {
+            position: absolute;
+            bottom: -8px;
+            left: -8px;
+            width: 32px;
+            height: 32px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+        [dir="rtl"] .doc-badge { left: auto; right: -8px; }
+        
+        .doc-badge.word { color: #185abd; }
+        .doc-badge.excel { color: #107c41; }
+        .doc-badge.ppt { color: #c84128; }
+        .doc-badge.pdf { color: #e11d48; }
+        
+        .doc-info { width: 100%; text-align: center; }
+        .doc-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.3;
+            margin-bottom: 4px;
+            transition: color 0.2s;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .doc-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* PREMIUM KEYFRAME ANIMATIONS */
+        @keyframes slideUpFade { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes slideDownFade { 
+            from { opacity: 0; transform: translateY(-10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes checkPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* ========================================================
+           FULL MOBILE OPTIMIZATION 
+           ======================================================== */
+        @media (max-width: 768px) {
+            /* Header Updates */
+            .brand-header { padding: 12px 16px; }
+            .brand-logo img { height: 40px; }
+            .partner-logo img { height: 30px; }
+
+            /* Main Structure */
+            .main-card { margin-top: 16px; width: 100%; max-width: 95%; border-radius: 12px; }
+            .faq-box { margin-top: 16px; width: 100%; max-width: 95%; border-radius: 12px; padding: 24px 20px; }
+
+            /* Navigation Bar - Scrollable & Touch Friendly */
+            .nav-bar {
+                padding: 8px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .nav-bar::-webkit-scrollbar { display: none; }
+            .nav-item {
+                flex: 0 0 auto;
+                min-width: 100px;
+                flex-direction: column;
+                gap: 6px;
+                padding: 10px 8px;
+                font-size: 0.75rem;
+            }
+
+            /* Content & Typography */
+            .content-area { padding: 24px 20px; min-height: auto; }
+            h1 { font-size: 1.6rem; margin-bottom: 12px; }
+            
+            /* Components Stacking */
+            .enterprise-showcase { flex-direction: column; }
+            .showcase-text { padding: 24px 20px; }
+            .showcase-features { grid-template-columns: 1fr; }
+            .showcase-graphics { padding: 30px 0; border-left: none; border-top: 1px solid var(--border-color); }
+            [dir="rtl"] .showcase-graphics { border-right: none; }
+
+            .highlight-box { padding: 20px; margin: 16px 0; }
+            .email-collection-box { padding: 20px; }
+
+            /* Accordion Updates */
+            .checklist-header { padding: 16px; }
+            .checklist-header-left { gap: 12px; }
+            .item-title { font-size: 0.95rem; line-height: 1.4; }
+            .accordion-body { padding: 0 16px 20px 16px; }
+            
+            /* Buttons & Actions */
+            .download-box { padding: 24px 16px; }
+            .download-box h3 { font-size: 1.2rem; }
+            .download-btn { width: 100%; justify-content: center; padding: 14px 20px; }
+
+            .premium-schedule { padding: 40px 20px; }
+            .premium-schedule h1 { font-size: 1.8rem; }
+            
+            .doc-library-wrapper { margin-top: 40px; padding-top: 32px; }
+            .doc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+            /* Footer Mobile Layout */
+            .footer-actions { padding: 16px 20px; flex-direction: column-reverse; gap: 12px; }
+            .btn { width: 100%; padding: 14px; text-align: center; }
+
+            /* LinkedIn Card Scaling */
+            .li-custom-banner { height: 100px; }
+            .li-custom-body { padding: 0 16px 16px; }
+            .li-custom-logo { width: 72px; height: 72px; top: -36px; left: 16px; }
+            [dir="rtl"] .li-custom-logo { left: auto; right: 16px; }
+            .li-custom-actions { margin-top: 40px; flex-wrap: wrap; justify-content: center; gap: 16px; }
+            .li-req-btn { width: 100%; justify-content: center; padding: 10px; }
+            .li-custom-title { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="onboarding-app" class="en-active" dir="ltr">
+
+    <!-- Header Section -->
+    <header class="brand-header">
+        <div class="brand-logo">
+            <img src="image_6f5436.png" alt="IDEA StatiCa Authorised Reseller">
+        </div>
+        <div class="partner-logo">
+            <img src="image_6fa5b6.png" alt="GSD IDEA">
+        </div>
+    </header>
+
+    <!-- Language Control -->
+    <div class="lang-bar">
+        <div class="lang-toggle" id="langToggle" dir="ltr" onclick="toggleLanguage()">
+            <div class="lang-toggle-slider" id="langSlider"></div>
+            <div class="lang-option active" id="optEn">English</div>
+            <div class="lang-option" id="optAr">العربية</div>
+        </div>
+    </div>
+
+    <div class="main-card">
+        <!-- Progress Navigation -->
+        <nav class="nav-bar">
+            <div class="nav-item active" id="nav1"><i class="ph ph-handshake"></i><span class="lang-en">Overview</span><span class="lang-ar">نظرة عامة</span></div>
+            <div class="nav-item" id="nav2"><i class="ph ph-users-three"></i><span class="lang-en">Network</span><span class="lang-ar">الشبكة</span></div>
+            <div class="nav-item" id="nav3"><i class="ph ph-stack"></i><span class="lang-en">Workspace</span><span class="lang-ar">مساحة العمل</span></div>
+            <div class="nav-item" id="nav4"><i class="ph ph-list-checks"></i><span class="lang-en">Implementation</span><span class="lang-ar">التنفيذ</span></div>
+            <div class="nav-item" id="nav5"><i class="ph ph-rocket-launch"></i><span class="lang-en">Kickoff</span><span class="lang-ar">الانطلاق</span></div>
+        </nav>
+
+        <main class="content-area">
+            
+            <!-- PAGE 1: Welcome / Overview -->
+            <div id="page1" class="page active">
+                <h1 class="lang-en">Executive Onboarding</h1>
+                <h1 class="lang-ar">التأهيل التنفيذي</h1>
+                <p class="lang-en">Welcome to your IDEA StatiCa Customer Success journey. I am your dedicated Enterprise Success Director. This interactive portal ensures your organization's transition to our platform is seamless and strategic. Please complete each step to unlock your team's Executive Business Review (EBR) scheduling.</p>
+                <p class="lang-ar">مرحبًا بك في رحلة نجاح العملاء مع IDEA StatiCa. أنا مدير النجاح المؤسسي المخصص لك. تضمن هذه البوابة التفاعلية انتقال مؤسستك إلى منصتنا بشكل سلس واستراتيجي. يرجى إكمال كل خطوة لفتح جدولة مراجعة الأعمال التنفيذية (EBR) لفريقك.</p>
+                
+                <!-- IDEA StatiCa Enterprise Showcase -->
+                <div class="enterprise-showcase">
+                    <div class="showcase-text">
+                        <div class="showcase-badge">Enterprise Edition</div>
+                        <h2 class="lang-en">Advanced CBFEM Technology</h2>
+                        <h2 class="lang-ar">تقنية CBFEM المتقدمة</h2>
+                        <p class="lang-en">Seamlessly design and code-check steel connections, concrete details, and critical structural members of any topology. Built for global engineering teams.</p>
+                        <p class="lang-ar">تصميم وفحص كود الوصلات الفولاذية والتفاصيل الخرسانية والأعضاء الهيكلية الحرجة بأي طوبولوجيا بسلاسة. مصمم للفرق الهندسية العالمية.</p>
+                        <ul class="showcase-features lang-en">
+                            <li><i class="ph ph-check"></i> Any geometry & loading</li>
+                            <li><i class="ph ph-check"></i> Global code compliance</li>
+                            <li><i class="ph ph-check"></i> 250+ BIM integrations</li>
+                        </ul>
+                        <ul class="showcase-features lang-ar" dir="rtl">
+                            <li><i class="ph ph-check"></i> أي هندسة وتحميل</li>
+                            <li><i class="ph ph-check"></i> الامتثال العالمي للكود</li>
+                            <li><i class="ph ph-check"></i> أكثر من 250 تكامل BIM</li>
+                        </ul>
+                    </div>
+                    <div class="showcase-graphics">
+                        <div class="abstract-joint">
+                            <div class="beam beam-main"></div>
+                            <div class="beam beam-sub"></div>
+                            <div class="bolt-grid">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: Community / Network -->
+            <div id="page2" class="page">
+                <h1 class="lang-en">Executive Peer Network</h1>
+                <h1 class="lang-ar">شبكة الأقران التنفيذية</h1>
+                <p class="lang-en">Connect with fellow industry leaders and Principal Structural Engineers in our dedicated invite-only LinkedIn group. We share enterprise growth strategies, platform playbooks, and strategic networking opportunities.</p>
+                <p class="lang-ar">تواصل مع زملائك من قادة الصناعة والمهندسين الإنشائيين في مجموعتنا المخصصة للمدعوين فقط على LinkedIn. نحن نشارك استراتيجيات نمو المؤسسات، وكتيبات المنصة، وفرص التواصل الاستراتيجي.</p>
+                
+                <div class="li-custom-card">
+                    <div class="li-custom-banner">
+                        <img src="image_6f5436.png" class="li-banner-logo" alt="IDEA StatiCa Logo">
+                    </div>
+                    <div class="li-custom-body">
+                        <div class="li-custom-logo">
+                            <img src="image_6fa5b6.png" alt="GSD IDEA Logo">
+                        </div>
+                        <div class="li-custom-actions">
+                            <i class="ph ph-info li-icon-btn"></i>
+                            <i class="ph ph-share-network li-icon-btn"></i>
+                            <i class="ph ph-bell li-icon-btn"></i>
+                            <i class="ph ph-dots-three li-icon-btn"></i>
+                            <a href="https://www.linkedin.com/groups/14652083/" target="_blank" class="li-req-btn">
+                                <span class="lang-en">Request Access</span>
+                                <span class="lang-ar">طلب انضمام</span>
+                            </a>
+                        </div>
+                        <h3 class="li-custom-title lang-en">IDEA StatiCa Gulf - User Group</h3>
+                        <h3 class="li-custom-title lang-ar">مجموعة مستخدمي IDEA StatiCa Gulf</h3>
+                        <p class="li-custom-subtitle">
+                            <i class="ph ph-users" style="font-size: 1.1rem;"></i>
+                            <span class="lang-en">Private Listed</span>
+                            <span class="lang-ar">مجموعة خاصة مدرجة</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: License / Workspace -->
+            <div id="page3" class="page">
+                <h1 class="lang-en">Workspace Provisioning</h1>
+                <h1 class="lang-ar">إعداد مساحة العمل</h1>
+                <div class="highlight-box">
+                    <p class="lang-en" style="margin-bottom: 12px; font-size: 1.1rem; color: var(--primary-dark);"><strong>Enhance Your Engineering Workflow! </strong></p>
+                    <p class="lang-en" style="margin-bottom: 16px; line-height: 1.6; color: var(--text-muted);">To start using the software, connect to your company’s license pool. Follow the steps below to activate your premium access.</p>
+                    <ol class="lang-en" style="color:var(--secondary-color); font-size: 0.95rem; line-height:1.6; padding-left:20px; margin:0;">
+                        <li style="margin-bottom: 8px;">   <strong>Contact Your IT/BIM Lead</strong>
+    <div>Send a quick message to your IT administrator or team lead.</div></li>                        
+<li style="margin-bottom: 8px;"><strong>Claim Your Seat:</strong> 
+    <div>Ask them to add your official corporate email to the IDEA StatiCa license pool</div></li>
+                        <li><strong>Activate Your Access</strong>
+                        <div> Look for the <em>“Activation Invitation”</em> email, set your password, and you’re ready to begin.</div></li>
+                    </ol>
+
+                    <p class="lang-ar" style="margin-bottom: 12px; font-size: 1.1rem; color: var(--primary-dark);"><strong>أطلق العنان لقدراتك الهندسية! 🚀</strong></p>
+                    <p class="lang-ar" style="margin-bottom: 16px; line-height: 1.6;">للغوص في البرنامج وبدء التصميم بلا حدود، نحتاج إلى ربطك بمجموعة تراخيص شركتك. الأمر سهل للغاية ومفيد جداً. إليك كيفية فتح وصولك المميز:</p>
+                    <ul class="lang-ar" style="color:var(--text-muted); font-size: 0.95rem; line-height:1.6; padding-right:20px; margin:0;">
+                        <li style="margin-bottom: 8px;"><strong>1. تواصل مع قائد فريقك/مسؤول IT:</strong> أرسل رسالة سريعة إلى مسؤول تكنولوجيا المعلومات أو قائد الفريق.</li>
+                        <li style="margin-bottom: 8px;"><strong>2. احجز مقعدك:</strong> اطلب منهم إضافة بريدك الإلكتروني الرسمي للعمل إلى مجموعة تراخيص IDEA StatiCa. هذا يمنحك وصول VIP إلى جميع ميزاتنا المتقدمة!</li>
+                        <li><strong>3. فعل وانطلق:</strong> ابحث عن بريد <em>"دعوة تفعيل"</em> منا. انقر على الرابط، وقم بتعيين كلمة المرور الخاصة بك، وأنت جاهز لإحداث ثورة في سير عملك!</li>
+                    </ul>
+                </div>
+
+                <div class="email-collection-box">
+                    <label for="userEmailInput" class="lang-en">Enter your registered official email ID to proceed:</label>
+                    <label for="userEmailInput" class="lang-ar">أدخل بريدك الإلكتروني الرسمي المسجل للمتابعة:</label>
+                    <input type="email" id="userEmailInput" class="email-input" placeholder="engineer@company.com" required>
+                    <p class="lang-en" style="font-size: 0.8rem; color: #888; margin-top: 8px;">*We use this to verify your workspace allocation and ensure smooth access to the platform.</p>
+                    <p class="lang-ar" style="font-size: 0.8rem; color: #888; margin-top: 8px;">*نستخدم هذا للتحقق من تخصيص مساحة العمل الخاصة بك وضمان الوصول السلس إلى المنصة.</p>
+                </div>
+            </div>
+
+            <!-- PAGE 4: Accordion Checklist / Implementation -->
+            <div id="page4" class="page">
+                <h1 class="lang-en">Implementation Guide</h1>
+                <h1 class="lang-ar">دليل التنفيذ</h1>
+                <p class="lang-en" style="margin-bottom: 24px;">Follow the steps below. Once you complete a step, check the box to unlock the next section.</p>
+                <p class="lang-ar" style="margin-bottom: 24px;">اتبع الخطوات أدناه. بمجرد إكمال خطوة، حدد المربع لفتح القسم التالي.</p>
+
+                <!-- ACCORDION ITEM 1: DOWNLOAD -->
+                <div class="checklist-item is-open" id="it1">
+                    <div class="checklist-header" onclick="toggleAccordion(1)">
+                        <div class="checklist-header-left">
+                            <input type="checkbox" class="check-box" id="c1" onclick="event.stopPropagation();" onchange="markStep(1)">
+                            <span class="item-title"><span class="lang-en">1. Download & Installation</span><span class="lang-ar">1. التحميل والتثبيت</span></span>
+                        </div>
+                        <i class="ph ph-caret-down accordion-chevron"></i>
+                    </div>
+                    
+                    <div class="accordion-body">
+                        <!-- Quick Setup (Now added to Step 1) -->
+                        <div class="quick-flow lang-en">
+                            <span class="quick-flow-label">Quick Setup:</span>
+                            <span class="quick-flow-step">Download Installer</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Run Executable</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Launch IDEA StatiCa</span>
+                        </div>
+                        <div class="quick-flow lang-ar">
+                            <span class="quick-flow-label">إعداد سريع:</span>
+                            <span class="quick-flow-step">تحميل المثبت</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">تشغيل الملف</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">تشغيل البرنامج</span>
+                        </div>
+
+                        <!-- Primary Action Box -->
+                        <div class="download-box">
+                            <h3 class="lang-en">IDEA STATICA 25.1.5.1431</h3>
+                            <h3 class="lang-ar">IDEA STATICA 25.1.5.1431</h3>
+                            
+                            <span class="release-date lang-en">RELEASED 9. MARCH 2026</span>
+                            <span class="release-date lang-ar">تم الإصدار في 9 مارس 2026</span>
+                            
+                            <p class="lang-en">710 MB file, 30-second download, 1-minute installation, automatically detects your FEA/CAD software and activates relevant BIM links</p>
+                            <p class="lang-ar">ملف بحجم 710 ميجابايت، تنزيل في 30 ثانية، تثبيت في دقيقة واحدة، يكتشف تلقائياً برنامج FEA/CAD الخاص بك ويفعل روابط BIM المناسبة.</p>
+                            
+                            <a href="https://www.ideastatica.com/product-downloads" target="_blank" class="download-btn">
+                                <i class="ph ph-download-simple" style="font-size: 1.2em;"></i>
+                                <span class="lang-en">DOWNLOAD</span>
+                                <span class="lang-ar">تحميل</span>
+                            </a>
+                        </div>
+
+                        <!-- Expandable Detailed Instructions -->
+                        <div class="details-wrapper">
+                            <button class="details-toggle" onclick="toggleDetails('det1', this)">
+                                <i class="ph ph-caret-down"></i>
+                                <span class="lang-en">View Detailed Instructions</span>
+                                <span class="lang-ar">عرض التعليمات المفصلة</span>
+                            </button>
+                            
+                            <div class="details-content" id="det1">
+                                <!-- Explainer Video Embed (Moved inside Details) -->
+                                <div class="video-container">
+                                    <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> Installation Guide</p>
+                                    <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> دليل التثبيت</p>
+                                    
+                                    <div class="video-wrapper">
+                                        <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa Installation Guide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            
+                                <div class="detail-cards-grid lang-en">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 1</span>
+                                        <p>Go to the official IDEA StatiCa download page.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 2</span>
+                                        <p>Download the latest available version of the software <a href="https://www.ideastatica.com/product-downloads" target="_blank" style="color:var(--linkedin-blue); text-decoration:none; font-weight:600;">(Direct Link)</a>.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 3</span>
+                                        <p>Open the installer file once the download is complete.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 4</span>
+                                        <p>Follow the on-screen installation instructions.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 5</span>
+                                        <p>After installation, launch the software to confirm it is working correctly.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 6</span>
+                                        <p>Check that your workstation meets the recommended hardware requirements to ensure smooth and optimal performance.</p>
+                                    </div>
+                                </div>
+
+                                <div class="detail-cards-grid lang-ar">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 1</span>
+                                        <p>اذهب إلى صفحة التحميل الرسمية لبرنامج IDEA StatiCa.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 2</span>
+                                        <p>قم بتحميل أحدث إصدار متوفر من البرنامج <a href="https://www.ideastatica.com/product-downloads" target="_blank" style="color:var(--linkedin-blue); text-decoration:none; font-weight:600;">(رابط مباشر)</a>.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 3</span>
+                                        <p>افتح ملف التثبيت بمجرد اكتمال التحميل.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 4</span>
+                                        <p>اتبع تعليمات التثبيت التي تظهر على الشاشة.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 5</span>
+                                        <p>بعد التثبيت، قم بتشغيل البرنامج للتأكد من أنه يعمل بشكل صحيح.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 6</span>
+                                        <p>تحقق من أن جهازك يلبي متطلبات الأجهزة الموصى بها لضمان أداء سلس ومثالي.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACCORDION ITEM 2 -->
+                <div class="checklist-item locked" id="it2">
+                    <div class="checklist-header" onclick="toggleAccordion(2)">
+                        <div class="checklist-header-left">
+                            <input type="checkbox" class="check-box" id="c2" onclick="event.stopPropagation();" onchange="markStep(2)">
+                            <span class="item-title"><span class="lang-en">2. Link BIM/FEA Software</span><span class="lang-ar">2. ربط برامج BIM/FEA</span></span>
+                        </div>
+                        <i class="ph ph-caret-down accordion-chevron"></i>
+                    </div>
+                    
+                    <div class="accordion-body">
+                        <!-- Quick Setup -->
+                        <div class="quick-flow lang-en">
+                            <span class="quick-flow-label">Quick Setup:</span>
+                            <span class="quick-flow-step">Open FEA (ETABS/SAP)</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Locate BIM Link Menu</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <a href="#" class="quick-flow-step">Activate IDEA StatiCa Plugin</a>
+                        </div>
+                        <div class="quick-flow lang-ar">
+                            <span class="quick-flow-label">إعداد سريع:</span>
+                            <span class="quick-flow-step">فتح برنامج التحليل</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">تحديد قائمة BIM Link</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <a href="#" class="quick-flow-step">تفعيل إضافة IDEA StatiCa</a>
+                        </div>
+
+                        <!-- Expandable Detailed Instructions -->
+                        <div class="details-wrapper">
+                            <button class="details-toggle" onclick="toggleDetails('det2', this)">
+                                <i class="ph ph-caret-down"></i>
+                                <span class="lang-en">View Detailed Instructions</span>
+                                <span class="lang-ar">عرض التعليمات المفصلة</span>
+                            </button>
+                            
+                            <div class="details-content" id="det2">
+                                <div class="detail-cards-grid lang-en">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 1</span>
+                                        <p>Launch the primary analysis software you already use (like ETABS, SAP2000, or Robot).</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 2</span>
+                                        <p>Locate the "BIM Link" or "Plugins" menu in your software's top ribbon.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 3</span>
+                                        <p>Click the IDEA StatiCa plugin to enable seamless data transfer between the programs.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-cards-grid lang-ar">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 1</span>
+                                        <p>قم بتشغيل برنامج التحليل الأساسي الذي تستخدمه بالفعل (مثل ETABS أو SAP2000).</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 2</span>
+                                        <p>حدد موقع قائمة "BIM Link" أو "الإضافات" في الشريط العلوي للبرنامج.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 3</span>
+                                        <p>انقر على إضافة IDEA StatiCa لتمكين نقل البيانات بسلاسة بين البرامج.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACCORDION ITEM 3 -->
+                <div class="checklist-item locked" id="it3">
+                    <div class="checklist-header" onclick="toggleAccordion(3)">
+                        <div class="checklist-header-left">
+                            <input type="checkbox" class="check-box" id="c3" onclick="event.stopPropagation();" onchange="markStep(3)">
+                            <span class="item-title"><span class="lang-en">3. CBFEM Theoretical Review</span><span class="lang-ar">3. مراجعة نظرية CBFEM</span></span>
+                        </div>
+                        <i class="ph ph-caret-down accordion-chevron"></i>
+                    </div>
+
+                    <div class="accordion-body">
+                        <!-- Quick Setup -->
+                        <div class="quick-flow lang-en">
+                            <span class="quick-flow-label">Quick Setup:</span>
+                            <a href="#" class="quick-flow-step">Watch Theory Video <i class="ph-fill ph-play-circle" style="font-size:1.1em; margin-left:4px;"></i></a>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Review Code-Check Rules</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Ready for First Joint</span>
+                        </div>
+                        <div class="quick-flow lang-ar">
+                            <span class="quick-flow-label">إعداد سريع:</span>
+                            <a href="#" class="quick-flow-step">مشاهدة فيديو النظرية <i class="ph-fill ph-play-circle" style="font-size:1.1em; margin-right:4px;"></i></a>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">مراجعة قواعد الفحص</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">جاهز للوصلة الأولى</span>
+                        </div>
+
+                        <!-- Expandable Detailed Instructions -->
+                        <div class="details-wrapper">
+                            <button class="details-toggle" onclick="toggleDetails('det3', this)">
+                                <i class="ph ph-caret-down"></i>
+                                <span class="lang-en">View Detailed Instructions</span>
+                                <span class="lang-ar">عرض التعليمات المفصلة</span>
+                            </button>
+                            
+                            <div class="details-content" id="det3">
+                                <div class="detail-cards-grid lang-en">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 1</span>
+                                        <p>Watch our short 5-minute introductory video on the Component-Based Finite Element Method (CBFEM).</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 2</span>
+                                        <p>Review the basic principles of how the software performs code-checks safely and accurately.</p>
+                                    </div>
+                                </div>
+
+                                <div class="detail-cards-grid lang-ar">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 1</span>
+                                        <p>شاهد الفيديو التعريفي القصير (5 دقائق) حول طريقة العناصر المحدودة المستندة إلى المكونات (CBFEM).</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 2</span>
+                                        <p>راجع المبادئ الأساسية لكيفية قيام البرنامج بفحص الأكواد بأمان ودقة.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACCORDION ITEM 4 -->
+                <div class="checklist-item locked" id="it4">
+                    <div class="checklist-header" onclick="toggleAccordion(4)">
+                        <div class="checklist-header-left">
+                            <input type="checkbox" class="check-box" id="c4" onclick="event.stopPropagation();" onchange="finalValidate()">
+                            <span class="item-title"><span class="lang-en">4. Software Connectivity Check</span><span class="lang-ar">4. فحص اتصال البرنامج</span></span>
+                        </div>
+                        <i class="ph ph-caret-down accordion-chevron"></i>
+                    </div>
+
+                    <div class="accordion-body">
+                        <!-- Quick Setup -->
+                        <div class="quick-flow lang-en">
+                            <span class="quick-flow-label">Quick Setup:</span>
+                            <span class="quick-flow-step">Open IDEA StatiCa</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Go to License Manager</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Verify "Active" Status</span>
+                        </div>
+                        <div class="quick-flow lang-ar">
+                            <span class="quick-flow-label">إعداد سريع:</span>
+                            <span class="quick-flow-step">فتح IDEA StatiCa</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">الذهاب لمدير التراخيص</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">التحقق من حالة "نشط"</span>
+                        </div>
+
+                        <!-- Expandable Detailed Instructions -->
+                        <div class="details-wrapper">
+                            <button class="details-toggle" onclick="toggleDetails('det4', this)">
+                                <i class="ph ph-caret-down"></i>
+                                <span class="lang-en">View Detailed Instructions</span>
+                                <span class="lang-ar">عرض التعليمات المفصلة</span>
+                            </button>
+                            
+                            <div class="details-content" id="det4">
+                                <div class="detail-cards-grid lang-en">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 1</span>
+                                        <p>Double-click the IDEA StatiCa icon on your desktop to open the application.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 2</span>
+                                        <p>Find and click on the <strong>'License Manager'</strong> button within the software menu.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 3</span>
+                                        <p>Confirm your account shows a green checkmark, indicating the training license is <strong>Active</strong>.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-cards-grid lang-ar">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 1</span>
+                                        <p>انقر نقرًا مزدوجًا على أيقونة IDEA StatiCa على سطح المكتب لفتح التطبيق.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 2</span>
+                                        <p>ابحث وانقر على زر <strong>'مدير التراخيص'</strong> ضمن قائمة البرنامج.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 3</span>
+                                        <p>تأكد من أن حسابك يظهر علامة اختيار خضراء، مما يشير إلى أن ترخيص التدريب <strong>نشط</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PAGE 5: Schedule / Kickoff (Premium Theme) -->
+            <div id="page5" class="page">
+                <div class="premium-schedule">
+                    <div style="width: 64px; height: 64px; background: rgba(255,80,0,0.1); color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto;">
+                        <i class="ph-fill ph-check-circle" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h1 class="lang-en">Strategic Alignment Verified</h1>
+                    <h1 class="lang-ar">تم التحقق من التوافق الاستراتيجي</h1>
+                    <p class="lang-en">Excellent work. Your technical foundation is secure. Click below to lock in the date for your executive alignment and strategy kickoff call.</p>
+                    <p class="lang-ar">عمل ممتاز. مؤسستك التقنية آمنة الآن. انقر أدناه لتحديد تاريخ مكالمة التوافق التنفيذي وانطلاق الاستراتيجية.</p>
+                    
+                    <button class="cta-btn">
+                        <span class="lang-en">Schedule Executive Kickoff</span><span class="lang-ar">جدولة الانطلاقة التنفيذية</span>
+                    </button>
+
+                    <!-- Document Library Grid -->
+                    <div class="doc-library-wrapper">
+                        <div class="doc-library-header">
+                            <h3 class="lang-en">Resources Library</h3>
+                            <h3 class="lang-ar">موارد التنفيذ</h3>
+                            <p class="lang-en">All that you may need on the go.</p>
+                            <p class="lang-ar">قم بتحميل الكتيبات الأساسية، وقوائم التحقق، والنماذج.</p>
+                        </div>
+                        
+                        <div class="doc-grid">
+                            <!-- File 1: Word -->
+                            <div class="doc-card">
+                                <div class="doc-thumbnail">
+                                    <div class="doc-preview-text">
+                                        <span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <div class="doc-badge word">
+                                        <i class="ph-fill ph-file-text"></i>
+                                    </div>
+                                </div>
+                                <div class="doc-info">
+                                    <div class="doc-title lang-en">Why IDEA StatiCa Connection?.pptx</div>
+                                    <div class="doc-title lang-ar">نموذج_مراجعة_الأعمال.pptx</div>
+                                    <div class="doc-date">March 12, 2026</div>
+                                </div>
+                            </div>
+                            
+                            <!-- File 2: Excel -->
+                            <div class="doc-card">
+                                <div class="doc-thumbnail">
+                                    <div class="doc-preview-grid">
+                                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <div class="doc-badge excel">
+                                        <i class="ph-fill ph-table"></i>
+                                    </div>
+                                </div>
+                                <div class="doc-info">
+                                    <div class="doc-title lang-en">Eurocode (EN) Checks in IDEA StatiCa.pdf</div>
+                                    <div class="doc-title lang-ar">قائمة_التنفيذ_والإعداد.pdf</div>
+                                    <div class="doc-date">March 10, 2026</div>
+                                </div>
+                            </div>
+
+                            <!-- File 3: PPT -->
+                            <div class="doc-card">
+                                <div class="doc-thumbnail">
+                                    <div class="doc-preview-slide"></div>
+                                    <div class="doc-badge ppt">
+                                        <i class="ph-fill ph-presentation-chart"></i>
+                                    </div>
+                                </div>
+                                <div class="doc-info">
+                                    <div class="doc-title lang-en">Importing Your First Node.docx</div>
+                                    <div class="doc-title lang-ar">عرض_تحليل_العائد.docx</div>
+                                    <div class="doc-date">March 8, 2026</div>
+                                </div>
+                            </div>
+
+                            <!-- File 4: PDF -->
+                            <div class="doc-card">
+                                <div class="doc-thumbnail">
+                                    <div class="doc-preview-pdf">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="doc-badge pdf">
+                                        <i class="ph-fill ph-file-pdf"></i>
+                                    </div>
+                                </div>
+                                <div class="doc-info">
+                                    <div class="doc-title lang-en">Troubleshooting Beginner Errors.xlsx</div>
+                                    <div class="doc-title lang-ar">دليل_إعداد_تكنولوجيا_المعلومات.xlsx</div>
+                                    <div class="doc-date">March 1, 2026</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation Controls -->
+        <footer class="footer-actions">
+            <button class="btn btn-back" id="backBtn" onclick="goPage(-1)" style="visibility: hidden;">
+                <span class="lang-en">Back</span><span class="lang-ar">رجوع</span>
+            </button>
+            <button class="btn btn-next" id="nextBtn" onclick="goPage(1)">
+                <span class="lang-en">Next Step</span><span class="lang-ar">الخطوة التالية</span>
+            </button>
+        </footer>
+    </div>
+
+    <!-- SEPARATE FAQ BOX (Dynamic across steps 1-4) -->
+    <div class="faq-box" id="faqBox">
+        
+        <!-- STEP 1 FAQS: Overview -->
+        <div class="faq-group active" id="faq-group-1">
+            <h2 class="lang-en">Overview FAQs</h2>
+            <h2 class="lang-ar">الأسئلة الشائعة حول النظرة العامة</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">What is the purpose of this portal?</span>
+                        <span class="lang-ar">ما هو الغرض من هذه البوابة؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">To securely guide you and your team through the technical setup and licensing before our strategic kickoff call.</span>
+                        <span class="lang-ar">لإرشادك وفريقك بأمان عبر الإعداد الفني والترخيص قبل مكالمة الانطلاق الاستراتيجية الخاصة بنا.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">How long will this take?</span>
+                        <span class="lang-ar">كم من الوقت سيستغرق هذا؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">Usually less than 15 minutes to complete all required steps. You can complete them at your own pace.</span>
+                        <span class="lang-ar">عادة أقل من 15 دقيقة لإكمال جميع الخطوات المطلوبة. يمكنك إكمالها بالسرعة التي تناسبك.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2 FAQS: Network -->
+        <div class="faq-group" id="faq-group-2">
+            <h2 class="lang-en">Network FAQs</h2>
+            <h2 class="lang-ar">الأسئلة الشائعة حول الشبكة</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">Is the LinkedIn group public?</span>
+                        <span class="lang-ar">هل مجموعة LinkedIn عامة؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">No, it is an exclusive invite-only group reserved for enterprise clients and engineering leaders.</span>
+                        <span class="lang-ar">لا، إنها مجموعة حصرية للمدعوين فقط مخصصة لعملاء المؤسسات والقادة الهندسيين.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">How soon will my request be approved?</span>
+                        <span class="lang-ar">متى ستتم الموافقة على طلبي؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">Our community team reviews and approves access requests within 24 business hours.</span>
+                        <span class="lang-ar">يقوم فريق المجتمع لدينا بمراجعة طلبات الوصول والموافقة عليها في غضون 24 ساعة عمل.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3 FAQS: Workspace -->
+        <div class="faq-group" id="faq-group-3">
+            <h2 class="lang-en">Workspace FAQs</h2>
+            <h2 class="lang-ar">الأسئلة الشائعة حول مساحة العمل</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">I cannot find the activation email.</span>
+                        <span class="lang-ar">لا يمكنني العثور على بريد التفعيل الإلكتروني.</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">Please ensure your IT Admin has added your email to the license pool. If they have, check your spam/junk folder. If it's still missing, ask your Admin to resend the invitation.</span>
+                        <span class="lang-ar">يرجى التأكد من أن مسؤول تكنولوجيا المعلومات قد أضاف بريدك الإلكتروني إلى مجموعة التراخيص. إذا قام بذلك، تحقق من مجلد البريد العشوائي/المهملات. إذا كان لا يزال مفقودًا، اطلب من المسؤول إعادة إرسال الدعوة.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">Should I use my personal email?</span>
+                        <span class="lang-ar">هل يجب أن أستخدم بريدي الإلكتروني الشخصي؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">No, please ensure you use your corporate email address to properly link with your enterprise license and domain.</span>
+                        <span class="lang-ar">لا، يرجى التأكد من استخدام عنوان بريد العمل الخاص بك للربط الصحيح بترخيص المؤسسة والنطاق الخاص بك.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 FAQS: Implementation -->
+        <div class="faq-group" id="faq-group-4">
+            <h2 class="lang-en">Implementation FAQs</h2>
+            <h2 class="lang-ar">الأسئلة الشائعة حول التنفيذ</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">Do I need IT admin rights to install the software?</span>
+                        <span class="lang-ar">هل أحتاج إلى صلاحيات مسؤول النظام (IT) لتثبيت البرنامج؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">Yes, installing IDEA StatiCa and the associated BIM links requires local administrator privileges on your workstation.</span>
+                        <span class="lang-ar">نعم، يتطلب تثبيت IDEA StatiCa وروابط BIM المصاحبة صلاحيات مسؤول محلي على جهازك.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">What if my company firewall blocks the download?</span>
+                        <span class="lang-ar">ماذا لو قام جدار الحماية في شركتي بحظر التحميل؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">Please contact your IT department and request them to whitelist the domain <code>ideastatica.com</code>. You can also request a direct offline MSI installer from your Customer Success Manager.</span>
+                        <span class="lang-ar">يرجى الاتصال بقسم تكنولوجيا المعلومات وطلب السماح بالنطاق <code>ideastatica.com</code>. يمكنك أيضاً طلب ملف تثبيت MSI مباشر للعمل دون اتصال بالإنترنت من مدير نجاح العملاء الخاص بك.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">Does the plugin work with my older version of ETABS/SAP2000?</span>
+                        <span class="lang-ar">هل تعمل الإضافة مع الإصدارات القديمة من برامج التحليل (مثل ETABS/SAP2000)؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">IDEA StatiCa typically supports the last 3 major versions of most FEA and CAD software. The installer will automatically detect supported versions on your machine.</span>
+                        <span class="lang-ar">يدعم IDEA StatiCa عادةً آخر 3 إصدارات رئيسية لمعظم برامج FEA و CAD. سيكتشف المثبت تلقائياً الإصدارات المدعومة على جهازك.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">I installed the software, but my license shows as inactive.</span>
+                        <span class="lang-ar">قمت بتثبيت البرنامج، ولكن الترخيص يظهر كغير نشط.</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">Ensure you have accepted the activation email invitation and set up your password in the User Portal first. You must sign in to the desktop application using those same credentials.</span>
+                        <span class="lang-ar">تأكد من قبولك لبريد دعوة التفعيل وإعداد كلمة المرور الخاصة بك في بوابة المستخدم أولاً. يجب عليك تسجيل الدخول إلى تطبيق سطح المكتب باستخدام نفس بيانات الاعتماد هذه.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let stepCount = 1;
+    let currentLang = 'en';
+
+    // Retained Language Toggle Logic
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'ar' : 'en';
+        const app = document.getElementById('onboarding-app');
+        app.className = currentLang + '-active';
+        app.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+        
+        const toggle = document.getElementById('langToggle');
+        if (currentLang === 'ar') {
+            toggle.classList.add('ar-selected');
+            document.getElementById('optEn').classList.remove('active');
+            document.getElementById('optAr').classList.add('active');
+        } else {
+            toggle.classList.remove('ar-selected');
+            document.getElementById('optAr').classList.remove('active');
+            document.getElementById('optEn').classList.add('active');
+        }
+    }
+
+    // Dynamic Navigation and FAQ toggling Logic
+    function goPage(delta) {
+        // Step 3 Validation: Ensure email is provided before moving to Step 4
+        if (stepCount === 3 && delta > 0) {
+            const emailInput = document.getElementById('userEmailInput').value;
+            if (!emailInput || !emailInput.includes('@')) {
+                const isAr = document.getElementById('onboarding-app').classList.contains('ar-active');
+                alert(isAr ? "يرجى إدخال بريد إلكتروني رسمي صحيح للمتابعة." : "Please enter a valid official email ID to proceed.");
+                return;
+            }
+        }
+
+        if (stepCount === 4 && delta > 0 && !document.getElementById('c4').checked) {
+            const isAr = document.getElementById('onboarding-app').classList.contains('ar-active');
+            alert(isAr ? "يرجى إكمال جميع متطلبات التنفيذ أولاً" : "Please complete all implementation steps first.");
+            return;
+        }
+
+        // Hide current step and old FAQ group
+        document.getElementById(`page${stepCount}`).classList.remove('active');
+        document.getElementById(`nav${stepCount}`).classList.remove('active');
+        
+        const oldFaqGroup = document.getElementById(`faq-group-${stepCount}`);
+        if(oldFaqGroup) {
+            oldFaqGroup.classList.remove('active');
+            // optionally close any open accordions within it when switching tabs
+            const openItems = oldFaqGroup.querySelectorAll('.faq-item.active');
+            openItems.forEach(item => item.classList.remove('active'));
+        }
+        
+        stepCount += delta;
+        
+        // Show new step
+        document.getElementById(`page${stepCount}`).classList.add('active');
+        document.getElementById(`nav${stepCount}`).classList.add('active');
+
+        document.getElementById('backBtn').style.visibility = (stepCount === 1) ? 'hidden' : 'visible';
+        document.getElementById('nextBtn').style.display = (stepCount === 5) ? 'none' : 'block';
+        
+        // Dynamic FAQ box handling (Show on steps 1-4, hide on step 5)
+        document.getElementById('faqBox').style.display = (stepCount < 5) ? 'block' : 'none';
+        
+        // Show new FAQ group
+        const newFaqGroup = document.getElementById(`faq-group-${stepCount}`);
+        if(newFaqGroup) {
+            newFaqGroup.classList.add('active');
+        }
+    }
+
+    // Accordion Toggle Logic (for checklist items)
+    function toggleAccordion(n) {
+        const item = document.getElementById(`it${n}`);
+        if (item.classList.contains('locked')) return;
+        item.classList.toggle('is-open');
+    }
+
+    // Expandable Detailed Instructions Toggle Logic
+    function toggleDetails(id, btn) {
+        const content = document.getElementById(id);
+        content.classList.toggle('is-open');
+        btn.classList.toggle('is-open');
+    }
+
+    // Smart Accordion Progression Logic
+    function markStep(n) {
+        const checkbox = document.getElementById(`c${n}`);
+        const currentItem = document.getElementById(`it${n}`);
+
+        if (checkbox.checked) {
+            currentItem.classList.add('completed');
+            
+            if (n < 4) {
+                const nextItem = document.getElementById(`it${n+1}`);
+                nextItem.classList.remove('locked');
+                
+                currentItem.classList.remove('is-open');
+                nextItem.classList.add('is-open');
+            }
+        } else {
+            currentItem.classList.remove('completed');
+            currentItem.classList.add('is-open');
+            
+            for (let i = n + 1; i <= 4; i++) {
+                const futureItem = document.getElementById(`it${i}`);
+                const futureCheckbox = document.getElementById(`c${i}`);
+                
+                if (futureItem && futureCheckbox) {
+                    futureItem.classList.add('locked');
+                    futureItem.classList.remove('completed');
+                    futureItem.classList.remove('is-open');
+                    futureCheckbox.checked = false;
+                }
+            }
+        }
+    }
+
+    // Final Validation Logic
+    function finalValidate() {
+        const checkbox = document.getElementById('c4');
+        const currentItem = document.getElementById('it4');
+        
+        if (checkbox.checked) {
+            currentItem.classList.add('completed');
+            currentItem.classList.remove('is-open'); 
+            document.getElementById('nextBtn').disabled = false;
+        } else {
+            currentItem.classList.remove('completed');
+            currentItem.classList.add('is-open'); 
+            document.getElementById('nextBtn').disabled = true;
+        }
+    }
+
+    // FAQ Accordion Logic
+    function toggleFaq(element) {
+        const parent = element.parentElement;
+        parent.classList.toggle('active');
+    }
+    
+    // Initial setup check for next button if loading on page 4
+    if(stepCount === 4) {
+        document.getElementById('nextBtn').disabled = !document.getElementById('c4').checked;
+    }
+</script>
+
+</body>
+</html>
