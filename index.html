@@ -1103,7 +1103,7 @@
     position: absolute;
     inset: 0 auto 0 0;
     width: 4px;
-    background: linear-gradient(180deg, var(--primary-color) 0%, rgba(255, 80, 0, 0.16) 100%);
+    
 }
 
 .testimonial-card::after {
@@ -1317,6 +1317,443 @@
         line-height: 1.7;
     }
 }
+/* SUCCESS JOURNEY */
+
+.journey-shell{
+    margin-top:40px;
+    padding-top:36px;
+    border-top:1px dashed var(--border-color);
+}
+
+.journey-header{
+    margin-bottom:24px;
+}
+
+.journey-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--primary-color);
+    margin-bottom:10px;
+}
+
+.journey-header h2{
+    margin:0;
+    font-size:1.45rem;
+    font-weight:800;
+    color:var(--secondary-color);
+}
+
+.journey-grid{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:18px;
+}
+
+.journey-card{
+    grid-column:span 6;
+    position:relative;
+    padding:22px;
+    background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+    border:1px solid var(--border-color);
+    border-radius:14px;
+    box-shadow:var(--shadow-md);
+    transition:all .35s cubic-bezier(.16,1,.3,1);
+}
+
+.journey-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:2px;
+    border-radius:14px 14px 0 0;
+    background:linear-gradient(
+        90deg,
+        var(--primary-color),
+        rgba(255,80,0,.15)
+    );
+}
+
+.journey-card:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-lg);
+}
+
+.journey-top{
+    display:flex;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.journey-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:.76rem;
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:999px;
+    background:rgba(255,80,0,.08);
+    color:var(--primary-dark);
+}
+
+.journey-card p{
+    margin:0;
+    font-size:.96rem;
+    line-height:1.7;
+    color:var(--text-main);
+}
+
+
+/* responsive */
+
+@media (max-width:900px){
+
+.journey-card{
+grid-column:span 12;
+}
+
+}
+/* ROADMAP SECTION */
+
+.roadmap-shell{
+    margin-top:40px;
+    padding-top:36px;
+    border-top:1px dashed var(--border-color);
+}
+
+.roadmap-header{
+    max-width:760px;
+    margin-bottom:30px;
+}
+
+.roadmap-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--primary-color);
+    margin-bottom:10px;
+}
+
+.roadmap-header h2{
+    margin:0 0 10px 0;
+    font-size:1.45rem;
+    font-weight:800;
+    color:var(--secondary-color);
+    letter-spacing:-0.02em;
+}
+
+.roadmap-header p{
+    margin:0;
+    font-size:0.98rem;
+    line-height:1.7;
+    color:var(--text-muted);
+}
+
+.roadmap-timeline{
+    position:relative;
+    padding-left:34px;
+}
+
+
+
+.roadmap-step{
+    position:relative;
+    display:grid;
+    grid-template-columns:48px 1fr;
+    gap:18px;
+    align-items:start;
+    margin-bottom:24px;
+}
+
+.roadmap-marker{
+    position:relative;
+    z-index:2;
+    width:32px;
+    height:32px;
+    margin-top:14px;
+    border-radius:999px;
+    background:#ffffff;
+    border:1px solid rgba(255,80,0,0.18);
+    box-shadow:0 4px 12px rgba(15,23,42,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.roadmap-marker span{
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--primary-color);
+}
+
+.roadmap-card{
+    position:relative;
+    background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+    border:1px solid var(--border-color);
+    border-radius:16px;
+    padding:22px 22px 20px;
+    box-shadow:var(--shadow-md);
+    transition:
+        transform .35s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s cubic-bezier(.16,1,.3,1),
+        border-color .35s cubic-bezier(.16,1,.3,1);
+}
+
+.roadmap-card:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-lg);
+    border-color:rgba(255,80,0,0.14);
+}
+
+.roadmap-card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.roadmap-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    min-height:32px;
+    padding:0 12px;
+    border-radius:999px;
+    background:rgba(255,80,0,0.08);
+    color:var(--primary-dark);
+    font-size:.76rem;
+    font-weight:700;
+    letter-spacing:.04em;
+}
+
+.roadmap-card p{
+    margin:0;
+    color:var(--text-main);
+    font-size:.97rem;
+    line-height:1.75;
+}
+
+/* Scroll reveal */
+.reveal-on-scroll{
+    opacity:0;
+    transform:translateY(26px);
+    transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.16,1,.3,1);
+    will-change:opacity, transform;
+}
+
+.reveal-on-scroll.is-visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.reveal-on-scroll:nth-child(1){ transition-delay:.04s; }
+.reveal-on-scroll:nth-child(2){ transition-delay:.10s; }
+.reveal-on-scroll:nth-child(3){ transition-delay:.16s; }
+.reveal-on-scroll:nth-child(4){ transition-delay:.22s; }
+
+/* RTL */
+[dir="rtl"] .roadmap-timeline{
+    padding-left:0;
+    padding-right:34px;
+}
+
+[dir="rtl"] .roadmap-timeline::before{
+    left:auto;
+    right:16px;
+}
+
+@media (max-width:640px){
+    .roadmap-timeline{
+        padding-left:24px;
+    }
+
+    .roadmap-step{
+        grid-template-columns:36px 1fr;
+        gap:14px;
+        margin-bottom:18px;
+    }
+
+    .roadmap-marker{
+        width:28px;
+        height:28px;
+        margin-top:12px;
+    }
+
+    .roadmap-card{
+        padding:18px;
+        border-radius:14px;
+    }
+
+    .roadmap-header h2{
+        font-size:1.25rem;
+    }
+}
+/* LINKEDIN EMBED STYLE */
+
+.linkedin-embed-card{
+    margin-top: 28px;
+    background: #ffffff;
+    border: 1px solid #d9dee3;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.linkedin-embed-banner{
+    height: 120px;
+    background: linear-gradient(135deg, #0a66c2 0%, #378fe9 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.linkedin-banner-logo{
+    max-height: 42px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+}
+
+.linkedin-embed-body{
+    padding: 0 24px 22px;
+}
+
+.linkedin-embed-logo-wrap{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: -34px;
+    margin-bottom: 14px;
+}
+
+.linkedin-embed-logo{
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 4px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+    overflow: hidden;
+}
+
+.linkedin-embed-logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.linkedin-embed-platform{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #0a66c2;
+    font-size: 0.84rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.linkedin-embed-title{
+    margin: 0 0 8px 0;
+    font-size: 1.28rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #191919;
+}
+
+.linkedin-embed-subtitle{
+    margin: 0 0 18px 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #5e5e5e;
+}
+
+.linkedin-embed-stats{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.linkedin-stat-item{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid #e7e7e7;
+    border-radius: 10px;
+    background: #fafafa;
+    color: #333333;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.linkedin-stat-item i{
+    color: #0a66c2;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.linkedin-embed-footer{
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 16px;
+    border-top: 1px solid #e7e7e7;
+}
+
+.linkedin-open-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: #0a66c2;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.94rem;
+    font-weight: 700;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.linkedin-open-btn:hover{
+    background: #004182;
+    transform: translateY(-1px);
+}
+
+.linkedin-open-btn i{
+    font-size: 1rem;
+}
+
+@media (max-width: 768px){
+    .linkedin-embed-stats{
+        grid-template-columns: 1fr;
+    }
+
+    .linkedin-embed-body{
+        padding: 0 18px 18px;
+    }
+
+    .linkedin-embed-title{
+        font-size: 1.14rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -1356,45 +1793,151 @@
             
             <!-- PAGE 1: Welcome / Overview -->
             <div id="page1" class="page active">
-                <h1 class="lang-en">Executive Onboarding</h1>
-                <h1 class="lang-ar">التأهيل التنفيذي</h1>
-                <p class="lang-en">Welcome to your IDEA StatiCa Customer Success journey. I am your dedicated Enterprise Success Director. This interactive portal ensures your organization's transition to our platform is seamless and strategic. Please complete each step to unlock your team's Executive Business Review (EBR) scheduling.</p>
-                <p class="lang-ar">مرحبًا بك في رحلة نجاح العملاء مع IDEA StatiCa. أنا مدير النجاح المؤسسي المخصص لك. تضمن هذه البوابة التفاعلية انتقال مؤسستك إلى منصتنا بشكل سلس واستراتيجي. يرجى إكمال كل خطوة لفتح جدولة مراجعة الأعمال التنفيذية (EBR) لفريقك.</p>
-                
-                <!-- IDEA StatiCa Enterprise Showcase -->
-                <div class="enterprise-showcase">
-                    <div class="showcase-text">
-                        <div class="showcase-badge">Enterprise Edition</div>
-                        <h2 class="lang-en">Advanced CBFEM Technology</h2>
-                        <h2 class="lang-ar">تقنية CBFEM المتقدمة</h2>
-                        <p class="lang-en">Seamlessly design and code-check steel connections, concrete details, and critical structural members of any topology. Built for global engineering teams.</p>
-                        <p class="lang-ar">تصميم وفحص كود الوصلات الفولاذية والتفاصيل الخرسانية والأعضاء الهيكلية الحرجة بأي طوبولوجيا بسلاسة. مصمم للفرق الهندسية العالمية.</p>
-                        <ul class="showcase-features lang-en">
-                            <li><i class="ph ph-check"></i> Any geometry & loading</li>
-                            <li><i class="ph ph-check"></i> Global code compliance</li>
-                            <li><i class="ph ph-check"></i> 250+ BIM integrations</li>
-                        </ul>
-                        <ul class="showcase-features lang-ar" dir="rtl">
-                            <li><i class="ph ph-check"></i> أي هندسة وتحميل</li>
-                            <li><i class="ph ph-check"></i> الامتثال العالمي للكود</li>
-                            <li><i class="ph ph-check"></i> أكثر من 250 تكامل BIM</li>
-                        </ul>
-                    </div>
-                    <div class="showcase-graphics">
-                        <div class="abstract-joint">
-                            <div class="beam beam-main"></div>
-                            <div class="beam beam-sub"></div>
-                            <div class="bolt-grid">
-                                <span></span><span></span><span></span><span></span>
-                            </div>
-                        </div>
+        <div class="roadmap-eyebrow">
+            <span style="color: #000"><i class="ph-fill ph-handshake"></i>
+            <span class="lang-en">Structured Onboarding</span>
+            <span class="lang-ar">التأهيل المنظم</span></span>
+        </div>
+    <h1 class="lang-en"><span style="color: var(--primary-color)">Welcome to IDEA StatiCa</span></h1>
+
+    <h1 class="lang-ar">مرحبًا بكم في رحلة نجاحكم</h1>
+
+    <p class="lang-en">
+        Congratulations on choosing IDEA StatiCa. This interactive roadmap is designed to move your team from setup to <strong> expert-level structural modeling</strong> in minimal time    </p>
+
+    <p class="lang-ar">
+        تهانينا لاختياركم IDEA StatiCa. صُممت هذه الخارطة التفاعلية لنقل فريقكم من مرحلة الإعداد إلى مستوى متقدم في النمذجة الإنشائية خلال وقت قياسي. أكملوا هذه الخطوات للاستفادة الكاملة من إمكاناتكم.
+    </p>
+
+
+    <!-- SUCCESS JOURNEY SECTION -->
+
+   
+
+  
+
+        <section class="roadmap-shell">
+    <div class="roadmap-header">
+        <div class="roadmap-eyebrow">
+            <i class="ph-fill ph-path"></i>
+            <span class="lang-en">Structured Onboarding</span>
+            <span class="lang-ar">التأهيل المنظم</span>
+        </div>
+
+        <h2 class="lang-en">Your Path to Mastery</h2>
+        <h2 class="lang-ar">مساركم نحو الإتقان</h2>
+
+        <p class="lang-en">
+            A guided success roadmap designed to move from setup to confident implementation with clarity, speed, and measurable progress.
+        </p>
+        <p class="lang-ar">
+            خارطة نجاح موجهة صُممت لنقل فريقكم من الإعداد إلى التنفيذ بثقة ووضوح وسرعة وتقدم ملموس.
+        </p>
+    </div>
+
+    <div class="roadmap-timeline">
+
+        <article class="roadmap-step reveal-on-scroll">
+            <div class="roadmap-marker">
+                <span>01</span>
+            </div>
+            <div class="roadmap-card">
+                <div class="roadmap-card-top">
+                    <div class="roadmap-badge">
+                        <i class="ph ph-network"></i>
+                        <span class="lang-en">Network</span>
+                        <span class="lang-ar">الشبكة</span>
                     </div>
                 </div>
+
+                <p class="lang-en">
+                    Set up your licenses so your team can design without interruption.
+                </p>
+                <p class="lang-ar">
+                    إعداد التراخيص بحيث يتمكن فريقكم من التصميم دون انقطاع.
+                </p>
+            </div>
+        </article>
+
+        <article class="roadmap-step reveal-on-scroll">
+            <div class="roadmap-marker">
+                <span>02</span>
+            </div>
+            <div class="roadmap-card">
+                <div class="roadmap-card-top">
+                    <div class="roadmap-badge">
+                        <i class="ph ph-sliders"></i>
+                        <span class="lang-en">Workspace</span>
+                        <span class="lang-ar">بيئة العمل</span>
+                    </div>
+                </div>
+
+                <p class="lang-en">
+                    Configure BIM links and materials to streamline your daily workflow.
+                </p>
+                <p class="lang-ar">
+                    تهيئة روابط BIM والمواد لتبسيط سير العمل اليومي.
+                </p>
+            </div>
+        </article>
+
+        <article class="roadmap-step reveal-on-scroll">
+            <div class="roadmap-marker">
+                <span>03</span>
+            </div>
+            <div class="roadmap-card">
+                <div class="roadmap-card-top">
+                    <div class="roadmap-badge">
+                        <i class="ph ph-gear"></i>
+                        <span class="lang-en">Implementation</span>
+                        <span class="lang-ar">التنفيذ</span>
+                    </div>
+                </div>
+
+                <p class="lang-en">
+                    Hands-on training focused on your specific connection types.
+                </p>
+                <p class="lang-ar">
+                    تدريب عملي يركز على أنواع الوصلات الخاصة بكم.
+                </p>
+            </div>
+        </article>
+
+        <article class="roadmap-step reveal-on-scroll">
+            <div class="roadmap-marker">
+                <span>04</span>
+            </div>
+            <div class="roadmap-card">
+                <div class="roadmap-card-top">
+                    <div class="roadmap-badge">
+                        <i class="ph ph-chart-line"></i>
+                        <span class="lang-en">Final Review</span>
+                        <span class="lang-ar">المراجعة النهائية</span>
+                    </div>
+                </div>
+
+                <p class="lang-en">
+                    A strategic business review to ensure your goals are being met.
+                </p>
+                <p class="lang-ar">
+                    مراجعة أعمال استراتيجية لضمان تحقيق أهدافكم.
+                </p>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+
+
 
                 <section class="testimonials-shell">
     <div class="testimonials-header">
         <div class="testimonials-header-copy">
-            <div class="testimonials-eyebrow">
+            
+            
+           <!----> <div class="testimonials-eyebrow">
+                
                 <i class="ph-fill ph-seal-check"></i>
                 <span class="lang-en">Trusted Engineering Outcomes</span>
                 <span class="lang-ar">نتائج هندسية موثوقة</span>
@@ -1404,34 +1947,35 @@
             <h2 class="lang-ar">كيف يصف القادة الهندسيون القيمة</h2>
 
             <p class="lang-en">
-                A modern connection design platform should not only accelerate delivery. It should expand technical confidence, support better decisions, and reduce friction across design review workflows.
-            </p>
+                </p>
             <p class="lang-ar">
                 يجب ألا تقتصر منصة تصميم الوصلات الحديثة على تسريع الإنجاز فقط، بل يجب أن تعزز الثقة الفنية، وتدعم اتخاذ القرار، وتقلل التعقيد عبر سير عمل المراجعة الهندسية.
             </p>
         </div>
 
-        <div class="testimonials-trust-note">
+      <!--  <div class="testimonials-trust-note">
             <i class="ph-fill ph-buildings"></i>
             <span class="lang-en">Enterprise-grade design credibility</span>
             <span class="lang-ar">مصداقية تصميم على مستوى المؤسسات</span>
-        </div>
+        </div>-->
     </div>
 
     <div class="testimonials-grid">
 
         <article class="testimonial-card featured">
             <div class="testimonial-top">
-                <div class="testimonial-badge">
+             <!--   <div class="testimonial-badge">
                     <i class="ph-fill ph-star-four"></i>
                     <span class="lang-en">Complex Geometry</span>
                     <span class="lang-ar">الهندسة المعقدة</span>
-                </div>
+                </div> -->
                 <div class="testimonial-quote-mark">“</div>
+                                <div class="testimonial-quote-mark">“</div>
+
             </div>
 
-            <p class="testimonial-quote lang-en">
-                This isn't just software; it's the ability to say “yes” to complex geometry that we used to spend days hand-calculating.
+            <p class="testimonial-quote lang-en" style="font-style: italic;">
+This isn't just software; it's the ability to say 'yes' to complex geometry that we used to spend days hand-calculating.
             </p>
             <p class="testimonial-quote lang-ar">
                 هذا ليس مجرد برنامج، بل هو القدرة على قول «نعم» للهندسة المعقدة التي كنا نقضي أيامًا في حسابها يدويًا.
@@ -1445,24 +1989,24 @@
                     <p class="testimonial-author lang-en">Principal Structural Engineer</p>
                     <p class="testimonial-author lang-ar">كبير المهندسين الإنشائيين</p>
 
-                    <p class="testimonial-role lang-en">Multi-disciplinary project delivery and advanced connection verification</p>
+             <!--       <p class="testimonial-role lang-en">Multi-disciplinary project delivery and advanced connection verification</p>
                     <p class="testimonial-role lang-ar">تنفيذ المشاريع متعددة التخصصات والتحقق المتقدم من الوصلات</p>
-                </div>
+                </div> -->
             </div>
         </article>
 
-        <article class="testimonial-card">
+       <article class="testimonial-card">
             <div class="testimonial-top">
-                <div class="testimonial-badge">
+             <!--   <div class="testimonial-badge">
                     <i class="ph-fill ph-timer"></i>
                     <span class="lang-en">Speed to Validation</span>
                     <span class="lang-ar">سرعة التحقق</span>
-                </div>
+                </div> -->
                 <div class="testimonial-quote-mark">“</div>
-            </div>
+            </div> 
 
-            <p class="testimonial-quote lang-en">
-                IDEA StatiCa fundamentally changed how our team approaches connection design. What once required hours of verification can now be validated in minutes.
+            <p class="testimonial-quote lang-en" style="font-style: italic;">
+The confidence we gain from seeing the exact stress distribution in a joint is what sets our firm apart.
             </p>
             <p class="testimonial-quote lang-ar">
                 غيّر IDEA StatiCa بشكل جذري طريقة تعامل فريقنا مع تصميم الوصلات. ما كان يتطلب ساعات من التحقق يمكن الآن اعتماده خلال دقائق.
@@ -1470,25 +2014,26 @@
 
             <div class="testimonial-footer">
                 <div class="testimonial-avatar">
-                    <i class="ph-fill ph-chart-line-up"></i>
+                    <i class="ph-fill ph-user-focus"></i>
+                    <!-- <i class="ph-fill ph-chart-line-up"></i> -->
                 </div>
                 <div class="testimonial-meta">
                     <p class="testimonial-author lang-en">Director of Structural Engineering</p>
                     <p class="testimonial-author lang-ar">مدير الهندسة الإنشائية</p>
 
-                    <p class="testimonial-role lang-en">Faster review cycles, stronger design consistency, clearer technical sign-off</p>
+                  <!--  <p class="testimonial-role lang-en">Faster review cycles, stronger design consistency, clearer technical sign-off</p>
                     <p class="testimonial-role lang-ar">دورات مراجعة أسرع واتساق تصميمي أقوى واعتماد فني أوضح</p>
-                </div>
+             -->   </div>
             </div>
         </article>
 
-        <article class="testimonial-card">
+    <!--    <article class="testimonial-card">
             <div class="testimonial-top">
-                <div class="testimonial-badge">
+              <div class="testimonial-badge">
                     <i class="ph-fill ph-shield-check"></i>
                     <span class="lang-en">Code Confidence</span>
                     <span class="lang-ar">الثقة بالكود</span>
-                </div>
+                </div> 
                 <div class="testimonial-quote-mark">“</div>
             </div>
 
@@ -1511,11 +2056,11 @@
                     <p class="testimonial-role lang-ar">تفاصيل محسّنة مع مخرجات جاهزة للامتثال</p>
                 </div>
             </div>
-        </article>
+        </article> -->
 
     </div>
 
-    <div class="testimonials-bottom-bar">
+   <!-- <div class="testimonials-bottom-bar">
         <p class="lang-en">
             <strong>Why this works in your page:</strong> it adds proof and executive reassurance without breaking the clean onboarding flow.
         </p>
@@ -1528,44 +2073,84 @@
             <span class="lang-en">Aligned with your current premium SaaS language</span>
             <span class="lang-ar">متوافق مع لغتك الحالية في واجهات SaaS المتميزة</span>
         </div>
-    </div>
+    </div> -->
 </section>
             </div>
 
             <!-- PAGE 2: Community / Network -->
             <div id="page2" class="page">
-                <h1 class="lang-en">Executive Peer Network</h1>
-                <h1 class="lang-ar">شبكة الأقران التنفيذية</h1>
-                <p class="lang-en">Connect with fellow industry leaders and Principal Structural Engineers in our dedicated invite-only LinkedIn group. We share enterprise growth strategies, platform playbooks, and strategic networking opportunities.</p>
-                <p class="lang-ar">تواصل مع زملائك من قادة الصناعة والمهندسين الإنشائيين في مجموعتنا المخصصة للمدعوين فقط على LinkedIn. نحن نشارك استراتيجيات نمو المؤسسات، وكتيبات المنصة، وفرص التواصل الاستراتيجي.</p>
-                
-                <div class="li-custom-card">
-                    <div class="li-custom-banner">
-                        <img src="image_6f5436.png" class="li-banner-logo" alt="IDEA StatiCa Logo">
-                    </div>
-                    <div class="li-custom-body">
-                        <div class="li-custom-logo">
-                            <img src="image_6fa5b6.png" alt="GSD IDEA Logo">
-                        </div>
-                        <div class="li-custom-actions">
-                            <i class="ph ph-info li-icon-btn"></i>
-                            <i class="ph ph-share-network li-icon-btn"></i>
-                            <i class="ph ph-bell li-icon-btn"></i>
-                            <i class="ph ph-dots-three li-icon-btn"></i>
-                            <a href="https://www.linkedin.com/groups/14652083/" target="_blank" class="li-req-btn">
-                                <span class="lang-en">Request Access</span>
-                                <span class="lang-ar">طلب انضمام</span>
-                            </a>
-                        </div>
-                        <h3 class="li-custom-title lang-en">IDEA StatiCa Gulf - User Group</h3>
-                        <h3 class="li-custom-title lang-ar">مجموعة مستخدمي IDEA StatiCa Gulf</h3>
-                        <p class="li-custom-subtitle">
-                            <i class="ph ph-users" style="font-size: 1.1rem;"></i>
-                            <span class="lang-en">Private Listed</span>
-                            <span class="lang-ar">مجموعة خاصة مدرجة</span>
-                        </p>
-                    </div>
-                </div>
+               <h1 class="lang-en">Join Our Community</h1>
+<h1 class="lang-ar">انضم إلى مجتمعنا</h1>
+
+<p class="lang-en">
+    You now have access to the IDEA StatiCa Gulf User Group, a regional network of structural engineers using IDEA StatiCa across the Middle East.
+</p>
+<p class="lang-ar">
+    أصبح لديكم الآن إمكانية الوصول إلى مجموعة مستخدمي IDEA StatiCa Gulf، وهي شبكة إقليمية من المهندسين الإنشائيين الذين يستخدمون IDEA StatiCa في أنحاء الشرق الأوسط.
+</p>
+                <div class="linkedin-embed-card">
+    <div class="linkedin-embed-banner">
+        <img src="image_6f5436.png" class="linkedin-banner-logo" alt="IDEA StatiCa Logo">
+    </div>
+
+    <div class="linkedin-embed-body">
+        <div class="linkedin-embed-logo-wrap">
+            <div class="linkedin-embed-logo">
+                <img src="image_6fa5b6.png" alt="GSD IDEA Logo">
+            </div>
+        </div>
+
+        <div class="linkedin-embed-meta">
+            <div class="linkedin-embed-platform">
+                <i class="ph-fill ph-linkedin-logo"></i>
+                <span class="lang-en">LinkedIn Group</span>
+                <span class="lang-ar">مجموعة LinkedIn</span>
+            </div>
+
+            <h3 class="linkedin-embed-title lang-en">IDEA StatiCa Gulf - User Group</h3>
+            <h3 class="linkedin-embed-title lang-ar">مجموعة مستخدمي IDEA StatiCa Gulf</h3>
+
+            <p class="linkedin-embed-subtitle">
+                <span class="lang-en">Private group • Regional structural engineering network</span>
+                <span class="lang-ar">مجموعة خاصة • شبكة إقليمية للهندسة الإنشائية</span>
+            </p>
+        </div>
+            <div class="linkedin-embed-footer">
+            <a href="https://www.linkedin.com/groups/14652083/" target="_blank" class="linkedin-open-btn">
+                <i class="ph-fill ph-linkedin-logo"></i>
+                <span class="lang-en">Request Access on LinkedIn</span>
+                <span class="lang-ar">طلب الانضمام عبر LinkedIn</span>
+            </a>
+        </div></div></div><DIV STYLE="padding-bottom: 20px;"> </div>
+        <div class="linkedin-embed-stats">
+            <div class="linkedin-stat-item">
+                <i class="ph ph-presentation-chart"></i>
+                <span class="lang-en">Regional Technical Webinars</span>
+                <span class="lang-ar">ندوات فنية إقليمية</span>
+            </div>
+
+            <div class="linkedin-stat-item">
+                <i class="ph ph-lightbulb"></i>
+                <span class="lang-en">Tips &amp; Design Insights</span>
+                <span class="lang-ar">نصائح ورؤى تصميمية</span>
+            </div>
+
+            <div class="linkedin-stat-item">
+                <i class="ph ph-graduation-cap"></i>
+                <span class="lang-en">Educational Sessions Updates</span>
+                <span class="lang-ar">تحديثات الجلسات التعليمية</span>
+            </div>
+
+            <div class="linkedin-stat-item">
+                <i class="ph ph-chat-circle-text"></i>
+                <span class="lang-en">AMA Sessions</span>
+                <span class="lang-ar">جلسات AMA</span>
+            </div>
+        </div>
+
+        
+    
+
             </div>
 
             <!-- PAGE 3: License / Workspace -->
@@ -2042,11 +2627,9 @@
         <!-- Navigation Controls -->
         <footer class="footer-actions">
             <button class="btn btn-back" id="backBtn" onclick="goPage(-1)" style="visibility: hidden;">
-                <span class="lang-en">Back</span><span class="lang-ar">رجوع</span>
-            </button>
+<i class="ph ph-caret-left"></i>            </button>
             <button class="btn btn-next" id="nextBtn" onclick="goPage(1)">
-                <span class="lang-en">Next Step</span><span class="lang-ar">الخطوة التالية</span>
-            </button>
+<i class="ph ph-caret-right"></i>            </button>
         </footer>
     </div>
 
@@ -2344,6 +2927,24 @@
         document.getElementById('nextBtn').disabled = !document.getElementById('c4').checked;
     }
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const items = document.querySelectorAll('.reveal-on-scroll');
 
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.18,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    items.forEach((item) => observer.observe(item));
+});
+</script>
 </body>
 </html>
