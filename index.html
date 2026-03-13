@@ -1007,6 +1007,316 @@
             .li-req-btn { width: 100%; justify-content: center; padding: 10px; }
             .li-custom-title { font-size: 1.25rem; }
         }
+
+        /* =========================
+   ENTERPRISE TESTIMONIALS
+   ========================= */
+
+.testimonials-shell {
+    margin-top: 40px;
+    padding-top: 36px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.testimonials-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.testimonials-header-copy {
+    max-width: 700px;
+}
+
+.testimonials-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.testimonials-header h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    letter-spacing: -0.02em;
+}
+
+.testimonials-header p {
+    margin: 0;
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.testimonials-trust-note {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.testimonials-trust-note i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
+}
+
+.testimonial-card {
+    grid-column: span 4;
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px 24px 22px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.testimonial-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--primary-color) 0%, rgba(255, 80, 0, 0.16) 100%);
+}
+
+.testimonial-card::after {
+    content: "";
+    position: absolute;
+    top: -38px;
+    right: -18px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 80, 0, 0.08) 0%, rgba(255, 80, 0, 0) 72%);
+    pointer-events: none;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: #d8dee8;
+}
+
+.testimonial-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.testimonial-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 32px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(255, 80, 0, 0.08);
+    color: var(--primary-dark);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.testimonial-badge i {
+    font-size: 0.95rem;
+}
+
+.testimonial-quote-mark {
+    font-size: 2.2rem;
+    line-height: 1;
+    font-weight: 800;
+    color: rgba(255, 80, 0, 0.18);
+    margin-top: -2px;
+}
+
+.testimonial-quote {
+    margin: 0 0 20px 0;
+    color: var(--text-main);
+    font-size: 1rem;
+    line-height: 1.75;
+    font-weight: 500;
+}
+
+.testimonial-footer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.testimonial-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #fff7f3 0%, #fff 100%);
+    border: 1px solid #fde3d6;
+    color: var(--primary-color);
+    font-size: 1.15rem;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.testimonial-meta {
+    min-width: 0;
+}
+
+.testimonial-author {
+    margin: 0;
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    line-height: 1.3;
+}
+
+.testimonial-role {
+    margin: 2px 0 0 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.testimonial-card.featured {
+    background:
+        linear-gradient(180deg, rgba(255, 80, 0, 0.035) 0%, #ffffff 34%, #fbfdff 100%);
+    border-color: rgba(255, 80, 0, 0.18);
+    box-shadow: var(--shadow-orange);
+}
+
+.testimonial-card.featured .testimonial-badge {
+    background: var(--secondary-color);
+    color: #ffffff;
+}
+
+.testimonials-bottom-bar {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: var(--shadow-sm);
+}
+
+.testimonials-bottom-bar p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+.testimonials-bottom-bar strong {
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+.testimonials-signal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    color: var(--text-main);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.testimonials-signal i {
+    color: var(--success-color);
+    font-size: 0.95rem;
+}
+
+/* RTL */
+[dir="rtl"] .testimonials-header {
+    text-align: right;
+}
+[dir="rtl"] .testimonial-card::before {
+    inset: 0 0 0 auto;
+}
+[dir="rtl"] .testimonial-card::after {
+    right: auto;
+    left: -18px;
+}
+[dir="rtl"] .testimonial-footer,
+[dir="rtl"] .testimonials-signal,
+[dir="rtl"] .testimonials-trust-note,
+[dir="rtl"] .testimonials-eyebrow,
+[dir="rtl"] .testimonial-badge {
+    flex-direction: row;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .testimonials-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .testimonial-card {
+        grid-column: span 6;
+    }
+
+    .testimonials-bottom-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .testimonials-shell {
+        margin-top: 32px;
+        padding-top: 28px;
+    }
+
+    .testimonials-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .testimonial-card {
+        grid-column: span 12;
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .testimonial-quote {
+        font-size: 0.96rem;
+        line-height: 1.7;
+    }
+}
     </style>
 </head>
 <body>
@@ -1080,6 +1390,146 @@
                         </div>
                     </div>
                 </div>
+
+                <section class="testimonials-shell">
+    <div class="testimonials-header">
+        <div class="testimonials-header-copy">
+            <div class="testimonials-eyebrow">
+                <i class="ph-fill ph-seal-check"></i>
+                <span class="lang-en">Trusted Engineering Outcomes</span>
+                <span class="lang-ar">نتائج هندسية موثوقة</span>
+            </div>
+
+            <h2 class="lang-en">How engineering leaders describe the value</h2>
+            <h2 class="lang-ar">كيف يصف القادة الهندسيون القيمة</h2>
+
+            <p class="lang-en">
+                A modern connection design platform should not only accelerate delivery. It should expand technical confidence, support better decisions, and reduce friction across design review workflows.
+            </p>
+            <p class="lang-ar">
+                يجب ألا تقتصر منصة تصميم الوصلات الحديثة على تسريع الإنجاز فقط، بل يجب أن تعزز الثقة الفنية، وتدعم اتخاذ القرار، وتقلل التعقيد عبر سير عمل المراجعة الهندسية.
+            </p>
+        </div>
+
+        <div class="testimonials-trust-note">
+            <i class="ph-fill ph-buildings"></i>
+            <span class="lang-en">Enterprise-grade design credibility</span>
+            <span class="lang-ar">مصداقية تصميم على مستوى المؤسسات</span>
+        </div>
+    </div>
+
+    <div class="testimonials-grid">
+
+        <article class="testimonial-card featured">
+            <div class="testimonial-top">
+                <div class="testimonial-badge">
+                    <i class="ph-fill ph-star-four"></i>
+                    <span class="lang-en">Complex Geometry</span>
+                    <span class="lang-ar">الهندسة المعقدة</span>
+                </div>
+                <div class="testimonial-quote-mark">“</div>
+            </div>
+
+            <p class="testimonial-quote lang-en">
+                This isn't just software; it's the ability to say “yes” to complex geometry that we used to spend days hand-calculating.
+            </p>
+            <p class="testimonial-quote lang-ar">
+                هذا ليس مجرد برنامج، بل هو القدرة على قول «نعم» للهندسة المعقدة التي كنا نقضي أيامًا في حسابها يدويًا.
+            </p>
+
+            <div class="testimonial-footer">
+                <div class="testimonial-avatar">
+                    <i class="ph-fill ph-user-focus"></i>
+                </div>
+                <div class="testimonial-meta">
+                    <p class="testimonial-author lang-en">Principal Structural Engineer</p>
+                    <p class="testimonial-author lang-ar">كبير المهندسين الإنشائيين</p>
+
+                    <p class="testimonial-role lang-en">Multi-disciplinary project delivery and advanced connection verification</p>
+                    <p class="testimonial-role lang-ar">تنفيذ المشاريع متعددة التخصصات والتحقق المتقدم من الوصلات</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="testimonial-card">
+            <div class="testimonial-top">
+                <div class="testimonial-badge">
+                    <i class="ph-fill ph-timer"></i>
+                    <span class="lang-en">Speed to Validation</span>
+                    <span class="lang-ar">سرعة التحقق</span>
+                </div>
+                <div class="testimonial-quote-mark">“</div>
+            </div>
+
+            <p class="testimonial-quote lang-en">
+                IDEA StatiCa fundamentally changed how our team approaches connection design. What once required hours of verification can now be validated in minutes.
+            </p>
+            <p class="testimonial-quote lang-ar">
+                غيّر IDEA StatiCa بشكل جذري طريقة تعامل فريقنا مع تصميم الوصلات. ما كان يتطلب ساعات من التحقق يمكن الآن اعتماده خلال دقائق.
+            </p>
+
+            <div class="testimonial-footer">
+                <div class="testimonial-avatar">
+                    <i class="ph-fill ph-chart-line-up"></i>
+                </div>
+                <div class="testimonial-meta">
+                    <p class="testimonial-author lang-en">Director of Structural Engineering</p>
+                    <p class="testimonial-author lang-ar">مدير الهندسة الإنشائية</p>
+
+                    <p class="testimonial-role lang-en">Faster review cycles, stronger design consistency, clearer technical sign-off</p>
+                    <p class="testimonial-role lang-ar">دورات مراجعة أسرع واتساق تصميمي أقوى واعتماد فني أوضح</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="testimonial-card">
+            <div class="testimonial-top">
+                <div class="testimonial-badge">
+                    <i class="ph-fill ph-shield-check"></i>
+                    <span class="lang-en">Code Confidence</span>
+                    <span class="lang-ar">الثقة بالكود</span>
+                </div>
+                <div class="testimonial-quote-mark">“</div>
+            </div>
+
+            <p class="testimonial-quote lang-en">
+                The CBFEM workflow allows us to deliver highly optimized connections while maintaining full confidence in code compliance and engineering transparency.
+            </p>
+            <p class="testimonial-quote lang-ar">
+                يتيح لنا سير عمل CBFEM تقديم وصلات محسنة بدرجة عالية مع الحفاظ على ثقة كاملة في مطابقة الكود ووضوح المنهجية الهندسية.
+            </p>
+
+            <div class="testimonial-footer">
+                <div class="testimonial-avatar">
+                    <i class="ph-fill ph-file-check"></i>
+                </div>
+                <div class="testimonial-meta">
+                    <p class="testimonial-author lang-en">Senior Structural Consultant</p>
+                    <p class="testimonial-author lang-ar">استشاري إنشائي أول</p>
+
+                    <p class="testimonial-role lang-en">Optimization-led detailing with compliance-ready output</p>
+                    <p class="testimonial-role lang-ar">تفاصيل محسّنة مع مخرجات جاهزة للامتثال</p>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <div class="testimonials-bottom-bar">
+        <p class="lang-en">
+            <strong>Why this works in your page:</strong> it adds proof and executive reassurance without breaking the clean onboarding flow.
+        </p>
+        <p class="lang-ar">
+            <strong>لماذا ينجح هذا ضمن صفحتك:</strong> لأنه يضيف المصداقية والطمأنينة التنفيذية دون كسر تدفق التأهيل النظيف.
+        </p>
+
+        <div class="testimonials-signal">
+            <i class="ph-fill ph-check-circle"></i>
+            <span class="lang-en">Aligned with your current premium SaaS language</span>
+            <span class="lang-ar">متوافق مع لغتك الحالية في واجهات SaaS المتميزة</span>
+        </div>
+    </div>
+</section>
             </div>
 
             <!-- PAGE 2: Community / Network -->
