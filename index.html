@@ -8,7 +8,7 @@
     <!-- Modern Phosphor Icons (Replaces FontAwesome) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Enterprise SaaS Color Palette */
@@ -39,6 +39,14 @@
             color: var(--text-main);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Teko', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-top: 0;
         }
 
         #onboarding-app {
@@ -181,12 +189,10 @@
             min-height: 480px; 
             box-sizing: border-box;
         }
-        h1, h2, h3 { letter-spacing: -0.02em; }
         h1 { 
             color: var(--secondary-color); 
-            font-size: 2rem; 
-            font-weight: 800; 
-            margin-top: 0; 
+            font-size: 3.5rem; 
+            line-height: 1.1;
             margin-bottom: 16px;
         }
         p { 
@@ -300,6 +306,67 @@
         }
         .bolt-grid span { background: var(--primary-color); border-radius: 50%; width: 6px; height: 6px; }
 
+        /* PROTOCOL LAYOUT (PAGE 3) */
+        .protocol-section {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .protocol-item {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .protocol-img-placeholder {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            min-height: 160px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.3s ease;
+        }
+        .protocol-img-placeholder:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .protocol-content {
+            display: flex;
+            flex-direction: column;
+        }
+        .protocol-eyebrow {
+            color: var(--primary-color);
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .protocol-title {
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif; /* Overrides global Teko for this specific element to match reference */
+            font-size: 1.45rem;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: none; /* Disables uppercase from global headings */
+        }
+        .protocol-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
         /* ACCORDION CHECKLIST */
         .checklist-item { 
             border: 1px solid var(--border-color); 
@@ -361,10 +428,17 @@
             position: relative;
             flex-shrink: 0;
         }
+
+        /* Active, ready-to-check green pulse animation */
+        .checklist-item.is-open:not(.completed) .check-box {
+            border-color: var(--success-color);
+            animation: readyPulse 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
         .check-box:active { transform: scale(0.85); }
         .check-box:checked { 
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            background-color: var(--success-color);
+            border-color: var(--success-color);
             transform: scale(1.1); 
             animation: checkPop 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
         }
@@ -485,11 +559,10 @@
         }
         .download-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
         .download-box h3 {
-            font-family: 'Inter', sans-serif; 
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 2.2rem;
             color: var(--secondary-color);
             margin: 0 0 8px 0;
+            line-height: 1.2;
         }
         .download-box .release-date {
             font-size: 0.8rem;
@@ -506,18 +579,21 @@
             margin: 0 0 25px 0;
             max-width: 90%;
         }
+        
+        /* Updated to match requested orange background */
         .download-btn {
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            padding: 14px 40px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
+            padding: 12px 32px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .download-btn:hover {
@@ -525,8 +601,74 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-btn);
         }
+        .download-btn .arrow-icon {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* BIM FILTER UI */
+        .bim-filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin: 20px 0 0 0;
+            padding: 16px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+        .bim-select {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            background: #ffffff;
+            cursor: pointer;
+            min-width: 200px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .bim-select:focus { border-color: var(--primary-color); }
+        .bim-group-toggle {
+            display: flex;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        .bim-group-btn {
+            padding: 6px 20px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            border-right: 1px solid #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            user-select: none;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+        }
+        [dir="rtl"] .bim-group-btn { border-right: none; border-left: 1px solid #cbd5e1; }
+        [dir="rtl"] .bim-group-btn:last-child { border-left: none; }
+        .bim-group-btn:last-child { border-right: none; }
+        .bim-group-btn:hover { background: #f1f5f9; color: var(--secondary-color); }
+        .bim-group-btn.active { background: var(--secondary-color); color: #ffffff; }
 
         /* RESPONSIVE VIDEO EMBED */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 */
@@ -591,7 +733,7 @@
         }
         .faq-group { display: none; }
         .faq-group.active { display: block; animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .faq-group h2 { font-size: 1.4rem; color: var(--secondary-color); margin-top: 0; margin-bottom: 20px; }
+        .faq-group h2 { font-size: 2.2rem; color: var(--secondary-color); margin-bottom: 20px; }
         .faq-list { display: flex; flex-direction: column; }
         .faq-item { border-bottom: 1px solid var(--border-color); }
         .faq-item:last-child { border-bottom: none; }
@@ -626,6 +768,53 @@
         .faq-item.active .faq-icon { transform: rotate(90deg); }
         [dir="rtl"] .faq-item.active .faq-icon { transform: scaleX(-1) rotate(-90deg); }
 
+        /* SUPPORT CONTACT BOX */
+        .support-contact-box {
+            width: 1000px;
+            max-width: 92%;
+            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+            border: 1px solid var(--border-color);
+            border-left: 6px solid var(--primary-color);
+            border-radius: 16px;
+            margin-top: 24px;
+            padding: 24px 64px;
+            box-sizing: border-box;
+            box-shadow: var(--shadow-md);
+            display: none; /* Controlled by JS */
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .support-contact-content {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .support-contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+        .support-contact-text h4 {
+            margin: 0 0 6px 0;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+        }
+        .support-contact-text p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+        .support-contact-email {
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .support-contact-email:hover {
+            border-bottom-color: var(--primary-color);
+        }
+
         /* SCHEDULE PAGE */
         .premium-schedule { 
             background: radial-gradient(circle at top, rgba(255, 80, 0, 0.08) 0%, #ffffff 40%);
@@ -642,7 +831,7 @@
             animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             box-sizing: border-box;
         }
-        .premium-schedule h1 { color: var(--secondary-color); margin-bottom: 16px; font-size: 2.2rem; }
+        .premium-schedule h1 { color: var(--secondary-color); margin-bottom: 16px; font-size: 3.5rem; line-height: 1.1; }
         .premium-schedule p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; }
         
         .cta-btn { 
@@ -650,13 +839,14 @@
             color: white; 
             padding: 16px 40px; 
             border-radius: 8px; 
-            font-weight: 600; 
-            font-size: 1rem; 
             border: none; 
             cursor: pointer; 
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: var(--shadow-sm);
-            font-family: inherit;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .cta-btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-btn); }
 
@@ -672,13 +862,18 @@
         .btn { 
             padding: 10px 24px; 
             border-radius: 8px; 
-            font-weight: 600; 
             cursor: pointer; 
             border: none; 
-            font-size: 0.95rem;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            font-family: inherit;
             box-sizing: border-box;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .btn-next { background: var(--primary-color); color: white; box-shadow: var(--shadow-sm); }
         .btn-next:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-btn); }
@@ -692,117 +887,43 @@
         [dir="rtl"] .quick-flow-label { margin-right: 0; margin-left: 8px; }
         [dir="rtl"] .detail-card { flex-direction: row; }
         [dir="rtl"] .details-toggle { margin-left: 0; margin-right: -12px; }
+        [dir="rtl"] .support-contact-box { border-left: 1px solid var(--border-color); border-right: 6px solid var(--primary-color); }
 
-        /* LINKEDIN GROUP HEADER (Mimics Official UI) */
-        .li-custom-card {
-            width: 100%;
-            max-width: 750px;
-            margin: 32px 0;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
+        /* QUICK ACCESS LINKS */
+        .quick-access-wrapper {
+            margin-top: 48px;
             text-align: left;
-            box-shadow: var(--shadow-sm);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .li-custom-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-        .li-custom-banner {
-            height: 140px;
-            background: #005A9C url('https://images.unsplash.com/photo-1541888062820-c6326e5d8360?q=80&w=1200&auto=format&fit=crop') center/cover;
-            position: relative;
-            border-bottom: 2px solid var(--border-color);
+        [dir="rtl"] .quick-access-wrapper { text-align: right; }
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
         }
-        .li-custom-banner::after {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 55%;
-            height: 250px;
-            background: #000;
-            transform: rotate(15deg);
-            transform-origin: top right;
-            border-left: 4px solid var(--primary-color);
-        }
-        .li-banner-logo {
-            position: absolute;
-            top: 20px;
-            right: 24px;
-            z-index: 2;
-            height: 28px;
-            filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
-        }
-        .li-custom-body { padding: 0 24px 24px; position: relative; }
-        .li-custom-logo {
-            width: 104px;
-            height: 104px;
-            background: #fff;
-            border: 4px solid #fff;
+        .quick-link-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
-            position: absolute;
-            top: -52px;
-            left: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 3;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .li-custom-card:hover .li-custom-logo { transform: scale(1.05); }
-        .li-custom-logo img { width: 95%; height: auto; }
-        .li-custom-actions {
-            display: flex;
-            justify-content: flex-end;
-            padding-top: 16px;
-            gap: 16px;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .li-icon-btn { color: #666; font-size: 1.4rem; cursor: pointer; transition: color 0.2s, transform 0.2s; }
-        .li-icon-btn:hover { color: #000; transform: scale(1.1); }
-        .li-req-btn {
-            background: var(--linkedin-blue);
-            color: white;
-            border: none;
-            border-radius: 24px;
-            padding: 6px 20px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            padding: 12px 16px;
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-sizing: border-box;
-        }
-        .li-req-btn:hover { background: #004182; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,119,181,0.3); }
-        .li-custom-title {
-            font-size: 1.5rem;
+            color: var(--text-main);
+            font-size: 0.85rem;
             font-weight: 600;
-            color: rgba(0,0,0,0.9);
-            margin: 0 0 4px 0;
-            transition: color 0.2s;
-        }
-        .li-custom-card:hover .li-custom-title { color: var(--linkedin-blue); }
-        .li-custom-subtitle {
-            font-size: 0.9rem;
-            color: rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
-            gap: 6px;
-            margin: 0;
+            justify-content: space-between;
+            transition: all 0.2s ease;
         }
-
-        /* RTL specific tweaks for LinkedIn Card */
-        [dir="rtl"] .li-custom-card { text-align: right; }
-        [dir="rtl"] .li-custom-banner::after { right: auto; left: -50px; transform-origin: top left; transform: rotate(-15deg); border-left: none; border-right: 4px solid var(--primary-color); }
-        [dir="rtl"] .li-banner-logo { right: auto; left: 24px; }
-        [dir="rtl"] .li-custom-logo { left: auto; right: 24px; }
+        .quick-link-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: #fffcfb;
+            transform: translateX(4px);
+        }
+        [dir="rtl"] .quick-link-btn:hover { transform: translateX(-4px); }
+        .quick-link-btn i { font-size: 1rem; color: var(--text-muted); transition: color 0.2s; }
+        .quick-link-btn:hover i { color: var(--primary-color); }
 
         /* DOCUMENT LIBRARY */
         .doc-library-wrapper {
@@ -814,7 +935,7 @@
         [dir="rtl"] .doc-library-wrapper { text-align: right; }
         
         .doc-library-header { margin-bottom: 32px; }
-        .doc-library-header h3 { font-size: 1.25rem; color: var(--secondary-color); margin: 0 0 8px 0; font-weight: 700; letter-spacing: -0.02em; }
+        .doc-library-header h3 { font-size: 2.2rem; color: var(--secondary-color); margin: 0 0 8px 0; line-height: 1.2; }
         .doc-library-header p { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
         
         .doc-grid {
@@ -926,6 +1047,11 @@
             from { opacity: 0; transform: translateY(-10px); } 
             to { opacity: 1; transform: translateY(0); } 
         }
+        @keyframes readyPulse {
+            0% { box-shadow: 0 0 0 0 rgba(30, 142, 62, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 0 8px rgba(30, 142, 62, 0); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(30, 142, 62, 0); transform: scale(1); }
+        }
         @keyframes checkPop {
             0% { transform: scale(1); }
             50% { transform: scale(1.3); }
@@ -944,6 +1070,16 @@
             /* Main Structure */
             .main-card { margin-top: 16px; width: 100%; max-width: 95%; border-radius: 12px; }
             .faq-box { margin-top: 16px; width: 100%; max-width: 95%; border-radius: 12px; padding: 24px 20px; }
+            .support-contact-box { width: 100%; max-width: 95%; padding: 20px; }
+
+            /* Protocol Mobile stacking */
+            .protocol-item {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .protocol-img-placeholder {
+                min-height: 120px;
+            }
 
             /* Navigation Bar - Scrollable & Touch Friendly */
             .nav-bar {
@@ -965,7 +1101,7 @@
 
             /* Content & Typography */
             .content-area { padding: 24px 20px; min-height: auto; }
-            h1 { font-size: 1.6rem; margin-bottom: 12px; }
+            h1 { font-size: 2.8rem; margin-bottom: 12px; }
             
             /* Components Stacking */
             .enterprise-showcase { flex-direction: column; }
@@ -973,6 +1109,13 @@
             .showcase-features { grid-template-columns: 1fr; }
             .showcase-graphics { padding: 30px 0; border-left: none; border-top: 1px solid var(--border-color); }
             [dir="rtl"] .showcase-graphics { border-right: none; }
+            
+            .video-grid { grid-template-columns: 1fr; gap: 24px; }
+
+            .bim-filter-container { flex-direction: column; align-items: stretch; padding: 12px; }
+            .bim-select { width: 100%; min-width: auto; }
+            .bim-group-toggle { width: 100%; }
+            .bim-group-btn { flex: 1; text-align: center; justify-content: center; padding: 8px 10px; font-size: 1.15rem; }
 
             .highlight-box { padding: 20px; margin: 16px 0; }
             .email-collection-box { padding: 20px; }
@@ -985,14 +1128,15 @@
             
             /* Buttons & Actions */
             .download-box { padding: 24px 16px; }
-            .download-box h3 { font-size: 1.2rem; }
+            .download-box h3 { font-size: 1.8rem; }
             .download-btn { width: 100%; justify-content: center; padding: 14px 20px; }
 
             .premium-schedule { padding: 40px 20px; }
-            .premium-schedule h1 { font-size: 1.8rem; }
+            .premium-schedule h1 { font-size: 2.5rem; }
             
             .doc-library-wrapper { margin-top: 40px; padding-top: 32px; }
             .doc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .quick-access-grid { grid-template-columns: 1fr; }
 
             /* Footer Mobile Layout */
             .footer-actions { padding: 16px 20px; flex-direction: column-reverse; gap: 12px; }
@@ -1009,750 +1153,416 @@
         }
 
         /* =========================
-   ENTERPRISE TESTIMONIALS
-   ========================= */
-
-.testimonials-shell {
-    margin-top: 40px;
-    padding-top: 36px;
-    border-top: 1px dashed var(--border-color);
-}
-
-.testimonials-header {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 24px;
-}
-
-.testimonials-header-copy {
-    max-width: 700px;
-}
-
-.testimonials-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-.testimonials-header h2 {
-    margin: 0 0 8px 0;
-    font-size: 1.45rem;
-    font-weight: 800;
-    color: var(--secondary-color);
-    letter-spacing: -0.02em;
-}
-
-.testimonials-header p {
-    margin: 0;
-    font-size: 0.98rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-.testimonials-trust-note {
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    border: 1px solid var(--border-color);
-    border-radius: 999px;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    color: var(--text-main);
-    font-size: 0.85rem;
-    font-weight: 600;
-    box-shadow: var(--shadow-sm);
-}
-
-.testimonials-trust-note i {
-    color: var(--primary-color);
-    font-size: 1rem;
-}
-
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(1fr);
-    gap: 18px;
-}
-
-.testimonial-card {
-    grid-column: span 4;
-    position: relative;
-    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 50%);
-    border-radius: 16px;
-    padding: 24px 24px 22px;
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
-    transition:
-        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.testimonial-card::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 4px;
-    
-}
-
-.testimonial-card::after {
-    content: "";
-    position: absolute;
-    top: -38px;
-    right: -18px;
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 80, 0, 0.08) 0%, rgba(255, 80, 0, 0) 72%);
-    pointer-events: none;
-}
-
-.testimonial-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: #d8dee8;
-}
-
-.testimonial-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    margin-bottom: 18px;
-}
-
-.testimonial-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 32px;
-    padding: 0 12px;
-    border-radius: 999px;
-    background: rgba(255, 80, 0, 0.08);
-    color: var(--primary-dark);
-    font-size: 0.76rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-}
-
-.testimonial-badge i {
-    font-size: 0.95rem;
-}
-
-.testimonial-quote-mark {
-    font-size: 2.2rem;
-    line-height: 1;
-    font-weight: 800;
-    color: rgba(255, 80, 0, 0.18);
-    margin-top: -2px;
-}
-
-.testimonial-quote {
-    margin: 0 0 20px 0;
-    color: var(--text-main);
-    font-size: 1rem;
-    line-height: 1.75;
-    font-weight: 500;
-}
-
-.testimonial-footer {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(226, 232, 240, 0.9);
-}
-
-.testimonial-avatar {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(180deg, #fff7f3 0%, #fff 100%);
-    border: 1px solid #fde3d6;
-    color: var(--primary-color);
-    font-size: 1.15rem;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-}
-
-.testimonial-meta {
-    min-width: 0;
-}
-
-.testimonial-author {
-    margin: 0;
-    font-size: 0.96rem;
-    font-weight: 700;
-    color: var(--secondary-color);
-    line-height: 1.3;
-}
-
-.testimonial-role {
-    margin: 2px 0 0 0;
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-}
-
-.testimonial-card.featured {
-    background:
-        linear-gradient(180deg, rgba(255, 80, 0, 0.035) 0%, #ffffff 34%, #fbfdff 100%);
-    border-color: rgba(255, 80, 0, 0.18);
-    box-shadow: var(--shadow-orange);
-}
-
-.testimonial-card.featured .testimonial-badge {
-    background: var(--secondary-color);
-    color: #ffffff;
-}
-
-.testimonials-bottom-bar {
-    margin-top: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 14px 18px;
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    box-shadow: var(--shadow-sm);
-}
-
-.testimonials-bottom-bar p {
-    margin: 0;
-    font-size: 0.92rem;
-    color: var(--text-muted);
-}
-
-.testimonials-bottom-bar strong {
-    color: var(--text-main);
-    font-weight: 700;
-}
-
-.testimonials-signal {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.84rem;
-    color: var(--text-main);
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.testimonials-signal i {
-    color: var(--success-color);
-    font-size: 0.95rem;
-}
-
-/* RTL */
-[dir="rtl"] .testimonials-header {
-    text-align: right;
-}
-[dir="rtl"] .testimonial-card::before {
-    inset: 0 0 0 auto;
-}
-[dir="rtl"] .testimonial-card::after {
-    right: auto;
-    left: -18px;
-}
-[dir="rtl"] .testimonial-footer,
-[dir="rtl"] .testimonials-signal,
-[dir="rtl"] .testimonials-trust-note,
-[dir="rtl"] .testimonials-eyebrow,
-[dir="rtl"] .testimonial-badge {
-    flex-direction: row;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .testimonials-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .testimonial-card {
-        grid-column: span 6;
-    }
-
-    .testimonials-bottom-bar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
-@media (max-width: 640px) {
-    .testimonials-shell {
-        margin-top: 32px;
-        padding-top: 28px;
-    }
-
-    .testimonials-header h2 {
-        font-size: 1.25rem;
-    }
-
-    .testimonial-card {
-        grid-column: span 12;
-        padding: 20px;
-        border-radius: 14px;
-    }
-
-    .testimonial-quote {
-        font-size: 0.96rem;
-        line-height: 1.7;
-    }
-}
-/* SUCCESS JOURNEY */
-
-.journey-shell{
-    margin-top:40px;
-    padding-top:36px;
-    border-top:1px dashed var(--border-color);
-}
-
-.journey-header{
-    margin-bottom:24px;
-}
-
-.journey-eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:0.75rem;
-    font-weight:700;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--primary-color);
-    margin-bottom:10px;
-}
-
-.journey-header h2{
-    margin:0;
-    font-size:1.45rem;
-    font-weight:800;
-    color:var(--secondary-color);
-}
-
-.journey-grid{
-    display:grid;
-    grid-template-columns:repeat(12,1fr);
-    gap:18px;
-}
-
-.journey-card{
-    grid-column:span 6;
-    position:relative;
-    padding:22px;
-    background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
-    border:1px solid var(--border-color);
-    border-radius:14px;
-    box-shadow:var(--shadow-md);
-    transition:all .35s cubic-bezier(.16,1,.3,1);
-}
-
-.journey-card::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:2px;
-    border-radius:14px 14px 0 0;
-    background:linear-gradient(
-        90deg,
-        var(--primary-color),
-        rgba(255,80,0,.15)
-    );
-}
-
-.journey-card:hover{
-    transform:translateY(-3px);
-    box-shadow:var(--shadow-lg);
-}
-
-.journey-top{
-    display:flex;
-    align-items:center;
-    margin-bottom:14px;
-}
-
-.journey-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:.76rem;
-    font-weight:700;
-    padding:6px 12px;
-    border-radius:999px;
-    background:rgba(255,80,0,.08);
-    color:var(--primary-dark);
-}
-
-.journey-card p{
-    margin:0;
-    font-size:.96rem;
-    line-height:1.7;
-    color:var(--text-main);
-}
-
-
-/* responsive */
-
-@media (max-width:900px){
-
-.journey-card{
-grid-column:span 12;
-}
-
-}
-/* ROADMAP SECTION */
-
-.roadmap-shell{
-    margin-top:40px;
-    padding-top:36px;
-    border-top:1px dashed var(--border-color);
-}
-
-.roadmap-header{
-    max-width:760px;
-    margin-bottom:30px;
-}
-
-.roadmap-eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:0.78rem;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    color:var(--primary-color);
-    margin-bottom:10px;
-}
-
-.roadmap-header h2{
-    margin:0 0 10px 0;
-    font-size:1.45rem;
-    font-weight:800;
-    color:var(--secondary-color);
-    letter-spacing:-0.02em;
-}
-
-.roadmap-header p{
-    margin:0;
-    font-size:0.98rem;
-    line-height:1.7;
-    color:var(--text-muted);
-}
-
-.roadmap-timeline{
-    position:relative;
-    padding-left:34px;
-}
-
-
-
-.roadmap-step{
-    position:relative;
-    display:grid;
-    grid-template-columns:48px 1fr;
-    gap:18px;
-    align-items:start;
-    margin-bottom:24px;
-}
-
-.roadmap-marker{
-    position:relative;
-    z-index:2;
-    width:32px;
-    height:32px;
-    margin-top:14px;
-    border-radius:999px;
-    background:#ffffff;
-    border:1px solid rgba(255,80,0,0.18);
-    box-shadow:0 4px 12px rgba(15,23,42,0.08);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.roadmap-marker span{
-    font-size:.72rem;
-    font-weight:700;
-    color:var(--primary-color);
-}
-
-.roadmap-card{
-    position:relative;
-    background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
-    border:1px solid var(--border-color);
-    border-radius:16px;
-    padding:22px 22px 20px;
-    box-shadow:var(--shadow-md);
-    transition:
-        transform .35s cubic-bezier(.16,1,.3,1),
-        box-shadow .35s cubic-bezier(.16,1,.3,1),
-        border-color .35s cubic-bezier(.16,1,.3,1);
-}
-
-.roadmap-card:hover{
-    transform:translateY(-3px);
-    box-shadow:var(--shadow-lg);
-    border-color:rgba(255,80,0,0.14);
-}
-
-.roadmap-card-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:12px;
-}
-
-.roadmap-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    min-height:32px;
-    padding:0 12px;
-    border-radius:999px;
-    background:rgba(255,80,0,0.08);
-    color:var(--primary-dark);
-    font-size:.76rem;
-    font-weight:700;
-    letter-spacing:.04em;
-}
-
-.roadmap-card p{
-    margin:0;
-    color:var(--text-main);
-    font-size:.97rem;
-    line-height:1.75;
-}
-
-/* Scroll reveal */
-.reveal-on-scroll{
-    opacity:0;
-    transform:translateY(26px);
-    transition:
-        opacity .7s ease,
-        transform .7s cubic-bezier(.16,1,.3,1);
-    will-change:opacity, transform;
-}
-
-.reveal-on-scroll.is-visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.reveal-on-scroll:nth-child(1){ transition-delay:.04s; }
-.reveal-on-scroll:nth-child(2){ transition-delay:.10s; }
-.reveal-on-scroll:nth-child(3){ transition-delay:.16s; }
-.reveal-on-scroll:nth-child(4){ transition-delay:.22s; }
-
-/* RTL */
-[dir="rtl"] .roadmap-timeline{
-    padding-left:0;
-    padding-right:34px;
-}
-
-[dir="rtl"] .roadmap-timeline::before{
-    left:auto;
-    right:16px;
-}
-
-@media (max-width:640px){
-    .roadmap-timeline{
-        padding-left:6px;
-    }
-
-    .roadmap-step{
-        grid-template-columns:36px 1fr;
-        gap:14px;
-        margin-bottom:18px;
-    }
-
-    .roadmap-marker{
-        width:28px;
-        height:28px;
-        margin-top:12px;
-    }
-
-    .roadmap-card{
-        padding:18px;
-        border-radius:14px;
-    }
-
-    .roadmap-header h2{
-        font-size:1.25rem;
-    }
-}
-/* LINKEDIN EMBED STYLE */
-
-.linkedin-embed-card{
-    margin-top: 28px;
-    background: #ffffff;
-    border: 1px solid #d9dee3;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.linkedin-embed-banner{
-    height: 120px;
-    background: linear-gradient(135deg, #0a66c2 0%, #378fe9 100%);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.linkedin-banner-logo{
-    max-height: 42px;
-    width: auto;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-    opacity: 0.95;
-}
-
-.linkedin-embed-body{
-    padding: 0 24px 22px;
-}
-
-.linkedin-embed-logo-wrap{
-    display: flex;
-    justify-content: flex-start;
-    margin-top: -34px;
-    margin-bottom: 14px;
-}
-
-.linkedin-embed-logo{
-    width: 72px;
-    height: 72px;
-    border-radius: 14px;
-    background: #ffffff;
-    border: 4px solid #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
-    overflow: hidden;
-}
-
-.linkedin-embed-logo img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.linkedin-embed-platform{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #0a66c2;
-    font-size: 0.84rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.linkedin-embed-title{
-    margin: 0 0 8px 0;
-    font-size: 1.28rem;
-    font-weight: 700;
-    line-height: 1.3;
-    color: #191919;
-}
-
-.linkedin-embed-subtitle{
-    margin: 0 0 18px 0;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #5e5e5e;
-}
-
-.linkedin-embed-stats{
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.linkedin-stat-item{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    border: 1px solid #e7e7e7;
-    border-radius: 10px;
-    background: #fafafa;
-    color: #333333;
-    font-size: 0.92rem;
-    font-weight: 600;
-    line-height: 1.45;
-}
-
-.linkedin-stat-item i{
-    color: #0a66c2;
-    font-size: 1rem;
-    flex-shrink: 0;
-}
-
-.linkedin-embed-footer{
-    display: flex;
-    justify-content: flex-start;
-    padding-top: 16px;
-    border-top: 1px solid #e7e7e7;
-}
-
-.linkedin-open-btn{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 40px;
-    padding: 0 16px;
-    border-radius: 999px;
-    background: #0a66c2;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 0.94rem;
-    font-weight: 700;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.linkedin-open-btn:hover{
-    background: #004182;
-    transform: translateY(-1px);
-}
-
-.linkedin-open-btn i{
-    font-size: 1rem;
-}
-
-@media (max-width: 768px){
-    .linkedin-embed-stats{
-        grid-template-columns: 1fr;
-    }
-
-    .linkedin-embed-body{
-        padding: 0 18px 18px;
-    }
-
-    .linkedin-embed-title{
-        font-size: 1.14rem;
-    }
-}
+           ENTERPRISE TESTIMONIALS
+           ========================= */
+
+        .testimonials-shell {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .testimonials-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .testimonials-header-copy {
+            max-width: 700px;
+        }
+
+        .testimonials-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .testimonials-header h2 {
+            margin: 0 0 8px 0;
+            font-size: 2.4rem;
+            color: var(--secondary-color);
+            line-height: 1.1;
+        }
+
+        .testimonials-header p {
+            margin: 0;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .testimonials-trust-note {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .testimonials-trust-note i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .testimonials-grid {
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+        }
+
+        .testimonial-card {
+            grid-column: 1;
+            grid-row: 1;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(20px);
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            transition: opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1);
+        }
+
+        .testimonial-card.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+            z-index: 2;
+        }
+
+        .testimonial-card::before, .testimonial-card::after {
+            display: none; /* Prevent double box styling */
+        }
+
+        .testimonial-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .testimonial-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 32px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: rgba(255, 80, 0, 0.08);
+            color: var(--primary-dark);
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        .testimonial-badge i {
+            font-size: 0.95rem;
+        }
+
+        .testimonial-quote-mark {
+            font-size: 2.2rem;
+            line-height: 1;
+            font-weight: 800;
+            color: rgba(255, 80, 0, 0.18);
+            margin-top: -2px;
+        }
+
+        .testimonial-quote {
+            margin: 0 0 20px 0;
+            color: var(--text-main);
+            font-size: 1rem;
+            line-height: 1.75;
+            font-weight: 500;
+        }
+
+        .testimonial-footer {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(226, 232, 240, 0.9);
+        }
+
+        .testimonial-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #fff7f3 0%, #fff 100%);
+            border: 1px solid #fde3d6;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+
+        .testimonial-meta {
+            min-width: 0;
+        }
+
+        .testimonial-author {
+            margin: 0;
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            line-height: 1.3;
+        }
+
+        .testimonial-role {
+            margin: 2px 0 0 0;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .testimonial-company {
+            margin: 2px 0 0 0;
+            font-size: 0.82rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .testimonial-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d9dee7;
+            transition: all .35s ease;
+            cursor: pointer;
+        }
+
+        .testimonial-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* RTL */
+        [dir="rtl"] .testimonials-header { text-align: right; }
+        [dir="rtl"] .testimonial-footer,
+        [dir="rtl"] .testimonials-signal,
+        [dir="rtl"] .testimonials-trust-note,
+        [dir="rtl"] .testimonials-eyebrow,
+        [dir="rtl"] .testimonial-badge {
+            flex-direction: row;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .testimonials-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        @media (max-width: 640px) {
+            .testimonials-shell {
+                margin-top: 32px;
+                padding-top: 28px;
+            }
+            .testimonials-header h2 { font-size: 2rem; }
+            .testimonial-quote { font-size: 0.96rem; line-height: 1.7; }
+        }
+
+        /* SUCCESS JOURNEY */
+        .journey-shell{ margin-top:40px; padding-top:36px; border-top:1px dashed var(--border-color); }
+        .journey-header{ margin-bottom:24px; }
+        .journey-eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:0.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--primary-color); margin-bottom:10px; }
+        .journey-header h2{ margin:0; font-size:1.45rem; font-weight:800; color:var(--secondary-color); }
+        .journey-grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:18px; }
+        .journey-card{ grid-column:span 6; position:relative; padding:22px; background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%); border:1px solid var(--border-color); border-radius:14px; box-shadow:var(--shadow-md); transition:all .35s cubic-bezier(.16,1,.3,1); }
+        .journey-card::before{ content:""; position:absolute; top:0; left:0; right:0; height:2px; border-radius:14px 14px 0 0; background:linear-gradient(90deg,var(--primary-color),rgba(255,80,0,.15)); }
+        .journey-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+        .journey-top{ display:flex; align-items:center; margin-bottom:14px; }
+        .journey-badge{ display:inline-flex; align-items:center; gap:8px; font-size:.76rem; font-weight:700; padding:6px 12px; border-radius:999px; background:rgba(255,80,0,.08); color:var(--primary-dark); }
+        .journey-card p{ margin:0; font-size:.96rem; line-height:1.7; color:var(--text-main); }
+        @media (max-width:900px){ .journey-card{ grid-column:span 12; } }
+
+        /* ROADMAP SECTION */
+        .roadmap-shell{ margin-top:0; padding-top:0; border-top:none; }
+        .roadmap-header{ max-width:760px; margin-bottom:30px; }
+        .roadmap-eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--primary-color); margin-bottom:10px; }
+        .roadmap-header h2{ margin:0 0 10px 0; font-size:2.4rem; color:var(--secondary-color); line-height: 1.1; }
+        .roadmap-header p{ margin:0; font-size:0.98rem; line-height:1.7; color:var(--text-muted); }
+        .roadmap-timeline{ position:relative; padding-left:0; }
+        .roadmap-step{ position:relative; margin-bottom:20px; }
+        .roadmap-card{ position:relative; background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%); border:1px solid var(--border-color); border-radius:16px; padding:22px 22px 20px; box-shadow:var(--shadow-md); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1), border-color .35s cubic-bezier(.16,1,.3,1); }
+        .roadmap-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:rgba(255,80,0,0.14); }
+        .roadmap-card-top{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+        .roadmap-badge{ display:inline-flex; align-items:center; gap:8px; min-height:32px; padding:0 12px; border-radius:999px; background:rgba(255,80,0,0.08); color:var(--primary-dark); font-size:.76rem; font-weight:700; letter-spacing:.04em; }
+        .roadmap-card p{ margin:0; color:var(--text-main); font-size:.97rem; line-height:1.75; }
+
+        /* Scroll reveal */
+        .reveal-on-scroll{ opacity:0; transform:translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1); will-change:opacity, transform; }
+        .reveal-on-scroll.is-visible{ opacity:1; transform:translateY(0); }
+        .reveal-on-scroll:nth-child(1){ transition-delay:.04s; }
+        .reveal-on-scroll:nth-child(2){ transition-delay:.10s; }
+        .reveal-on-scroll:nth-child(3){ transition-delay:.16s; }
+        .reveal-on-scroll:nth-child(4){ transition-delay:.22s; }
+
+        /* RTL */
+        [dir="rtl"] .roadmap-timeline{ padding-left:0; padding-right:0; }
+        @media (max-width:640px){
+            .roadmap-timeline{ padding-left:0; }
+            .roadmap-step{ margin-bottom:16px; }
+            .roadmap-card{ padding:18px; border-radius:14px; }
+            .roadmap-header h2{ font-size:2rem; }
+        }
+
+        /* LINKEDIN EMBED STYLE */
+        .linkedin-embed-card{ margin-top: 28px; background: #ffffff; border: 1px solid #d9dee3; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .linkedin-embed-banner{ height: 120px; background: linear-gradient(135deg, #0a66c2 0%, #378fe9 100%); position: relative; display: flex; align-items: center; justify-content: center; z-index: 1; }
+        .linkedin-banner-logo{ max-height: 42px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.95; }
+        .linkedin-embed-body{ padding: 0 24px 22px; position: relative; }
+        .linkedin-embed-logo-wrap{ display: flex; justify-content: flex-start; margin-top: -34px; margin-bottom: 14px; position: relative; z-index: 10; }
+        .linkedin-embed-logo{ width: 72px; height: 72px; border-radius: 14px; background: #ffffff; border: 4px solid #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.18); overflow: hidden; }
+        .linkedin-embed-logo img{ width: 100%; height: 100%; object-fit: cover; }
+        .linkedin-embed-platform{ display: inline-flex; align-items: center; gap: 8px; color: #0a66c2; font-size: 0.84rem; font-weight: 700; margin-bottom: 10px; }
+        .linkedin-embed-title{ margin: 0 0 8px 0; font-size: 1.28rem; font-weight: 700; line-height: 1.3; color: #191919; }
+        .linkedin-embed-subtitle{ margin: 0 0 18px 0; font-size: 0.95rem; line-height: 1.6; color: #5e5e5e; }
+        .linkedin-embed-stats{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .linkedin-stat-item{ display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid #e7e7e7; border-radius: 10px; background: #fafafa; color: #333333; font-size: 0.92rem; font-weight: 600; line-height: 1.45; }
+        .linkedin-stat-item i{ color: #0a66c2; font-size: 1rem; flex-shrink: 0; }
+        .linkedin-embed-footer{ display: flex; justify-content: flex-start; padding-top: 16px; border-top: 1px solid #e7e7e7; }
+        .linkedin-open-btn{ display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #0a66c2; color: #ffffff; text-decoration: none; font-size: 0.94rem; font-weight: 700; transition: background 0.2s ease, transform 0.2s ease; }
+        .linkedin-open-btn:hover{ background: #004182; transform: translateY(-1px); }
+        .linkedin-open-btn i{ font-size: 1rem; }
+        @media (max-width: 768px){ .linkedin-embed-stats{ grid-template-columns: 1fr; } .linkedin-embed-body{ padding: 0 18px 18px; } .linkedin-embed-title{ font-size: 1.14rem; } }
+
+        /* PREMIUM OVERVIEW SPLIT LAYOUT */
+        .overview-premium-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 40px;
+            padding-top: 36px;
+            border-top: 1px dashed var(--border-color); /* Added dashed separator to prevent overlap */
+        }
+
+        .testimonials-panel {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .overview-premium-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- AI Marker Tooltip Styles from Parent Site --- */
+        /* Force custom tooltip styling for AI markers */
+        .language-ai-marker[data-ai-marker-tooltip],
+        .language-ai-text[data-ai-marker-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+
+        .language-ai-marker[data-ai-marker-tooltip]::after,
+        .language-ai-text[data-ai-marker-tooltip]::after {
+            content: attr(data-ai-marker-tooltip);
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #E6E6E6 !important;
+            color: #666 !important;
+            padding: 14px;
+            border-radius: 0;
+            font-family: Lato;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 14px;
+            letter-spacing: -0.26px;
+            white-space: normal;
+            max-width: 200px;
+            width: 180px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.2s ease;
+            display: block;
+        }
+
+        /* Shift tooltip to the left if it's in the language dropdown to prevent cutoff */
+        .language-panel .language-ai-text[data-ai-marker-tooltip]::after {
+            left: auto;
+            right: 0;
+            transform: none;
+            text-align: center;
+            width: max-content;
+            min-width: 160px;
+        }
+
+        .language-ai-marker[data-ai-marker-tooltip]::before,
+        .language-ai-text[data-ai-marker-tooltip]::before {
+            content: "";
+            position: absolute;
+            top: calc(100% + 2px);
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-bottom-color: #E6E6E6 !important;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            transition: opacity 0.2s ease;
+            display: block;
+        }
+
+        .language-panel .language-ai-text[data-ai-marker-tooltip]::before {
+            left: auto;
+            right: 4px;
+            transform: none;
+        }
+
+        .header-language .language-openner:hover .language-ai-marker[data-ai-marker-tooltip]::after,
+        .header-language .language-openner:hover .language-ai-marker[data-ai-marker-tooltip]::before,
+        .language-ai-marker[data-ai-marker-tooltip]:hover::after,
+        .language-ai-marker[data-ai-marker-tooltip]:hover::before,
+        .language-ai-text[data-ai-marker-tooltip]:hover::after,
+        .language-ai-text[data-ai-marker-tooltip]:hover::before {
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
@@ -1783,398 +1593,331 @@ grid-column:span 12;
         <nav class="nav-bar">
             <div class="nav-item active" id="nav1"><i class="ph ph-handshake"></i><span class="lang-en">Overview</span><span class="lang-ar">نظرة عامة</span></div>
             <div class="nav-item" id="nav2"><i class="ph ph-users-three"></i><span class="lang-en">Network</span><span class="lang-ar">الشبكة</span></div>
-            <div class="nav-item" id="nav3"><i class="ph ph-stack"></i><span class="lang-en">Workspace</span><span class="lang-ar">مساحة العمل</span></div>
-            <div class="nav-item" id="nav4"><i class="ph ph-list-checks"></i><span class="lang-en">Implementation</span><span class="lang-ar">التنفيذ</span></div>
-            <div class="nav-item" id="nav5"><i class="ph ph-rocket-launch"></i><span class="lang-en">Kickoff</span><span class="lang-ar">الانطلاق</span></div>
+            <div class="nav-item" id="nav3"><i class="ph ph-stack"></i><span class="lang-en">Licence</span><span class="lang-ar">مساحة العمل</span></div>
+            <div class="nav-item" id="nav4"><i class="ph ph-list-checks"></i><span class="lang-en">PRE ONBOARDING</span><span class="lang-ar">التنفيذ</span></div>
+            <div class="nav-item" id="nav5"><i class="ph ph-rocket-launch"></i><span class="lang-en">ONBOARDING</span><span class="lang-ar">الانطلاق</span></div>
         </nav>
 
         <main class="content-area">
             
             <!-- PAGE 1: Welcome / Overview -->
             <div id="page1" class="page active">
-        <div class="roadmap-eyebrow">
-            <span style="color: #000"><i class="ph-fill ph-handshake"></i>
-            <span class="lang-en">Structured Onboarding</span>
-            <span class="lang-ar">التأهيل المنظم</span></span>
-        </div>
-    <h1 class="lang-en"><span style="color: var(--primary-color)">Welcome to IDEA StatiCa</span></h1>
-
-    <h1 class="lang-ar">مرحبًا بكم في رحلة نجاحكم</h1>
-
-    <p class="lang-en">
-        Congratulations on choosing IDEA StatiCa. This interactive roadmap is designed to move your team from setup to <strong> expert-level structural modeling</strong> in minimal time    </p>
-
-    <p class="lang-ar">
-        تهانينا لاختياركم IDEA StatiCa. صُممت هذه الخارطة التفاعلية لنقل فريقكم من مرحلة الإعداد إلى مستوى متقدم في النمذجة الإنشائية خلال وقت قياسي. أكملوا هذه الخطوات للاستفادة الكاملة من إمكاناتكم.
-    </p>
-
-
-    <!-- SUCCESS JOURNEY SECTION -->
-
-   
-
-  
-
-        <section class="roadmap-shell">
-    <div class="roadmap-header">
-        <div class="roadmap-eyebrow">
-            <i class="ph-fill ph-path"></i>
-            <span class="lang-en">Structured Onboarding</span>
-            <span class="lang-ar">التأهيل المنظم</span>
-        </div>
-
-        <h2 class="lang-en">Your Path to Mastery</h2>
-        <h2 class="lang-ar">مساركم نحو الإتقان</h2>
-
-        <p class="lang-en">
-            A guided success roadmap designed to move from setup to confident implementation with clarity, speed, and measurable progress.
-        </p>
-        <p class="lang-ar">
-            خارطة نجاح موجهة صُممت لنقل فريقكم من الإعداد إلى التنفيذ بثقة ووضوح وسرعة وتقدم ملموس.
-        </p>
-    </div>
-
-    <div class="roadmap-timeline">
-
-        <article class="roadmap-step reveal-on-scroll">
-            <div class="roadmap-marker">
-                <span>01</span>
-            </div>
-            <div class="roadmap-card">
-                <div class="roadmap-card-top">
-                    <div class="roadmap-badge">
-                        <i class="ph ph-network"></i>
-                        <span class="lang-en">Network</span>
-                        <span class="lang-ar">الشبكة</span>
-                    </div>
+                <div class="roadmap-eyebrow">
+                    <span style="color: #000"><i class="ph-fill ph-handshake"></i>
+                    <span class="lang-en">Structured Onboarding</span>
+                    <span class="lang-ar">التأهيل المنظم</span></span>
                 </div>
-
-                <p class="lang-en">
-                    Set up your licenses so your team can design without interruption.
-                </p>
-                <p class="lang-ar">
-                    إعداد التراخيص بحيث يتمكن فريقكم من التصميم دون انقطاع.
-                </p>
-            </div>
-        </article>
-
-        <article class="roadmap-step reveal-on-scroll">
-            <div class="roadmap-marker">
-                <span>02</span>
-            </div>
-            <div class="roadmap-card">
-                <div class="roadmap-card-top">
-                    <div class="roadmap-badge">
-                        <i class="ph ph-sliders"></i>
-                        <span class="lang-en">Workspace</span>
-                        <span class="lang-ar">بيئة العمل</span>
-                    </div>
-                </div>
-
-                <p class="lang-en">
-                    Configure BIM links and materials to streamline your daily workflow.
-                </p>
-                <p class="lang-ar">
-                    تهيئة روابط BIM والمواد لتبسيط سير العمل اليومي.
-                </p>
-            </div>
-        </article>
-
-        <article class="roadmap-step reveal-on-scroll">
-            <div class="roadmap-marker">
-                <span>03</span>
-            </div>
-            <div class="roadmap-card">
-                <div class="roadmap-card-top">
-                    <div class="roadmap-badge">
-                        <i class="ph ph-gear"></i>
-                        <span class="lang-en">Implementation</span>
-                        <span class="lang-ar">التنفيذ</span>
-                    </div>
-                </div>
-
-                <p class="lang-en">
-                    Hands-on training focused on your specific connection types.
-                </p>
-                <p class="lang-ar">
-                    تدريب عملي يركز على أنواع الوصلات الخاصة بكم.
-                </p>
-            </div>
-        </article>
-
-        <article class="roadmap-step reveal-on-scroll">
-            <div class="roadmap-marker">
-                <span>04</span>
-            </div>
-            <div class="roadmap-card">
-                <div class="roadmap-card-top">
-                    <div class="roadmap-badge">
-                        <i class="ph ph-chart-line"></i>
-                        <span class="lang-en">Final Review</span>
-                        <span class="lang-ar">المراجعة النهائية</span>
-                    </div>
-                </div>
-
-                <p class="lang-en">
-                    A strategic business review to ensure your goals are being met.
-                </p>
-                <p class="lang-ar">
-                    مراجعة أعمال استراتيجية لضمان تحقيق أهدافكم.
-                </p>
-            </div>
-        </article>
-
-    </div>
-</section>
-
-
-
-
-                <section class="testimonials-shell">
-    <div class="testimonials-header">
-        <div class="testimonials-header-copy">
-            
-            
-           <!----> <div class="testimonials-eyebrow">
                 
-                <i class="ph-fill ph-seal-check"></i>
-                <span class="lang-en">Trusted Engineering Outcomes</span>
-                <span class="lang-ar">نتائج هندسية موثوقة</span>
-            </div>
+                <h1 class="lang-en"><span style="color: var(--primary-color)">Welcome to IDEA StatiCa</span></h1>
+                <h1 class="lang-ar">مرحبًا بكم في رحلة نجاحكم</h1>
 
-            <h2 class="lang-en">How engineering leaders describe the value</h2>
-            <h2 class="lang-ar">كيف يصف القادة الهندسيون القيمة</h2>
-
-            <p class="lang-en">
+                <p class="lang-en">
+                    Thank you for choosing GSD IDEA. This onboarding roadmap guides your team through the key steps required to successfully implement IDEA StatiCa within your structural engineering workflow.
                 </p>
-            <p class="lang-ar">
-                يجب ألا تقتصر منصة تصميم الوصلات الحديثة على تسريع الإنجاز فقط، بل يجب أن تعزز الثقة الفنية، وتدعم اتخاذ القرار، وتقلل التعقيد عبر سير عمل المراجعة الهندسية.
-            </p>
-        </div>
+                <p class="lang-ar">
+                    تهانينا لاختياركم IDEA StatiCa. صُممت هذه الخارطة التفاعلية لنقل فريقكم من مرحلة الإعداد إلى مستوى متقدم في النمذجة الإنشائية خلال وقت قياسي. أكملوا هذه الخطوات للاستفادة الكاملة من إمكاناتكم.
+                </p>
 
-      <!--  <div class="testimonials-trust-note">
-            <i class="ph-fill ph-buildings"></i>
-            <span class="lang-en">Enterprise-grade design credibility</span>
-            <span class="lang-ar">مصداقية تصميم على مستوى المؤسسات</span>
-        </div>-->
-    </div>
+                <!-- SUCCESS JOURNEY SECTION -->
+                <div class="overview-premium-layout">
+                    <section class="roadmap-shell">
+                        <div class="roadmap-header">
+                            <div class="roadmap-eyebrow">
+                                <i class="ph-fill ph-path"></i>
+                                <span class="lang-en">your path to mastery</span>
+                                <span class="lang-ar">التأهيل المنظم</span>
+                            </div>
 
-    <div class="testimonials-grid">
+                            <h2 class="lang-en">On-Boarding Roadmap</h2>
+                            <h2 class="lang-ar">مساركم نحو الإتقان</h2>
 
-        <article class="testimonial-card featured">
-            <div class="testimonial-top">
-             <!--   <div class="testimonial-badge">
-                    <i class="ph-fill ph-star-four"></i>
-                    <span class="lang-en">Complex Geometry</span>
-                    <span class="lang-ar">الهندسة المعقدة</span>
-                </div> -->
-                <div class="testimonial-quote-mark">“</div>
-                                <div class="testimonial-quote-mark">“</div>
+                            <p class="lang-en">
+                                Please complete the steps below to confirm your setup and proceed with scheduling your onboarding session.        
+                            </p>
+                            <p class="lang-ar">
+                                خارطة نجاح موجهة صُممت لنقل فريقكم من الإعداد إلى التنفيذ بثقة ووضوح وسرعة وتقدم ملموس.
+                            </p>
+                        </div>
 
-            </div>
+                        <div class="roadmap-timeline">
+                            <article class="roadmap-step reveal-on-scroll">
+                                <div class="roadmap-card">
+                                    <div class="roadmap-card-top">
+                                        <div class="roadmap-badge">
+                                            <i class="ph ph-users-three"></i>
+                                            <span class="lang-en">NETWORK</span>
+                                            <span class="lang-ar">الشبكة</span>
+                                        </div>
+                                    </div>
+                                    <p class="lang-en">You now have access to the IDEA StatiCa GCC LinkedIn community for regional insights and discussions.</p>
+                                    <p class="lang-ar">إعداد التراخيص بحيث يتمكن فريقكم من التصميم دون انقطاع.</p>
+                                </div>
+                            </article>
 
-            <p class="testimonial-quote lang-en" style="font-style: italic;">
-This isn't just software; it's the ability to say 'yes' to complex geometry that we used to spend days hand-calculating.
-            </p>
-            <p class="testimonial-quote lang-ar">
-                هذا ليس مجرد برنامج، بل هو القدرة على قول «نعم» للهندسة المعقدة التي كنا نقضي أيامًا في حسابها يدويًا.
-            </p>
+                            <article class="roadmap-step reveal-on-scroll">
+                                <div class="roadmap-card">
+                                    <div class="roadmap-card-top">
+                                        <div class="roadmap-badge">
+                                            <i class="ph ph-stack"></i>
+                                            <span class="lang-en">LICENCE</span>
+                                            <span class="lang-ar">بيئة العمل</span>
+                                        </div>
+                                    </div>
+                                    <p class="lang-en">Confirm access to your organization’s license pool and ensure the software is ready for use.</p>
+                                    <p class="lang-ar">تهيئة روابط BIM والمواد لتبسيط سير عمل اليومي.</p>
+                                </div>
+                            </article>
 
-            <div class="testimonial-footer">
-                <div class="testimonial-avatar">
-                    <i class="ph-fill ph-user-focus"></i>
+                            <article class="roadmap-step reveal-on-scroll">
+                                <div class="roadmap-card">
+                                    <div class="roadmap-card-top">
+                                        <div class="roadmap-badge">
+                                            <i class="ph ph-list-checks"></i>
+                                            <span class="lang-en">PRE-ONBOARDING</span>
+                                            <span class="lang-ar">التنفيذ</span>
+                                        </div>
+                                    </div>
+                                    <p class="lang-en">Complete the technical readiness checklist before your onboarding session.</p>
+                                    <p class="lang-ar">تدريب عملي يركز على أنواع الوصلات الخاصة بكم.</p>
+                                </div>
+                            </article>
+
+                            <article class="roadmap-step reveal-on-scroll">
+                                <div class="roadmap-card">
+                                    <div class="roadmap-card-top">
+                                        <div class="roadmap-badge">
+                                            <i class="ph ph-rocket-launch"></i>
+                                            <span class="lang-en">ONBOARDING</span>
+                                            <span class="lang-ar">المراجعة النهائية</span>
+                                        </div>
+                                    </div>
+                                    <p class="lang-en">Book the next available onboarding session and obtain your completion certificate.</p>
+                                    <p class="lang-ar">مراجعة أعمال استراتيجية لضمان تحقيق أهدافكم.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                    <!-- Testimonials Panel -->
+                    <section class="testimonials-shell testimonials-panel">
+                        <div class="testimonials-header">
+                            <div class="testimonials-header-copy">
+                                <div class="testimonials-eyebrow">
+                                    <i class="ph-fill ph-seal-check"></i>
+                                    <span class="lang-en">Trusted Engineering Outcomes</span>
+                                    <span class="lang-ar">نتائج هندسية موثوقة</span>
+                                </div>
+
+                                <h2 class="lang-en">How engineering leaders describe the value</h2>
+                                <h2 class="lang-ar">كيف يصف القادة الهندسيون القيمة</h2>
+                            </div>
+                        </div>
+
+                        <!-- 5 Testimonials Added Inside the Fixed Grid Stack -->
+                        <div class="testimonials-grid">
+                            
+                            <!-- Testimonial 1 -->
+                            <article class="testimonial-card active">
+                                <div class="testimonial-top">
+                                    <div class="testimonial-quote-mark">“</div>
+                                </div>
+                                <p class="testimonial-quote lang-en" style="font-style: italic;">
+                                    We had to design each individual node due to the specific shape of the structure, with around 18 pipe members connecting at a single node joint in multiple directions. Meeting the 1-month deadline would not have been possible without IDEA StatiCa.
+                                </p>
+                                <p class="testimonial-quote lang-ar">
+                                    اضطررنا إلى تصميم كل عقدة على حدة بسبب الشكل الخاص للهيكل، مع توصيل حوالي 18 أنبوبًا في وصلة عقدة واحدة في اتجاهات متعددة. لم يكن الوفاء بالموعد النهائي البالغ شهرًا واحدًا ممكنًا بدون IDEA StatiCa.
+                                </p>
+                                <div class="testimonial-footer">
+                                    
+                                    <div class="testimonial-meta">
+                                        <p class="testimonial-author lang-en">Vijayabharathi Renganathan</p>
+                                        <p class="testimonial-author lang-ar">فيجايا بهاراتي رينغاناثان</p>
+                                        <p class="testimonial-role lang-en">Structural Engineer</p>
+                                        <p class="testimonial-role lang-ar">مهندس إنشائي</p>
+                                        <p class="testimonial-company lang-en">Eversendai Engineering, UAE</p>
+                                        <p class="testimonial-company lang-ar">إيفرسنداي للهندسة، الإمارات</p>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <!-- Testimonial 2 -->
+                            <article class="testimonial-card">
+                                <div class="testimonial-top">
+                                    <div class="testimonial-quote-mark">“</div>
+                                </div>
+                                <p class="testimonial-quote lang-en" style="font-style: italic;">
+                                    At one critical joint, 13 members converged into a single node, many with different angles. Each truss had different loads and requirements. Using IDEA StatiCa we were able to design it in a matter of hours.
+                                </p>
+                                <p class="testimonial-quote lang-ar">
+                                    في إحدى الوصلات الحرجة، التقى 13 عنصرًا في عقدة واحدة، والعديد منها بزوايا مختلفة. كان لكل دعامة أحمال ومتطلبات مختلفة. باستخدام IDEA StatiCa، تمكنا من تصميمها في غضون ساعات.
+                                </p>
+                                <div class="testimonial-footer">
+                                    
+                                    <div class="testimonial-meta">
+                                        <p class="testimonial-author lang-en">Dr. Seham Ahmed El Saeed</p>
+                                        <p class="testimonial-author lang-ar">د. سهام أحمد السعيد</p>
+                                        <p class="testimonial-role lang-en">Product Technical Senior Manager</p>
+                                        <p class="testimonial-role lang-ar">مدير فني أول للمنتجات</p>
+                                        <p class="testimonial-company lang-en">Kirby Building Systems, United Arab Emirates</p>
+                                        <p class="testimonial-company lang-ar">كيربي لأنظمة البناء، الإمارات</p>
+                                    </div>
+                                </div>
+                            </article>
+
+                        </div>
+
+                        <!-- Dynamic Clickable Dots (Auto-generates based on testimonial count) -->
+                        <div class="testimonial-dots" id="dynamicDots"></div>
+                    </section>
                 </div>
-                <div class="testimonial-meta">
-                    <p class="testimonial-author lang-en">Principal Structural Engineer</p>
-                    <p class="testimonial-author lang-ar">كبير المهندسين الإنشائيين</p>
-
-             <!--       <p class="testimonial-role lang-en">Multi-disciplinary project delivery and advanced connection verification</p>
-                    <p class="testimonial-role lang-ar">تنفيذ المشاريع متعددة التخصصات والتحقق المتقدم من الوصلات</p>
-                </div> -->
-            </div>
-        </article>
-
-       <article class="testimonial-card">
-            <div class="testimonial-top">
-             <!--   <div class="testimonial-badge">
-                    <i class="ph-fill ph-timer"></i>
-                    <span class="lang-en">Speed to Validation</span>
-                    <span class="lang-ar">سرعة التحقق</span>
-                </div> -->
-                <div class="testimonial-quote-mark">“</div>
-            </div> 
-
-            <p class="testimonial-quote lang-en" style="font-style: italic;">
-The confidence we gain from seeing the exact stress distribution in a joint is what sets our firm apart.
-            </p>
-            <p class="testimonial-quote lang-ar">
-                غيّر IDEA StatiCa بشكل جذري طريقة تعامل فريقنا مع تصميم الوصلات. ما كان يتطلب ساعات من التحقق يمكن الآن اعتماده خلال دقائق.
-            </p>
-
-            <div class="testimonial-footer">
-                <div class="testimonial-avatar">
-                    <i class="ph-fill ph-user-focus"></i>
-                    <!-- <i class="ph-fill ph-chart-line-up"></i> -->
-                </div>
-                <div class="testimonial-meta">
-                    <p class="testimonial-author lang-en">Director of Structural Engineering</p>
-                    <p class="testimonial-author lang-ar">مدير الهندسة الإنشائية</p>
-
-                  <!--  <p class="testimonial-role lang-en">Faster review cycles, stronger design consistency, clearer technical sign-off</p>
-                    <p class="testimonial-role lang-ar">دورات مراجعة أسرع واتساق تصميمي أقوى واعتماد فني أوضح</p>
-             -->   </div>
-            </div>
-        </article>
-
-    <!--    <article class="testimonial-card">
-            <div class="testimonial-top">
-              <div class="testimonial-badge">
-                    <i class="ph-fill ph-shield-check"></i>
-                    <span class="lang-en">Code Confidence</span>
-                    <span class="lang-ar">الثقة بالكود</span>
-                </div> 
-                <div class="testimonial-quote-mark">“</div>
-            </div>
-
-            <p class="testimonial-quote lang-en">
-                The CBFEM workflow allows us to deliver highly optimized connections while maintaining full confidence in code compliance and engineering transparency.
-            </p>
-            <p class="testimonial-quote lang-ar">
-                يتيح لنا سير عمل CBFEM تقديم وصلات محسنة بدرجة عالية مع الحفاظ على ثقة كاملة في مطابقة الكود ووضوح المنهجية الهندسية.
-            </p>
-
-            <div class="testimonial-footer">
-                <div class="testimonial-avatar">
-                    <i class="ph-fill ph-file-check"></i>
-                </div>
-                <div class="testimonial-meta">
-                    <p class="testimonial-author lang-en">Senior Structural Consultant</p>
-                    <p class="testimonial-author lang-ar">استشاري إنشائي أول</p>
-
-                    <p class="testimonial-role lang-en">Optimization-led detailing with compliance-ready output</p>
-                    <p class="testimonial-role lang-ar">تفاصيل محسّنة مع مخرجات جاهزة للامتثال</p>
-                </div>
-            </div>
-        </article> -->
-
-    </div>
-
-   <!-- <div class="testimonials-bottom-bar">
-        <p class="lang-en">
-            <strong>Why this works in your page:</strong> it adds proof and executive reassurance without breaking the clean onboarding flow.
-        </p>
-        <p class="lang-ar">
-            <strong>لماذا ينجح هذا ضمن صفحتك:</strong> لأنه يضيف المصداقية والطمأنينة التنفيذية دون كسر تدفق التأهيل النظيف.
-        </p>
-
-        <div class="testimonials-signal">
-            <i class="ph-fill ph-check-circle"></i>
-            <span class="lang-en">Aligned with your current premium SaaS language</span>
-            <span class="lang-ar">متوافق مع لغتك الحالية في واجهات SaaS المتميزة</span>
-        </div>
-    </div> -->
-</section>
             </div>
 
             <!-- PAGE 2: Community / Network -->
             <div id="page2" class="page">
                <h1 class="lang-en">Join Our Community</h1>
-<h1 class="lang-ar">انضم إلى مجتمعنا</h1>
+                <h1 class="lang-ar">انضم إلى مجتمعنا</h1>
 
-<p class="lang-en">
-    You now have access to the IDEA StatiCa Gulf User Group, a regional network of structural engineers using IDEA StatiCa across the Middle East.
-</p>
-<p class="lang-ar">
-    أصبح لديكم الآن إمكانية الوصول إلى مجموعة مستخدمي IDEA StatiCa Gulf، وهي شبكة إقليمية من المهندسين الإنشائيين الذين يستخدمون IDEA StatiCa في أنحاء الشرق الأوسط.
-</p>
+                <p class="lang-en">
+                    You now have access to the IDEA StatiCa Gulf User Group, a regional network of structural engineers using IDEA StatiCa across the Middle East.
+                </p>
+                <p class="lang-ar">
+                    أصبح لديكم الآن إمكانية الوصول إلى مجموعة مستخدمي IDEA StatiCa Gulf، وهي شبكة إقليمية من المهندسين الإنشائيين الذين يستخدمون IDEA StatiCa في أنحاء الشرق الأوسط.
+                </p>
                 <div class="linkedin-embed-card">
-    <div class="linkedin-embed-banner">
-        <img src="image_6f5436.png" class="linkedin-banner-logo" alt="IDEA StatiCa Logo">
-    </div>
+                    <div class="linkedin-embed-banner">
+                        <!-- Placeholder SVG for Banner Logo -->
+                        <svg class="linkedin-banner-logo" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 10 h15 v30 h-15 z" fill="white"/>
+                            <path d="M35 10 h25 v6 h-18 v6 h15 v6 h-15 v6 h18 v6 h-25 z" fill="white"/>
+                            <text x="75" y="36" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="28">StatiCa</text>
+                        </svg>
+                    </div>
 
-    <div class="linkedin-embed-body">
-        <div class="linkedin-embed-logo-wrap">
-            <div class="linkedin-embed-logo">
-                <img src="image_6fa5b6.png" alt="GSD IDEA Logo">
-            </div>
-        </div>
+                    <div class="linkedin-embed-body">
+                        <div class="linkedin-embed-logo-wrap">
+                            <div class="linkedin-embed-logo">
+                                <!-- Placeholder SVG for Group Logo (Engineering Node) -->
+                                <svg width="100%" height="100%" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="120" height="120" fill="#f8fafc"/>
+                                    <path d="M60 20 L100 45 V85 L60 110 L20 85 V45 Z" fill="none" stroke="#ff5000" stroke-width="10" stroke-linejoin="round"/>
+                                    <circle cx="60" cy="65" r="16" fill="#ff5000"/>
+                                    <path d="M60 20 V65 M20 45 L60 65 M100 45 L60 65" stroke="#ff5000" stroke-width="6"/>
+                                </svg>
+                            </div>
+                        </div>
 
-        <div class="linkedin-embed-meta">
-            <div class="linkedin-embed-platform">
-                <i class="ph-fill ph-linkedin-logo"></i>
-                <span class="lang-en">LinkedIn Group</span>
-                <span class="lang-ar">مجموعة LinkedIn</span>
-            </div>
+                        <div class="linkedin-embed-meta">
+                            <div class="linkedin-embed-platform">
+                                <i class="ph-fill ph-linkedin-logo"></i>
+                                <span class="lang-en">LinkedIn Group</span>
+                                <span class="lang-ar">مجموعة LinkedIn</span>
+                            </div>
 
-            <h3 class="linkedin-embed-title lang-en">IDEA StatiCa Gulf - User Group</h3>
-            <h3 class="linkedin-embed-title lang-ar">مجموعة مستخدمي IDEA StatiCa Gulf</h3>
+                            <h3 class="linkedin-embed-title lang-en">IDEA StatiCa Gulf - User Group</h3>
+                            <h3 class="linkedin-embed-title lang-ar">مجموعة مستخدمي IDEA StatiCa Gulf</h3>
 
-            <p class="linkedin-embed-subtitle">
-                <span class="lang-en">Private group • Regional structural engineering network</span>
-                <span class="lang-ar">مجموعة خاصة • شبكة إقليمية للهندسة الإنشائية</span>
-            </p>
-        </div>
-            <div class="linkedin-embed-footer">
-            <a href="https://www.linkedin.com/groups/14652083/" target="_blank" class="linkedin-open-btn">
-                <i class="ph-fill ph-linkedin-logo"></i>
-                <span class="lang-en">Request Access on LinkedIn</span>
-                <span class="lang-ar">طلب الانضمام عبر LinkedIn</span>
-            </a>
-        </div></div></div><DIV STYLE="padding-bottom: 20px;"> </div>
-        <div class="linkedin-embed-stats">
-            <div class="linkedin-stat-item">
-                <i class="ph ph-presentation-chart"></i>
-                <span class="lang-en">Regional Technical Webinars</span>
-                <span class="lang-ar">ندوات فنية إقليمية</span>
-            </div>
+                            <p class="linkedin-embed-subtitle">
+                                <span class="lang-en">Private group • Regional structural engineering network</span>
+                                <span class="lang-ar">مجموعة خاصة • شبكة إقليمية للهندسة الإنشائية</span>
+                            </p>
+                        </div>
+                        <div class="linkedin-embed-footer">
+                            <a href="https://www.linkedin.com/groups/14652083/" target="_blank" class="linkedin-open-btn">
+                                <i class="ph-fill ph-linkedin-logo"></i>
+                                <span class="lang-en">Request Access on LinkedIn</span>
+                                <span class="lang-ar">طلب الانضمام عبر LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-bottom: 20px;"> </div>
+                <div class="linkedin-embed-stats">
+                    <div class="linkedin-stat-item">
+                        <i class="ph ph-presentation-chart"></i>
+                        <span class="lang-en">Regional Technical Webinars</span>
+                        <span class="lang-ar">ندوات فنية إقليمية</span>
+                    </div>
 
-            <div class="linkedin-stat-item">
-                <i class="ph ph-lightbulb"></i>
-                <span class="lang-en">Tips &amp; Design Insights</span>
-                <span class="lang-ar">نصائح ورؤى تصميمية</span>
-            </div>
+                    <div class="linkedin-stat-item">
+                        <i class="ph ph-lightbulb"></i>
+                        <span class="lang-en">Tips &amp; Design Insights</span>
+                        <span class="lang-ar">نصائح ورؤى تصميمية</span>
+                    </div>
 
-            <div class="linkedin-stat-item">
-                <i class="ph ph-graduation-cap"></i>
-                <span class="lang-en">Educational Sessions Updates</span>
-                <span class="lang-ar">تحديثات الجلسات التعليمية</span>
-            </div>
+                    <div class="linkedin-stat-item">
+                        <i class="ph ph-graduation-cap"></i>
+                        <span class="lang-en">Educational Sessions Updates</span>
+                        <span class="lang-ar">تحديثات الجلسات التعليمية</span>
+                    </div>
 
-            <div class="linkedin-stat-item">
-                <i class="ph ph-chat-circle-text"></i>
-                <span class="lang-en">AMA Sessions</span>
-                <span class="lang-ar">جلسات AMA</span>
-            </div>
-        </div>
-
-        
-    
-
+                    <div class="linkedin-stat-item">
+                        <i class="ph ph-chat-circle-text"></i>
+                        <span class="lang-en">AMA Sessions</span>
+                        <span class="lang-ar">جلسات AMA</span>
+                    </div>
+                </div>
             </div>
 
             <!-- PAGE 3: License / Workspace -->
             <div id="page3" class="page">
-                <h1 class="lang-en">Workspace Provisioning</h1>
-                <h1 class="lang-ar">إعداد مساحة العمل</h1>
-                <div class="highlight-box">
-                    <p class="lang-en" style="margin-bottom: 12px; font-size: 1.1rem; color: var(--primary-dark);"><strong>Enhance Your Engineering Workflow! </strong></p>
-                    <p class="lang-en" style="margin-bottom: 16px; line-height: 1.6; color: var(--text-muted);">To start using the software, connect to your company’s license pool. Follow the steps below to activate your premium access.</p>
-                    <ol class="lang-en" style="color:var(--secondary-color); font-size: 0.95rem; line-height:1.6; padding-left:20px; margin:0;">
-                        <li style="margin-bottom: 8px;">   <strong>Contact Your IT/BIM Lead</strong>
-    <div>Send a quick message to your IT administrator or team lead.</div></li>                        
-<li style="margin-bottom: 8px;"><strong>Claim Your Seat:</strong> 
-    <div>Ask them to add your official corporate email to the IDEA StatiCa license pool</div></li>
-                        <li><strong>Activate Your Access</strong>
-                        <div> Look for the <em>“Activation Invitation”</em> email, set your password, and you’re ready to begin.</div></li>
-                    </ol>
+                <h1 class="lang-en">License Administration</h1>
+                <h1 class="lang-ar">إدارة التراخيص</h1>
+                
+                <p class="lang-en" style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 32px;">
+                    Follow these protocols to manage your license pool, assign seats, and activate commercial access.
+                </p>
+                <p class="lang-ar" style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 32px;">
+                    اتبع هذه البروتوكولات لإدارة مجموعة التراخيص الخاصة بك، وتخصيص المقاعد، وتفعيل الوصول التجاري.
+                </p>
 
-                    <p class="lang-ar" style="margin-bottom: 12px; font-size: 1.1rem; color: var(--primary-dark);"><strong>أطلق العنان لقدراتك الهندسية! 🚀</strong></p>
-                    <p class="lang-ar" style="margin-bottom: 16px; line-height: 1.6;">للغوص في البرنامج وبدء التصميم بلا حدود، نحتاج إلى ربطك بمجموعة تراخيص شركتك. الأمر سهل للغاية ومفيد جداً. إليك كيفية فتح وصولك المميز:</p>
-                    <ul class="lang-ar" style="color:var(--text-muted); font-size: 0.95rem; line-height:1.6; padding-right:20px; margin:0;">
-                        <li style="margin-bottom: 8px;"><strong>1. تواصل مع قائد فريقك/مسؤول IT:</strong> أرسل رسالة سريعة إلى مسؤول تكنولوجيا المعلومات أو قائد الفريق.</li>
-                        <li style="margin-bottom: 8px;"><strong>2. احجز مقعدك:</strong> اطلب منهم إضافة بريدك الإلكتروني الرسمي للعمل إلى مجموعة تراخيص IDEA StatiCa. هذا يمنحك وصول VIP إلى جميع ميزاتنا المتقدمة!</li>
-                        <li><strong>3. فعل وانطلق:</strong> ابحث عن بريد <em>"دعوة تفعيل"</em> منا. انقر على الرابط، وقم بتعيين كلمة المرور الخاصة بك، وأنت جاهز لإحداث ثورة في سير عملك!</li>
-                    </ul>
+                <div class="protocol-section">
+                    <!-- Protocol 1 -->
+                    <div class="protocol-item">
+                        <div class="protocol-img-placeholder">
+                            <span class="lang-en"><i class="ph ph-image" style="font-size: 1.5rem; margin-right:8px; vertical-align: middle;"></i> IDEA StatiCa Sign In Portal</span>
+                            <span class="lang-ar"><i class="ph ph-image" style="font-size: 1.5rem; margin-left:8px; vertical-align: middle;"></i> بوابة تسجيل دخول IDEA StatiCa</span>
+                        </div>
+                        <div class="protocol-content">
+                            <span class="protocol-eyebrow lang-en">PROTOCOL 01</span>
+                            <span class="protocol-eyebrow lang-ar">البروتوكول 01</span>
+                            <h3 class="protocol-title lang-en">Admin Portal Login</h3>
+                            <h3 class="protocol-title lang-ar">تسجيل الدخول لبوابة المسؤول</h3>
+                            <p class="protocol-desc lang-en">Each license pool has a designated administrator. The email address of the administrator for your license pool is included in this email. Please check the email to identify your admin. The administrator must sign in to the User Portal to add users to the license pool.</p>
+                            <p class="protocol-desc lang-ar">تحتوي كل مجموعة تراخيص على مسؤول معين. تم تضمين عنوان البريد الإلكتروني للمسؤول في هذا البريد. يرجى التحقق من البريد لتحديد المسؤول الخاص بك. يجب على المسؤول تسجيل الدخول إلى بوابة المستخدم لإضافة مستخدمين إلى مجموعة التراخيص.</p>
+                        </div>
+                    </div>
+
+                    <!-- Protocol 2 -->
+                    <div class="protocol-item">
+                        <div class="protocol-img-placeholder">
+                            <span class="lang-en"><i class="ph ph-image" style="font-size: 1.5rem; margin-right:8px; vertical-align: middle;"></i> IDEA StatiCa License Users Dashboard</span>
+                            <span class="lang-ar"><i class="ph ph-image" style="font-size: 1.5rem; margin-left:8px; vertical-align: middle;"></i> لوحة مستخدمي الترخيص</span>
+                        </div>
+                        <div class="protocol-content">
+                            <span class="protocol-eyebrow lang-en">PROTOCOL 02</span>
+                            <span class="protocol-eyebrow lang-ar">البروتوكول 02</span>
+                            <h3 class="protocol-title lang-en">User Creation in License Pool</h3>
+                            <h3 class="protocol-title lang-ar">إنشاء مستخدم في مجموعة التراخيص</h3>
+                            <p class="protocol-desc lang-en">Under the License Users tab, the administrator must select Create New User. This initiates the process of adding a user to the commercial license pool.</p>
+                            <p class="protocol-desc lang-ar">ضمن علامة التبويب "مستخدمي الترخيص" (License Users)، يجب على المسؤول تحديد "إنشاء مستخدم جديد" (Create New User). يؤدي هذا إلى بدء عملية إضافة مستخدم إلى مجموعة التراخيص التجارية.</p>
+                        </div>
+                    </div>
+
+                    <!-- Protocol 3 -->
+                    <div class="protocol-item">
+                        <div class="protocol-img-placeholder">
+                            <span class="lang-en"><i class="ph ph-image" style="font-size: 1.5rem; margin-right:8px; vertical-align: middle;"></i> IDEA StatiCa Create New User Modal</span>
+                            <span class="lang-ar"><i class="ph ph-image" style="font-size: 1.5rem; margin-left:8px; vertical-align: middle;"></i> نافذة إضافة مستخدم جديد</span>
+                        </div>
+                        <div class="protocol-content">
+                            <span class="protocol-eyebrow lang-en">PROTOCOL 03</span>
+                            <span class="protocol-eyebrow lang-ar">البروتوكول 03</span>
+                            <h3 class="protocol-title lang-en">User Migration & License Activation</h3>
+                            <h3 class="protocol-title lang-ar">ترحيل المستخدم وتفعيل الترخيص</h3>
+                            <p class="protocol-desc lang-en">If you are an existing or trial user, the administrator can select the Migrate User option to transfer your trial license to the commercial license. Once the administrator saves your username, you will be fully integrated into the commercial license pool. After the migration or creation of a new user, you may log in again to start using your commercial license.</p>
+                            <p class="protocol-desc lang-ar">إذا كنت مستخدمًا حاليًا أو في فترة تجريبية، يمكن للمسؤول تحديد خيار "ترحيل المستخدم" (Migrate User) لنقل ترخيصك التجريبي إلى الترخيص التجاري. بمجرد أن يحفظ المسؤول اسم المستخدم الخاص بك، سيتم دمجك بالكامل في مجموعة التراخيص التجارية. بعد الترحيل أو إنشاء مستخدم جديد، يمكنك تسجيل الدخول مرة أخرى لبدء استخدام ترخيصك التجاري.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="email-collection-box">
@@ -2188,8 +1931,8 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
 
             <!-- PAGE 4: Accordion Checklist / Implementation -->
             <div id="page4" class="page">
-                <h1 class="lang-en">Implementation Guide</h1>
-                <h1 class="lang-ar">دليل التنفيذ</h1>
+                <h1 class="lang-en">Getting Started Guide</h1>
+                <h1 class="lang-ar">دليل البدء</h1>
                 <p class="lang-en" style="margin-bottom: 24px;">Follow the steps below. Once you complete a step, check the box to unlock the next section.</p>
                 <p class="lang-ar" style="margin-bottom: 24px;">اتبع الخطوات أدناه. بمجرد إكمال خطوة، حدد المربع لفتح القسم التالي.</p>
 
@@ -2204,7 +1947,7 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                     </div>
                     
                     <div class="accordion-body">
-                        <!-- Quick Setup (Now added to Step 1) -->
+                        <!-- Quick Setup -->
                         <div class="quick-flow lang-en">
                             <span class="quick-flow-label">Quick Setup:</span>
                             <span class="quick-flow-step">Download Installer</span>
@@ -2224,19 +1967,19 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
 
                         <!-- Primary Action Box -->
                         <div class="download-box">
-                            <h3 class="lang-en">IDEA STATICA 25.1.5.1431</h3>
-                            <h3 class="lang-ar">IDEA STATICA 25.1.5.1431</h3>
+                            <h3 class="lang-en">IDEA STATICA</h3>
+                            <h3 class="lang-ar">IDEA STATICA</h3>
                             
-                            <span class="release-date lang-en">RELEASED 9. MARCH 2026</span>
-                            <span class="release-date lang-ar">تم الإصدار في 9 مارس 2026</span>
+                            <span class="release-date lang-en">~710 MB FILE &bull; 30-SEC DOWNLOAD &bull; 1-MIN INSTALLATION</span>
+                            <span class="release-date lang-ar">ملف ~710 ميجابايت &bull; تنزيل 30 ثانية &bull; تثبيت 1 دقيقة</span>
                             
-                            <p class="lang-en">710 MB file, 30-second download, 1-minute installation, automatically detects your FEA/CAD software and activates relevant BIM links</p>
-                            <p class="lang-ar">ملف بحجم 710 ميجابايت، تنزيل في 30 ثانية، تثبيت في دقيقة واحدة، يكتشف تلقائياً برنامج FEA/CAD الخاص بك ويفعل روابط BIM المناسبة.</p>
+                            <p class="lang-en">Automatically detects your FEA/CAD software and activates relevant BIM links to streamline your workflow.</p>
+                            <p class="lang-ar">يكتشف تلقائياً برنامج FEA/CAD الخاص بك ويفعل روابط BIM المناسبة لتبسيط سير عملك.</p>
                             
                             <a href="https://www.ideastatica.com/product-downloads" target="_blank" class="download-btn">
-                                <i class="ph ph-download-simple" style="font-size: 1.2em;"></i>
-                                <span class="lang-en">DOWNLOAD</span>
-                                <span class="lang-ar">تحميل</span>
+                                <span class="lang-en">DOWNLOAD THE LATEST VERSION</span>
+                                <span class="lang-ar">تحميل أحدث إصدار</span>
+                                <i class="ph ph-arrow-right arrow-icon"></i>
                             </a>
                         </div>
 
@@ -2249,17 +1992,7 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                             </button>
                             
                             <div class="details-content" id="det1">
-                                <!-- Explainer Video Embed (Moved inside Details) -->
-                                <div class="video-container">
-                                    <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> Installation Guide</p>
-                                    <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> دليل التثبيت</p>
-                                    
-                                    <div class="video-wrapper">
-                                        <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa Installation Guide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            
-                                <div class="detail-cards-grid lang-en">
+                                <div class="detail-cards-grid lang-en" style="margin-bottom: 32px;">
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 1</span>
                                         <p>Go to the official IDEA StatiCa download page.</p>
@@ -2282,11 +2015,11 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 6</span>
-                                        <p>Check that your workstation meets the recommended hardware requirements to ensure smooth and optimal performance.</p>
+                                        <p>Check that your workstation meets the <a href="javascript:void(0);" onclick="openSysReqFaq()" style="color:var(--linkedin-blue); text-decoration:underline; font-weight:600;">recommended hardware requirements</a> to ensure smooth and optimal performance.</p>
                                     </div>
                                 </div>
 
-                                <div class="detail-cards-grid lang-ar">
+                                <div class="detail-cards-grid lang-ar" style="margin-bottom: 32px;">
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 1</span>
                                         <p>اذهب إلى صفحة التحميل الرسمية لبرنامج IDEA StatiCa.</p>
@@ -2309,7 +2042,37 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 6</span>
-                                        <p>تحقق من أن جهازك يلبي متطلبات الأجهزة الموصى بها لضمان أداء سلس ومثالي.</p>
+                                        <p>تحقق من أن جهازك يلبي <a href="javascript:void(0);" onclick="openSysReqFaq()" style="color:var(--linkedin-blue); text-decoration:underline; font-weight:600;">متطلبات الأجهزة الموصى بها</a> لضمان أداء سلس ومثالي.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Explainer Video Embeds -->
+                                <div class="video-container" style="border-top: 1px dashed var(--border-color); padding-top: 24px;">
+                                    <div class="video-grid">
+                                        <!-- Video 1 -->
+                                        <div>
+                                            <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> Installation Guide</p>
+                                            <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> دليل التثبيت</p>
+                                            <div class="video-wrapper">
+                                                <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa Installation Guide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <!-- Video 2 -->
+                                        <div>
+                                            <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> License Setup</p>
+                                            <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> إعداد الترخيص</p>
+                                            <div class="video-wrapper">
+                                                <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa License Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <!-- Video 3 -->
+                                        <div>
+                                            <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> First Project Basics</p>
+                                            <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> أساسيات المشروع الأول</p>
+                                            <div class="video-wrapper">
+                                                <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa First Project" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2322,7 +2085,7 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                     <div class="checklist-header" onclick="toggleAccordion(2)">
                         <div class="checklist-header-left">
                             <input type="checkbox" class="check-box" id="c2" onclick="event.stopPropagation();" onchange="markStep(2)">
-                            <span class="item-title"><span class="lang-en">2. Link BIM/FEA Software</span><span class="lang-ar">2. ربط برامج BIM/FEA</span></span>
+                            <span class="item-title"><span class="lang-en">2. Selecting Products from the License Pool</span><span class="lang-ar">2. تحديد المنتجات من مجموعة التراخيص</span></span>
                         </div>
                         <i class="ph ph-caret-down accordion-chevron"></i>
                     </div>
@@ -2331,19 +2094,37 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                         <!-- Quick Setup -->
                         <div class="quick-flow lang-en">
                             <span class="quick-flow-label">Quick Setup:</span>
-                            <span class="quick-flow-step">Open FEA (ETABS/SAP)</span>
+                            <span class="quick-flow-step">Open App</span>
                             <i class="ph ph-caret-right quick-flow-sep"></i>
-                            <span class="quick-flow-step">Locate BIM Link Menu</span>
+                            <span class="quick-flow-step">License Setup</span>
                             <i class="ph ph-caret-right quick-flow-sep"></i>
-                            <a href="#" class="quick-flow-step">Activate IDEA StatiCa Plugin</a>
+                            <span class="quick-flow-step">Reserve Products</span>
                         </div>
                         <div class="quick-flow lang-ar">
                             <span class="quick-flow-label">إعداد سريع:</span>
-                            <span class="quick-flow-step">فتح برنامج التحليل</span>
+                            <span class="quick-flow-step">فتح التطبيق</span>
                             <i class="ph ph-caret-left quick-flow-sep"></i>
-                            <span class="quick-flow-step">تحديد قائمة BIM Link</span>
+                            <span class="quick-flow-step">إعداد الترخيص</span>
                             <i class="ph ph-caret-left quick-flow-sep"></i>
-                            <a href="#" class="quick-flow-step">تفعيل إضافة IDEA StatiCa</a>
+                            <span class="quick-flow-step">حجز المنتجات</span>
+                        </div>
+
+                        <!-- Primary Action Box -->
+                        <div class="download-box">
+                            <h3 class="lang-en">PRODUCT SELECTION</h3>
+                            <h3 class="lang-ar">تحديد المنتجات</h3>
+                            
+                            <span class="release-date lang-en">SHARED POOL &bull; STEEL &amp; CONCRETE &bull; OFFLINE CAPABLE</span>
+                            <span class="release-date lang-ar">مجموعة مشتركة &bull; صلب وخرسانة &bull; إمكانية العمل دون اتصال</span>
+                            
+                            <p class="lang-en">How to choose which IDEA StatiCa products (e.g., Steel or Concrete) you want to reserve from the shared company license pool so that other products remain available for other users.</p>
+                            <p class="lang-ar">كيفية اختيار منتجات IDEA StatiCa (مثل Steel أو Concrete) التي ترغب في حجزها من مجموعة تراخيص الشركة المشتركة بحيث تظل المنتجات الأخرى متاحة للمستخدمين الآخرين.</p>
+                            
+                            <a href="https://www.ideastatica.com/support-center/how-to-set-which-products-i-take-from-the-license-pool" target="_blank" class="download-btn">
+                                <span class="lang-en">READ FULL GUIDE</span>
+                                <span class="lang-ar">قراءة الدليل الكامل</span>
+                                <i class="ph ph-arrow-right arrow-icon"></i>
+                            </a>
                         </div>
 
                         <!-- Expandable Detailed Instructions -->
@@ -2358,30 +2139,54 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                 <div class="detail-cards-grid lang-en">
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 1</span>
-                                        <p>Launch the primary analysis software you already use (like ETABS, SAP2000, or Robot).</p>
+                                        <p>Open IDEA StatiCa.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 2</span>
-                                        <p>Locate the "BIM Link" or "Plugins" menu in your software's top ribbon.</p>
+                                        <p>Click the <strong>License Setup</strong> (lock icon) in the application.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 3</span>
-                                        <p>Click the IDEA StatiCa plugin to enable seamless data transfer between the programs.</p>
+                                        <p>In the License configuration window, view the list of available products.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 4</span>
+                                        <p>Select the products you want to use from the license pool.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 5</span>
+                                        <p>Click <strong>Reserve products</strong> to assign them to your computer.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="background: rgba(10, 102, 194, 0.1); color: var(--linkedin-blue);">Optional</span>
+                                        <p>Enable <em>Keep products reserved</em> if you want to keep the license for offline work.</p>
                                     </div>
                                 </div>
                                 
                                 <div class="detail-cards-grid lang-ar">
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 1</span>
-                                        <p>قم بتشغيل برنامج التحليل الأساسي الذي تستخدمه بالفعل (مثل ETABS أو SAP2000).</p>
+                                        <p>افتح برنامج IDEA StatiCa.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 2</span>
-                                        <p>حدد موقع قائمة "BIM Link" أو "الإضافات" في الشريط العلوي للبرنامج.</p>
+                                        <p>انقر على <strong>إعداد الترخيص</strong> (أيقونة القفل) في التطبيق.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 3</span>
-                                        <p>انقر على إضافة IDEA StatiCa لتمكين نقل البيانات بسلاسة بين البرامج.</p>
+                                        <p>في نافذة تكوين الترخيص، اعرض قائمة المنتجات المتاحة.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 4</span>
+                                        <p>حدد المنتجات التي ترغب في استخدامها من مجموعة التراخيص.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 5</span>
+                                        <p>انقر على <strong>حجز المنتجات</strong> (Reserve products) لتعيينها لجهاز الكمبيوتر الخاص بك.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="background: rgba(10, 102, 194, 0.1); color: var(--linkedin-blue);">اختياري</span>
+                                        <p>قم بتمكين <em>الاحتفاظ بالمنتجات محجوزة</em> (Keep products reserved) إذا كنت ترغب في الاحتفاظ بالترخيص للعمل دون اتصال بالإنترنت.</p>
                                     </div>
                                 </div>
                             </div>
@@ -2394,7 +2199,7 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                     <div class="checklist-header" onclick="toggleAccordion(3)">
                         <div class="checklist-header-left">
                             <input type="checkbox" class="check-box" id="c3" onclick="event.stopPropagation();" onchange="markStep(3)">
-                            <span class="item-title"><span class="lang-en">3. CBFEM Theoretical Review</span><span class="lang-ar">3. مراجعة نظرية CBFEM</span></span>
+                            <span class="item-title"><span class="lang-en">3. Supported BIM Integrations</span><span class="lang-ar">3. تكاملات BIM المدعومة</span></span>
                         </div>
                         <i class="ph ph-caret-down accordion-chevron"></i>
                     </div>
@@ -2403,19 +2208,77 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                         <!-- Quick Setup -->
                         <div class="quick-flow lang-en">
                             <span class="quick-flow-label">Quick Setup:</span>
-                            <a href="#" class="quick-flow-step">Watch Theory Video <i class="ph-fill ph-play-circle" style="font-size:1.1em; margin-left:4px;"></i></a>
+                            <span class="quick-flow-step">Open Integrations</span>
                             <i class="ph ph-caret-right quick-flow-sep"></i>
-                            <span class="quick-flow-step">Review Code-Check Rules</span>
+                            <span class="quick-flow-step">Select App</span>
                             <i class="ph ph-caret-right quick-flow-sep"></i>
-                            <span class="quick-flow-step">Ready for First Joint</span>
+                            <span class="quick-flow-step">Follow Video Guide</span>
                         </div>
                         <div class="quick-flow lang-ar">
                             <span class="quick-flow-label">إعداد سريع:</span>
-                            <a href="#" class="quick-flow-step">مشاهدة فيديو النظرية <i class="ph-fill ph-play-circle" style="font-size:1.1em; margin-right:4px;"></i></a>
+                            <span class="quick-flow-step">فتح التكاملات</span>
                             <i class="ph ph-caret-left quick-flow-sep"></i>
-                            <span class="quick-flow-step">مراجعة قواعد الفحص</span>
+                            <span class="quick-flow-step">تحديد التطبيق</span>
                             <i class="ph ph-caret-left quick-flow-sep"></i>
-                            <span class="quick-flow-step">جاهز للوصلة الأولى</span>
+                            <span class="quick-flow-step">اتباع الدليل المرئي</span>
+                        </div>
+
+                        <!-- Primary Action Box -->
+                        <div class="download-box">
+                            <h3 class="lang-en">BIM INTEGRATIONS</h3>
+                            <h3 class="lang-ar">تكاملات BIM</h3>
+                            
+                            <span class="release-date lang-en">FEA &amp; CAD &bull; STEEL &amp; CONCRETE &bull; CHECKBOT</span>
+                            <span class="release-date lang-ar">FEA و CAD &bull; صلب وخرسانة &bull; CHECKBOT</span>
+                            
+                            <p class="lang-en" style="margin-bottom: 0;">Explore all compatible FEA and CAD software integrations. Filter by application or type, and access dedicated installation videos for your specific software.</p>
+                            <p class="lang-ar">استكشف جميع تكاملات برامج FEA و CAD المتوافقة. قم بالتصفية حسب التطبيق أو النوع، واحصل على مقاطع فيديو مخصصة لتثبيت برنامجك.</p>
+                            
+                            <!-- NEW DYNAMIC FILTER UI -->
+                            <div class="bim-filter-container" style="margin-bottom: 24px;">
+                                <div style="flex-shrink: 0;">
+                                    <select id="bimTypeEn" class="bim-select lang-en" onchange="onBimTypeChange(this.value)">
+                                        <option value="">-- Select software type --</option>
+                                        <option value="fea">FEA software</option>
+                                        <option value="cad">CAD software</option>
+                                    </select>
+                                    <select id="bimTypeAr" class="bim-select lang-ar" onchange="onBimTypeChange(this.value)">
+                                        <option value="">-- حدد نوع البرنامج --</option>
+                                        <option value="fea">برنامج FEA</option>
+                                        <option value="cad">برنامج CAD</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="bim-group-toggle">
+                                    <div class="bim-group-btn active" data-val="" onclick="setBimGroup('', this)">
+                                        <span class="lang-en">ALL</span><span class="lang-ar">الكل</span>
+                                    </div>
+                                    <div class="bim-group-btn" data-val="steel" onclick="setBimGroup('steel', this)">
+                                        <span class="lang-en">STEEL</span><span class="lang-ar">صلب</span>
+                                    </div>
+                                    <div class="bim-group-btn" data-val="concrete" onclick="setBimGroup('concrete', this)">
+                                        <span class="lang-en">CONCRETE</span><span class="lang-ar">خرسانة</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="https://www.ideastatica.com/bim-integrations" target="_blank" class="download-btn" id="bimLinkBtn" style="margin-bottom: 16px;">
+                                <span class="lang-en">VIEW INTEGRATIONS</span>
+                                <span class="lang-ar">عرض التكاملات</span>
+                                <i class="ph ph-arrow-right arrow-icon"></i>
+                            </a>
+
+                            <!-- Software Icons Row -->
+                            <div style="display: flex; gap: 14px; align-items: center; justify-content: center; color: var(--text-muted); font-size: 1.6rem; flex-wrap: wrap;">
+                                <i class="ph ph-buildings"></i>
+                                <i class="ph ph-pen-nib"></i>
+                                <i class="ph ph-cube"></i>
+                                <i class="ph ph-compass-tool"></i>
+                                <span style="font-size: 0.85rem; font-weight: 700; font-family: 'Inter', sans-serif; background: #e2e8f0; padding: 4px 10px; border-radius: 999px; margin-left: 4px; color: var(--text-main);">
+                                    <span class="lang-en">+ 20 MORE</span>
+                                    <span class="lang-ar">+ 20 المزيد</span>
+                                </span>
+                            </div>
                         </div>
 
                         <!-- Expandable Detailed Instructions -->
@@ -2430,22 +2293,84 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                 <div class="detail-cards-grid lang-en">
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 1</span>
-                                        <p>Watch our short 5-minute introductory video on the Component-Based Finite Element Method (CBFEM).</p>
+                                        <p>Open the integrations page.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 2</span>
-                                        <p>Review the basic principles of how the software performs code-checks safely and accurately.</p>
+                                        <p>Select the IDEA StatiCa application (Steel or Concrete) from the right panel.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 3</span>
+                                        <p>Filter the software type (FEA or CAD) if needed.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 4</span>
+                                        <p>Click the software you want to integrate.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 5</span>
+                                        <p>Watch the integration video and follow the provided installation steps.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="background: rgba(255, 80, 0, 0.1); color: var(--primary-color);">Troubleshoot</span>
+                                        <p>If the integration (Checkbot BIM link) does not start, refer to <a href="https://www.ideastatica.com/support-center/checkbot-bim-link-does-not-start" target="_blank" style="color:var(--linkedin-blue); text-decoration:underline; font-weight:600;">this support article</a>.</p>
                                     </div>
                                 </div>
 
                                 <div class="detail-cards-grid lang-ar">
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 1</span>
-                                        <p>شاهد الفيديو التعريفي القصير (5 دقائق) حول طريقة العناصر المحدودة المستندة إلى المكونات (CBFEM).</p>
+                                        <p>افتح صفحة التكاملات.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 2</span>
-                                        <p>راجع المبادئ الأساسية لكيفية قيام البرنامج بفحص الأكواد بأمان ودقة.</p>
+                                        <p>حدد تطبيق IDEA StatiCa (صلب أو خرسانة) من اللوحة اليمنى.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 3</span>
+                                        <p>قم بتصفية نوع البرنامج (FEA أو CAD) إذا لزم الأمر.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 4</span>
+                                        <p>انقر فوق البرنامج الذي ترغب في ربطه.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 5</span>
+                                        <p>شاهد فيديو الربط واتبع خطوات التثبيت المقدمة.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="background: rgba(255, 80, 0, 0.1); color: var(--primary-color);">استكشاف الأخطاء</span>
+                                        <p>إذا لم يبدأ الربط (Checkbot BIM link)، فراجع <a href="https://www.ideastatica.com/support-center/checkbot-bim-link-does-not-start" target="_blank" style="color:var(--linkedin-blue); text-decoration:underline; font-weight:600;">مقال الدعم هذا</a>.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Explainer Video Embeds -->
+                                <div class="video-container" style="border-top: 1px dashed var(--border-color); padding-top: 24px; margin-top: 32px;">
+                                    <div class="video-grid">
+                                        <!-- Video 1 -->
+                                        <div>
+                                            <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> Checkbot Workflow</p>
+                                            <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> سير عمل Checkbot</p>
+                                            <div class="video-wrapper">
+                                                <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa Checkbot Workflow" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <!-- Video 2 -->
+                                        <div>
+                                            <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> FEA Integration</p>
+                                            <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> تكامل FEA</p>
+                                            <div class="video-wrapper">
+                                                <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa FEA Integration" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <!-- Video 3 -->
+                                        <div>
+                                            <p class="lang-en" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> CAD Integration</p>
+                                            <p class="lang-ar" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-youtube-logo" style="color:#ff0000; font-size: 1.2rem;"></i> تكامل CAD</p>
+                                            <div class="video-wrapper">
+                                                <iframe src="https://www.youtube.com/embed/dMueaUFIGlU" title="IDEA StatiCa CAD Integration" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2457,8 +2382,8 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                 <div class="checklist-item locked" id="it4">
                     <div class="checklist-header" onclick="toggleAccordion(4)">
                         <div class="checklist-header-left">
-                            <input type="checkbox" class="check-box" id="c4" onclick="event.stopPropagation();" onchange="finalValidate()">
-                            <span class="item-title"><span class="lang-en">4. Software Connectivity Check</span><span class="lang-ar">4. فحص اتصال البرنامج</span></span>
+                            <input type="checkbox" class="check-box" id="c4" onclick="event.stopPropagation();" onchange="markStep(4)">
+                            <span class="item-title"><span class="lang-en">4. IDEA StatiCa Support Center</span><span class="lang-ar">4. مركز دعم IDEA StatiCa</span></span>
                         </div>
                         <i class="ph ph-caret-down accordion-chevron"></i>
                     </div>
@@ -2467,57 +2392,327 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                         <!-- Quick Setup -->
                         <div class="quick-flow lang-en">
                             <span class="quick-flow-label">Quick Setup:</span>
-                            <span class="quick-flow-step">Open IDEA StatiCa</span>
+                            <span class="quick-flow-step">Open Support Center</span>
                             <i class="ph ph-caret-right quick-flow-sep"></i>
-                            <span class="quick-flow-step">Go to License Manager</span>
+                            <span class="quick-flow-step">Search Topic</span>
                             <i class="ph ph-caret-right quick-flow-sep"></i>
-                            <span class="quick-flow-step">Verify "Active" Status</span>
+                            <span class="quick-flow-step">Find Solution</span>
                         </div>
                         <div class="quick-flow lang-ar">
                             <span class="quick-flow-label">إعداد سريع:</span>
-                            <span class="quick-flow-step">فتح IDEA StatiCa</span>
+                            <span class="quick-flow-step">فتح مركز الدعم</span>
                             <i class="ph ph-caret-left quick-flow-sep"></i>
-                            <span class="quick-flow-step">الذهاب لمدير التراخيص</span>
+                            <span class="quick-flow-step">البحث عن موضوع</span>
                             <i class="ph ph-caret-left quick-flow-sep"></i>
-                            <span class="quick-flow-step">التحقق من حالة "نشط"</span>
+                            <span class="quick-flow-step">إيجاد الحل</span>
+                        </div>
+
+                        <!-- Primary Action Box -->
+                        <div class="download-box">
+                            <h3 class="lang-en">SUPPORT CENTER</h3>
+                            <h3 class="lang-ar">مركز الدعم</h3>
+                            
+                            <span class="release-date lang-en">LEARNING &bull; DOCUMENTATION &bull; TROUBLESHOOTING</span>
+                            <span class="release-date lang-ar">التعلم &bull; الوثائق &bull; استكشاف الأخطاء</span>
+                            
+                            <p class="lang-en">The IDEA StatiCa Support Center provides guides, tutorials, videos, technical documentation, and troubleshooting information — your go-to place for help!</p>
+                            <p class="lang-ar">يوفر مركز دعم IDEA StatiCa أدلة ودروساً تعليمية ومقاطع فيديو ووثائق فنية ومعلومات حول استكشاف الأخطاء وإصلاحها — مكانك المفضل للحصول على المساعدة!</p>
+                            
+                            <a href="https://www.ideastatica.com/support-center" target="_blank" class="download-btn">
+                                <span class="lang-en">VISIT SUPPORT CENTER</span>
+                                <span class="lang-ar">زيارة مركز الدعم</span>
+                                <i class="ph ph-arrow-right arrow-icon"></i>
+                            </a>
                         </div>
 
                         <!-- Expandable Detailed Instructions -->
                         <div class="details-wrapper">
                             <button class="details-toggle" onclick="toggleDetails('det4', this)">
                                 <i class="ph ph-caret-down"></i>
-                                <span class="lang-en">View Detailed Instructions</span>
-                                <span class="lang-ar">عرض التعليمات المفصلة</span>
+                                <span class="lang-en">View Available Resources</span>
+                                <span class="lang-ar">عرض الموارد المتاحة</span>
                             </button>
                             
                             <div class="details-content" id="det4">
                                 <div class="detail-cards-grid lang-en">
                                     <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">Getting Started</span>
+                                        <p>Quick guides to help new users start working with IDEA StatiCa applications.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">Tutorials</span>
+                                        <p>Design examples that demonstrate how to use different features of the software.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">Webinars</span>
+                                        <p>Registration for upcoming webinars and access to recordings of previous sessions.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">Videos</span>
+                                        <p>Short instructional and overview videos about IDEA StatiCa features and workflows.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">Theoretical Background</span>
+                                        <p>Theoretical Background, principles, and methods used in IDEA StatiCa, including the fundamentals of CBFEM and CSFM.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">Verifications</span>
+                                        <p>Technical papers and validation examples that verify the accuracy of IDEA StatiCa calculations.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">Knowledge Base</span>
+                                        <p>A collection of help articles, tips, and explanations of software features.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">FAQ</span>
+                                        <p>Frequently asked questions about common topics related to IDEA StatiCa applications and methods.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-cards-grid lang-ar">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">دليل البدء</span>
+                                        <p>أدلة سريعة لمساعدة المستخدمين الجدد على بدء العمل مع تطبيقات IDEA StatiCa.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">الدروس التعليمية</span>
+                                        <p>أمثلة تصميمية توضح كيفية استخدام الميزات المختلفة للبرنامج.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">الندوات</span>
+                                        <p>التسجيل للندوات القادمة والوصول إلى تسجيلات الجلسات السابقة.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">الفيديو</span>
+                                        <p>مقاطع فيديو تعليمية وعامة قصيرة حول ميزات وسير عمل IDEA StatiCa.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">الخلفية النظرية</span>
+                                        <p>الخلفية النظرية والمبادئ والطرق المستخدمة في IDEA StatiCa, بما في ذلك أساسيات CBFEM و CSFM.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">التحققات</span>
+                                        <p>أوراق فنية وأمثلة تحقق تثبت دقة حسابات IDEA StatiCa.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">قاعدة المعرفة</span>
+                                        <p>مجموعة من مقالات المساعدة والنصائح وشروحات لميزات البرنامج.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step" style="min-width: 170px; text-align: center;">الأسئلة الشائعة</span>
+                                        <p>الأسئلة الشائعة حول المواضيع المتكررة المتعلقة بتطبيقات وطرق IDEA StatiCa.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACCORDION ITEM 5 -->
+                <div class="checklist-item locked" id="it5">
+                    <div class="checklist-header" onclick="toggleAccordion(5)">
+                        <div class="checklist-header-left">
+                            <input type="checkbox" class="check-box" id="c5" onclick="event.stopPropagation();" onchange="markStep(5)">
+                            <span class="item-title"><span class="lang-en">5. IDEA StatiCa Viewer</span><span class="lang-ar">5. عارض IDEA StatiCa</span></span>
+                        </div>
+                        <i class="ph ph-caret-down accordion-chevron"></i>
+                    </div>
+
+                    <div class="accordion-body">
+                        <!-- Quick Setup -->
+                        <div class="quick-flow lang-en">
+                            <span class="quick-flow-label">Quick Setup:</span>
+                            <span class="quick-flow-step">Open Viewer</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Upload File</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Inspect Model</span>
+                        </div>
+                        <div class="quick-flow lang-ar">
+                            <span class="quick-flow-label">إعداد سريع:</span>
+                            <span class="quick-flow-step">فتح العارض</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">رفع الملف</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">فحص النموذج</span>
+                        </div>
+
+                        <!-- Primary Action Box -->
+                        <div class="download-box">
+                            <h3 class="lang-en">IDEA STATICA VIEWER</h3>
+                            <h3 class="lang-ar">عارض IDEA STATICA</h3>
+                            
+                            <span class="release-date lang-en">BROWSER-BASED &bull; COLLABORATION &bull; NO INSTALL NEEDED</span>
+                            <span class="release-date lang-ar">يعتمد على المتصفح &bull; تعاون &bull; لا يحتاج لتثبيت</span>
+                            
+                            <p class="lang-en">A web browser tool where you can view all details of a connection and transfer the design intent to colleagues, even without having the full IDEA StatiCa application installed.</p>
+                            <p class="lang-ar">أداة متصفح ويب حيث يمكنك عرض جميع تفاصيل الوصلة ونقل هدف التصميم إلى الزملاء، حتى بدون تثبيت تطبيق IDEA StatiCa الكامل.</p>
+                            
+                            <a href="https://viewer.ideastatica.com/" target="_blank" class="download-btn">
+                                <span class="lang-en">OPEN VIEWER</span>
+                                <span class="lang-ar">فتح العارض</span>
+                                <i class="ph ph-arrow-right arrow-icon"></i>
+                            </a>
+                        </div>
+
+                        <!-- Expandable Detailed Instructions -->
+                        <div class="details-wrapper">
+                            <button class="details-toggle" onclick="toggleDetails('det5', this)">
+                                <i class="ph ph-caret-down"></i>
+                                <span class="lang-en">View Detailed Instructions</span>
+                                <span class="lang-ar">عرض التعليمات المفصلة</span>
+                            </button>
+                            
+                            <div class="details-content" id="det5">
+                                <div class="detail-cards-grid lang-en">
+                                    <div class="detail-card">
                                         <span class="detail-card-step">Step 1</span>
-                                        <p>Double-click the IDEA StatiCa icon on your desktop to open the application.</p>
+                                        <p>Open the IDEA StatiCa Viewer website: <a href="https://viewer.ideastatica.com/" target="_blank" style="color:var(--linkedin-blue); text-decoration:none; font-weight:600;">viewer.ideastatica.com</a> using your license credentials.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 2</span>
-                                        <p>Find and click on the <strong>'License Manager'</strong> button within the software menu.</p>
+                                        <p>Upload the <strong>.ideaCon</strong> project file you want to view.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">Step 3</span>
-                                        <p>Confirm your account shows a green checkmark, indicating the training license is <strong>Active</strong>.</p>
+                                        <p>View the model, results, and design details directly in the browser.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 4</span>
+                                        <p>Use the navigation tools to rotate, zoom, and inspect the model.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 5</span>
+                                        <p>Share the file or a generated link with colleagues for collaborative review.</p>
                                     </div>
                                 </div>
                                 
                                 <div class="detail-cards-grid lang-ar">
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 1</span>
-                                        <p>انقر نقرًا مزدوجًا على أيقونة IDEA StatiCa على سطح المكتب لفتح التطبيق.</p>
+                                        <p>افتح موقع عارض IDEA StatiCa: <a href="https://viewer.ideastatica.com/" target="_blank" style="color:var(--linkedin-blue); text-decoration:none; font-weight:600;">viewer.ideastatica.com</a> باستخدام بيانات اعتماد الترخيص الخاصة بك.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 2</span>
-                                        <p>ابحث وانقر على زر <strong>'مدير التراخيص'</strong> ضمن قائمة البرنامج.</p>
+                                        <p>قم برفع ملف مشروع <strong>.ideaCon</strong> الذي تريد عرضه.</p>
                                     </div>
                                     <div class="detail-card">
                                         <span class="detail-card-step">الخطوة 3</span>
-                                        <p>تأكد من أن حسابك يظهر علامة اختيار خضراء، مما يشير إلى أن ترخيص التدريب <strong>نشط</strong>.</p>
+                                        <p>اعرض النموذج والنتائج وتفاصيل التصميم مباشرة في المتصفح.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 4</span>
+                                        <p>استخدم أدوات التنقل لتدوير النموذج وتكبيره وفحصه.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 5</span>
+                                        <p>شارك الملف أو الرابط الذي تم إنشاؤه مع الزملاء للمراجعة التعاونية.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACCORDION ITEM 6 -->
+                <div class="checklist-item locked" id="it6">
+                    <div class="checklist-header" onclick="toggleAccordion(6)">
+                        <div class="checklist-header-left">
+                            <input type="checkbox" class="check-box" id="c6" onclick="event.stopPropagation();" onchange="finalValidate()">
+                            <span class="item-title"><span class="lang-en">6. IDEA StatiCa Connection Library</span><span class="lang-ar">6. مكتبة وصلات IDEA StatiCa</span></span>
+                        </div>
+                        <i class="ph ph-caret-down accordion-chevron"></i>
+                    </div>
+
+                    <div class="accordion-body">
+                        <!-- Quick Setup -->
+                        <div class="quick-flow lang-en">
+                            <span class="quick-flow-label">Quick Setup:</span>
+                            <span class="quick-flow-step">Open Library</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Search Geometry</span>
+                            <i class="ph ph-caret-right quick-flow-sep"></i>
+                            <span class="quick-flow-step">Use Template</span>
+                        </div>
+                        <div class="quick-flow lang-ar">
+                            <span class="quick-flow-label">إعداد سريع:</span>
+                            <span class="quick-flow-step">فتح المكتبة</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">البحث عن الشكل الهندسي</span>
+                            <i class="ph ph-caret-left quick-flow-sep"></i>
+                            <span class="quick-flow-step">استخدام القالب</span>
+                        </div>
+
+                        <!-- Primary Action Box -->
+                        <div class="download-box">
+                            <h3 class="lang-en">CONNECTION LIBRARY</h3>
+                            <h3 class="lang-ar">مكتبة الوصلات</h3>
+                            
+                            <span class="release-date lang-en">CLOUD DATABASE &bull; TEMPLATES &bull; DESIGN IDEAS</span>
+                            <span class="release-date lang-ar">قاعدة بيانات سحابية &bull; قوالب &bull; أفكار تصميمية</span>
+                            
+                            <p class="lang-en">The world’s largest cloud database of steel connection designs that you can browse, download, and use as templates in your own projects — helping you find design ideas and solutions quickly without starting from scratch.</p>
+                            <p class="lang-ar">أكبر قاعدة بيانات سحابية في العالم لتصميمات الوصلات الفولاذية التي يمكنك تصفحها وتحميلها واستخدامها كقوالب في مشاريعك الخاصة — مما يساعدك في العثور على أفكار وحلول تصميمية بسرعة دون البدء من الصفر.</p>
+                            
+                            <a href="https://connectionlibrary.ideastatica.com/" target="_blank" class="download-btn">
+                                <span class="lang-en">OPEN LIBRARY</span>
+                                <span class="lang-ar">فتح المكتبة</span>
+                                <i class="ph ph-arrow-right arrow-icon"></i>
+                            </a>
+                        </div>
+
+                        <!-- Expandable Detailed Instructions -->
+                        <div class="details-wrapper">
+                            <button class="details-toggle" onclick="toggleDetails('det6', this)">
+                                <i class="ph ph-caret-down"></i>
+                                <span class="lang-en">View Detailed Instructions</span>
+                                <span class="lang-ar">عرض التعليمات المفصلة</span>
+                            </button>
+                            
+                            <div class="details-content" id="det6">
+                                <div class="detail-cards-grid lang-en">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 1</span>
+                                        <p>Open the Connection Library website in your browser.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 2</span>
+                                        <p>Define the geometry or parameters of the connection you are looking for.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 3</span>
+                                        <p>Browse the database results to find connection designs that match your criteria.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 4</span>
+                                        <p>Sign in to your account to access connection details.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">Step 5</span>
+                                        <p>View, download, or open the selected connection model in Viewer or IDEA StatiCa desktop.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-cards-grid lang-ar">
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 1</span>
+                                        <p>افتح موقع مكتبة الوصلات في متصفحك.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 2</span>
+                                        <p>حدد الشكل الهندسي أو المعلمات للوصلة التي تبحث عنها.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 3</span>
+                                        <p>تصفح نتائج قاعدة البيانات للعثور على تصميمات وصلات تطابق معاييرك.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 4</span>
+                                        <p>قم بتسجيل الدخول إلى حسابك للوصول إلى تفاصيل الوصلة.</p>
+                                    </div>
+                                    <div class="detail-card">
+                                        <span class="detail-card-step">الخطوة 5</span>
+                                        <p>اعرض أو حمل أو افتح نموذج الوصلة المحدد في العارض أو تطبيق سطح المكتب IDEA StatiCa.</p>
                                     </div>
                                 </div>
                             </div>
@@ -2527,20 +2722,58 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
 
             </div>
 
-            <!-- PAGE 5: Schedule / Kickoff (Premium Theme) -->
+            <!-- PAGE 5: All Set / Final Page -->
             <div id="page5" class="page">
                 <div class="premium-schedule">
                     <div style="width: 64px; height: 64px; background: rgba(255,80,0,0.1); color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto;">
                         <i class="ph-fill ph-check-circle" style="font-size: 2.5rem;"></i>
                     </div>
-                    <h1 class="lang-en">Strategic Alignment Verified</h1>
-                    <h1 class="lang-ar">تم التحقق من التوافق الاستراتيجي</h1>
-                    <p class="lang-en">Excellent work. Your technical foundation is secure. Click below to lock in the date for your executive alignment and strategy kickoff call.</p>
-                    <p class="lang-ar">عمل ممتاز. مؤسستك التقنية آمنة الآن. انقر أدناه لتحديد تاريخ مكالمة التوافق التنفيذي وانطلاق الاستراتيجية.</p>
+                    <h1 class="lang-en">All Set!</h1>
+                    <h1 class="lang-ar">جاهزون تماماً!</h1>
+                    <p class="lang-en">We invite you to register for the nearest available slot.</p>
+                    <p class="lang-ar">ندعوكم للتسجيل في أقرب موعد متاح.</p>
                     
-                    <button class="cta-btn">
-                        <span class="lang-en">Schedule Executive Kickoff</span><span class="lang-ar">جدولة الانطلاقة التنفيذية</span>
-                    </button>
+                    <a href="https://gsdidea.ae/get-onboarding-training-and-consulting-services/" target="_blank" class="cta-btn" style="text-decoration: none; display: inline-block;">
+                        <span class="lang-en">SCHEDULE MY ONBOARDING</span><span class="lang-ar">جدولة جلسة الإعداد الخاصة بي</span>
+                    </a>
+
+                    <!-- Quick Access Links Section -->
+                    <div class="quick-access-wrapper">
+                        <div class="doc-library-header" style="margin-bottom: 20px;">
+                            <h3 class="lang-en">Quick Access Links</h3>
+                            <h3 class="lang-ar">روابط الوصول السريع</h3>
+                        </div>
+                        <div class="quick-access-grid">
+                            <a href="https://www.ideastatica.com/product-downloads" target="_blank" class="quick-link-btn">
+                                <span class="lang-en">Official Downloads</span><span class="lang-ar">التحميلات الرسمية</span>
+                                <i class="ph ph-arrow-square-out"></i>
+                            </a>
+                            <a href="https://www.ideastatica.com/support-center/how-to-set-which-products-i-take-from-the-license-pool" target="_blank" class="quick-link-btn">
+                                <span class="lang-en">Licence Pool Guide</span><span class="lang-ar">دليل مجموعة التراخيص</span>
+                                <i class="ph ph-arrow-square-out"></i>
+                            </a>
+                            <a href="https://www.ideastatica.com/bim-integrations" target="_blank" class="quick-link-btn">
+                                <span class="lang-en">BIM Integrations</span><span class="lang-ar">تكاملات BIM</span>
+                                <i class="ph ph-arrow-square-out"></i>
+                            </a>
+                            <a href="https://www.ideastatica.com/support-center/checkbot-bim-link-does-not-start" target="_blank" class="quick-link-btn">
+                                <span class="lang-en">Checkbot Troubleshoot</span><span class="lang-ar">استكشاف أخطاء Checkbot</span>
+                                <i class="ph ph-arrow-square-out"></i>
+                            </a>
+                            <a href="https://www.ideastatica.com/support-center" target="_blank" class="quick-link-btn">
+                                <span class="lang-en">Support Center</span><span class="lang-ar">مركز الدعم</span>
+                                <i class="ph ph-arrow-square-out"></i>
+                            </a>
+                            <a href="https://viewer.ideastatica.com/" target="_blank" class="quick-link-btn">
+                                <span class="lang-en">IDEA StatiCa Viewer</span><span class="lang-ar">عارض IDEA StatiCa</span>
+                                <i class="ph ph-arrow-square-out"></i>
+                            </a>
+                            <a href="https://connectionlibrary.ideastatica.com/" target="_blank" class="quick-link-btn">
+                                <span class="lang-en">Connection Library</span><span class="lang-ar">مكتبة الوصلات</span>
+                                <i class="ph ph-arrow-square-out"></i>
+                            </a>
+                        </div>
+                    </div>
 
                     <!-- Document Library Grid -->
                     <div class="doc-library-wrapper">
@@ -2548,11 +2781,11 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                             <h3 class="lang-en">Resources Library</h3>
                             <h3 class="lang-ar">موارد التنفيذ</h3>
                             <p class="lang-en">All that you may need on the go.</p>
-                            <p class="lang-ar">قم بتحميل الكتيبات الأساسية، وقوائم التحقق، والنماذج.</p>
+                            <p class="lang-ar">كل ما قد تحتاجه أثناء التنقل.</p>
                         </div>
                         
                         <div class="doc-grid">
-                            <!-- File 1: Word -->
+                            <!-- File 1 -->
                             <div class="doc-card">
                                 <div class="doc-thumbnail">
                                     <div class="doc-preview-text">
@@ -2564,12 +2797,12 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                 </div>
                                 <div class="doc-info">
                                     <div class="doc-title lang-en">Why IDEA StatiCa Connection?.pptx</div>
-                                    <div class="doc-title lang-ar">نموذج_مراجعة_الأعمال.pptx</div>
+                                    <div class="doc-title lang-ar">لماذا IDEA StatiCa Connection؟ .pptx</div>
                                     <div class="doc-date">March 12, 2026</div>
                                 </div>
                             </div>
                             
-                            <!-- File 2: Excel -->
+                            <!-- File 2 -->
                             <div class="doc-card">
                                 <div class="doc-thumbnail">
                                     <div class="doc-preview-grid">
@@ -2581,12 +2814,12 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                 </div>
                                 <div class="doc-info">
                                     <div class="doc-title lang-en">Eurocode (EN) Checks in IDEA StatiCa.pdf</div>
-                                    <div class="doc-title lang-ar">قائمة_التنفيذ_والإعداد.pdf</div>
+                                    <div class="doc-title lang-ar">تحققات Eurocode في IDEA StatiCa .pdf</div>
                                     <div class="doc-date">March 10, 2026</div>
                                 </div>
                             </div>
 
-                            <!-- File 3: PPT -->
+                            <!-- File 3 -->
                             <div class="doc-card">
                                 <div class="doc-thumbnail">
                                     <div class="doc-preview-slide"></div>
@@ -2596,12 +2829,12 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                 </div>
                                 <div class="doc-info">
                                     <div class="doc-title lang-en">Importing Your First Node.docx</div>
-                                    <div class="doc-title lang-ar">عرض_تحليل_العائد.docx</div>
+                                    <div class="doc-title lang-ar">استيراد العقدة الأولى الخاصة بك .docx</div>
                                     <div class="doc-date">March 8, 2026</div>
                                 </div>
                             </div>
 
-                            <!-- File 4: PDF -->
+                            <!-- File 4 -->
                             <div class="doc-card">
                                 <div class="doc-thumbnail">
                                     <div class="doc-preview-pdf">
@@ -2613,7 +2846,7 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                                 </div>
                                 <div class="doc-info">
                                     <div class="doc-title lang-en">Troubleshooting Beginner Errors.xlsx</div>
-                                    <div class="doc-title lang-ar">دليل_إعداد_تكنولوجيا_المعلومات.xlsx</div>
+                                    <div class="doc-title lang-ar">استكشاف أخطاء المبتدئين .xlsx</div>
                                     <div class="doc-date">March 1, 2026</div>
                                 </div>
                             </div>
@@ -2626,16 +2859,51 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
         <!-- Navigation Controls -->
         <footer class="footer-actions">
             <button class="btn btn-back" id="backBtn" onclick="goPage(-1)" style="visibility: hidden;">
-<i class="ph ph-caret-left"></i>            </button>
-            <button class="btn btn-next" id="nextBtn" onclick="goPage(1)">
-<i class="ph ph-caret-right"></i>            </button>
+                <i class="ph ph-caret-left"></i>
+                <span class="lang-en">Back</span>
+                <span class="lang-ar">السابق</span>
+            </button>
+            <button class="btn btn-next" id="nextBtn" onclick="goPage(1)" style="display: inline-flex;">
+                <span id="nextBtnStartText">
+                    <span class="lang-en">Start my onboarding</span>
+                    <span class="lang-ar">ابدأ رحلة الإعداد</span>
+                </span>
+                <span id="nextBtnStandardText" style="display: none;">
+                    <span class="lang-en">Next</span>
+                    <span class="lang-ar">التالي</span>
+                </span>
+                <i class="ph ph-caret-right"></i>            
+            </button>
         </footer>
     </div>
 
-    <!-- SEPARATE FAQ BOX (Dynamic across steps 1-4) -->
+    <!-- SUPPORT CONTACT SECTION (Global from Page 4 onwards) -->
+    <div class="support-contact-box" id="supportContactBox">
+        <div class="support-contact-content">
+            <div class="support-contact-icon">
+                <i class="ph-fill ph-headset"></i>
+            </div>
+            <div class="support-contact-text">
+                <h4 class="lang-en">Need Assistance?</h4>
+                <h4 class="lang-ar">هل تحتاج إلى مساعدة؟</h4>
+                <p class="lang-en">
+                    For any technical or license-related questions about IDEA StatiCa, you can reach out directly via email: 
+                    <a href="mailto:SUPPORT@GSDIDEA.AE" class="support-contact-email">SUPPORT@GSDIDEA.AE</a>. 
+                    This is the fastest way to get help with software issues, licensing, or technical queries.
+                </p>
+                <p class="lang-ar">
+                    لأي أسئلة فنية أو متعلقة بالتراخيص حول IDEA StatiCa، يمكنك التواصل مباشرة عبر البريد الإلكتروني: 
+                    <a href="mailto:SUPPORT@GSDIDEA.AE" class="support-contact-email">SUPPORT@GSDIDEA.AE</a>. 
+                    هذه هي أسرع وسيلة للحصول على المساعدة في مشاكل البرنامج أو التراخيص أو الاستفسارات الفنية.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ BOX -->
     <div class="faq-box" id="faqBox">
         
-        <!-- STEP 1 FAQS: Overview -->
+        <!-- STEP 1 FAQS -->
         <div class="faq-group active" id="faq-group-1">
             <h2 class="lang-en">Overview FAQs</h2>
             <h2 class="lang-ar">الأسئلة الشائعة حول النظرة العامة</h2>
@@ -2665,7 +2933,7 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
             </div>
         </div>
 
-        <!-- STEP 2 FAQS: Network -->
+        <!-- STEP 2 FAQS -->
         <div class="faq-group" id="faq-group-2">
             <h2 class="lang-en">Network FAQs</h2>
             <h2 class="lang-ar">الأسئلة الشائعة حول الشبكة</h2>
@@ -2681,21 +2949,10 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                         <span class="lang-ar">لا، إنها مجموعة حصرية للمدعوين فقط مخصصة لعملاء المؤسسات والقادة الهندسيين.</span>
                     </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">How soon will my request be approved?</span>
-                        <span class="lang-ar">متى ستتم الموافقة على طلبي؟</span>
-                    </div>
-                    <div class="faq-answer">
-                        <span class="lang-en">Our community team reviews and approves access requests within 24 business hours.</span>
-                        <span class="lang-ar">يقوم فريق المجتمع لدينا بمراجعة طلبات الوصول والموافقة عليها في غضون 24 ساعة عمل.</span>
-                    </div>
-                </div>
             </div>
         </div>
 
-        <!-- STEP 3 FAQS: Workspace -->
+        <!-- STEP 3 FAQS -->
         <div class="faq-group" id="faq-group-3">
             <h2 class="lang-en">Workspace FAQs</h2>
             <h2 class="lang-ar">الأسئلة الشائعة حول مساحة العمل</h2>
@@ -2707,25 +2964,14 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                         <span class="lang-ar">لا يمكنني العثور على بريد التفعيل الإلكتروني.</span>
                     </div>
                     <div class="faq-answer">
-                        <span class="lang-en">Please ensure your IT Admin has added your email to the license pool. If they have, check your spam/junk folder. If it's still missing, ask your Admin to resend the invitation.</span>
-                        <span class="lang-ar">يرجى التأكد من أن مسؤول تكنولوجيا المعلومات قد أضاف بريدك الإلكتروني إلى مجموعة التراخيص. إذا قام بذلك، تحقق من مجلد البريد العشوائي/المهملات. إذا كان لا يزال مفقودًا، اطلب من المسؤول إعادة إرسال الدعوة.</span>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">Should I use my personal email?</span>
-                        <span class="lang-ar">هل يجب أن أستخدم بريدي الإلكتروني الشخصي؟</span>
-                    </div>
-                    <div class="faq-answer">
-                        <span class="lang-en">No, please ensure you use your corporate email address to properly link with your enterprise license and domain.</span>
-                        <span class="lang-ar">لا، يرجى التأكد من استخدام عنوان بريد العمل الخاص بك للربط الصحيح بترخيص المؤسسة والنطاق الخاص بك.</span>
+                        <span class="lang-en">Ensure your IT Admin has added your email to the license pool and check your spam/junk folder.</span>
+                        <span class="lang-ar">تأكد من أن مسؤول تكنولوجيا المعلومات قد أضاف بريدك الإلكتروني وتحقق من مجلد البريد العشوائي.</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- STEP 4 FAQS: Implementation -->
+        <!-- STEP 4 FAQS -->
         <div class="faq-group" id="faq-group-4">
             <h2 class="lang-en">Implementation FAQs</h2>
             <h2 class="lang-ar">الأسئلة الشائعة حول التنفيذ</h2>
@@ -2733,45 +2979,35 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">Do I need IT admin rights to install the software?</span>
-                        <span class="lang-ar">هل أحتاج إلى صلاحيات مسؤول النظام (IT) لتثبيت البرنامج؟</span>
+                        <span class="lang-en">Do I need IT admin rights to install?</span>
+                        <span class="lang-ar">هل أحتاج إلى صلاحيات المسؤول للتثبيت؟</span>
                     </div>
                     <div class="faq-answer">
-                        <span class="lang-en">Yes, installing IDEA StatiCa and the associated BIM links requires local administrator privileges on your workstation.</span>
-                        <span class="lang-ar">نعم، يتطلب تثبيت IDEA StatiCa وروابط BIM المصاحبة صلاحيات مسؤول محلي على جهازك.</span>
+                        <span class="lang-en">Yes, installing IDEA StatiCa and BIM links requires local administrator privileges.</span>
+                        <span class="lang-ar">نعم، يتطلب تثبيت IDEA StatiCa وروابط BIM صلاحيات مسؤول محلي.</span>
                     </div>
                 </div>
-                <div class="faq-item">
+                <div class="faq-item" id="faq-sys-req">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">What if my company firewall blocks the download?</span>
-                        <span class="lang-ar">ماذا لو قام جدار الحماية في شركتي بحظر التحميل؟</span>
+                        <span class="lang-en">What are the system requirements for IDEA StatiCa?</span>
+                        <span class="lang-ar">ما هي متطلبات النظام لبرنامج IDEA StatiCa؟</span>
                     </div>
                     <div class="faq-answer">
-                        <span class="lang-en">Please contact your IT department and request them to whitelist the domain <code>ideastatica.com</code>. You can also request a direct offline MSI installer from your Customer Success Manager.</span>
-                        <span class="lang-ar">يرجى الاتصال بقسم تكنولوجيا المعلومات وطلب السماح بالنطاق <code>ideastatica.com</code>. يمكنك أيضاً طلب ملف تثبيت MSI مباشر للعمل دون اتصال بالإنترنت من مدير نجاح العملاء الخاص بك.</span>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">Does the plugin work with my older version of ETABS/SAP2000?</span>
-                        <span class="lang-ar">هل تعمل الإضافة مع الإصدارات القديمة من برامج التحليل (مثل ETABS/SAP2000)؟</span>
-                    </div>
-                    <div class="faq-answer">
-                        <span class="lang-en">IDEA StatiCa typically supports the last 3 major versions of most FEA and CAD software. The installer will automatically detect supported versions on your machine.</span>
-                        <span class="lang-ar">يدعم IDEA StatiCa عادةً آخر 3 إصدارات رئيسية لمعظم برامج FEA و CAD. سيكتشف المثبت تلقائياً الإصدارات المدعومة على جهازك.</span>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">I installed the software, but my license shows as inactive.</span>
-                        <span class="lang-ar">قمت بتثبيت البرنامج، ولكن الترخيص يظهر كغير نشط.</span>
-                    </div>
-                    <div class="faq-answer">
-                        <span class="lang-en">Ensure you have accepted the activation email invitation and set up your password in the User Portal first. You must sign in to the desktop application using those same credentials.</span>
-                        <span class="lang-ar">تأكد من قبولك لبريد دعوة التفعيل وإعداد كلمة المرور الخاصة بك في بوابة المستخدم أولاً. يجب عليك تسجيل الدخول إلى تطبيق سطح المكتب باستخدام نفس بيانات الاعتماد هذه.</span>
+                        <div class="lang-en">
+                            <ul style="padding-left: 20px; margin-top: 8px; line-height: 1.7;">
+                                <li style="margin-bottom: 8px;"><strong>Operating system:</strong> Minimum: Windows 10 64-bit | Recommended: Windows 11 64-bit.</li>
+                                <li style="margin-bottom: 8px;"><strong>Processor:</strong> Recommended: Intel Core i7 or AMD Ryzen 7.</li>
+                                <li style="margin-bottom: 8px;"><strong>RAM:</strong> Minimum: 16 GB | Recommended: 32 GB.</li>
+                                <li><strong>Hard disk:</strong> Installation space: 3 GB.</li>
+                            </ul>
+                        </div>
+                        <div class="lang-ar">
+                            <ul style="padding-right: 20px; margin-top: 8px; line-height: 1.7;">
+                                <li style="margin-bottom: 8px;"><strong>نظام التشغيل:</strong> الحد الأدنى: Windows 10 | الموصى به: Windows 11.</li>
+                                <li style="margin-bottom: 8px;"><strong>الذاكرة العشوائية (RAM):</strong> الحد الأدنى: 16 جيجابايت | الموصى به: 32 جيجابايت.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2784,7 +3020,6 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
     let stepCount = 1;
     let currentLang = 'en';
 
-    // Retained Language Toggle Logic
     function toggleLanguage() {
         currentLang = currentLang === 'en' ? 'ar' : 'en';
         const app = document.getElementById('onboarding-app');
@@ -2803,9 +3038,7 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
         }
     }
 
-    // Dynamic Navigation and FAQ toggling Logic
     function goPage(delta) {
-        // Step 3 Validation: Ensure email is provided before moving to Step 4
         if (stepCount === 3 && delta > 0) {
             const emailInput = document.getElementById('userEmailInput').value;
             if (!emailInput || !emailInput.includes('@')) {
@@ -2815,95 +3048,77 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
             }
         }
 
-        if (stepCount === 4 && delta > 0 && !document.getElementById('c4').checked) {
+        if (stepCount === 4 && delta > 0 && !document.getElementById('c6').checked) {
             const isAr = document.getElementById('onboarding-app').classList.contains('ar-active');
             alert(isAr ? "يرجى إكمال جميع متطلبات التنفيذ أولاً" : "Please complete all implementation steps first.");
             return;
         }
 
-        // Hide current step and old FAQ group
         document.getElementById(`page${stepCount}`).classList.remove('active');
         document.getElementById(`nav${stepCount}`).classList.remove('active');
         
         const oldFaqGroup = document.getElementById(`faq-group-${stepCount}`);
-        if(oldFaqGroup) {
-            oldFaqGroup.classList.remove('active');
-            // optionally close any open accordions within it when switching tabs
-            const openItems = oldFaqGroup.querySelectorAll('.faq-item.active');
-            openItems.forEach(item => item.classList.remove('active'));
-        }
+        if(oldFaqGroup) oldFaqGroup.classList.remove('active');
         
         stepCount += delta;
         
-        // Show new step
         document.getElementById(`page${stepCount}`).classList.add('active');
         document.getElementById(`nav${stepCount}`).classList.add('active');
 
         document.getElementById('backBtn').style.visibility = (stepCount === 1) ? 'hidden' : 'visible';
-        document.getElementById('nextBtn').style.display = (stepCount === 5) ? 'none' : 'block';
+        document.getElementById('nextBtn').style.display = (stepCount === 5) ? 'none' : 'inline-flex';
         
-        // Dynamic FAQ box handling (Show on steps 1-4, hide on step 5)
+        document.getElementById('nextBtnStartText').style.display = (stepCount === 1) ? 'inline' : 'none';
+        document.getElementById('nextBtnStandardText').style.display = (stepCount > 1) ? 'inline' : 'none';
+        
+        // FAQ & Support Box Visibility
         document.getElementById('faqBox').style.display = (stepCount < 5) ? 'block' : 'none';
-        
-        // Show new FAQ group
+        document.getElementById('supportContactBox').style.display = (stepCount >= 4) ? 'block' : 'none';
+
         const newFaqGroup = document.getElementById(`faq-group-${stepCount}`);
-        if(newFaqGroup) {
-            newFaqGroup.classList.add('active');
-        }
+        if(newFaqGroup) newFaqGroup.classList.add('active');
     }
 
-    // Accordion Toggle Logic (for checklist items)
     function toggleAccordion(n) {
         const item = document.getElementById(`it${n}`);
         if (item.classList.contains('locked')) return;
         item.classList.toggle('is-open');
     }
 
-    // Expandable Detailed Instructions Toggle Logic
     function toggleDetails(id, btn) {
-        const content = document.getElementById(id);
-        content.classList.toggle('is-open');
+        document.getElementById(id).classList.toggle('is-open');
         btn.classList.toggle('is-open');
     }
 
-    // Smart Accordion Progression Logic
     function markStep(n) {
         const checkbox = document.getElementById(`c${n}`);
         const currentItem = document.getElementById(`it${n}`);
 
         if (checkbox.checked) {
             currentItem.classList.add('completed');
-            
-            if (n < 4) {
+            if (n < 6) {
                 const nextItem = document.getElementById(`it${n+1}`);
                 nextItem.classList.remove('locked');
-                
                 currentItem.classList.remove('is-open');
                 nextItem.classList.add('is-open');
             }
         } else {
             currentItem.classList.remove('completed');
             currentItem.classList.add('is-open');
-            
-            for (let i = n + 1; i <= 4; i++) {
-                const futureItem = document.getElementById(`it${i}`);
-                const futureCheckbox = document.getElementById(`c${i}`);
-                
-                if (futureItem && futureCheckbox) {
-                    futureItem.classList.add('locked');
-                    futureItem.classList.remove('completed');
-                    futureItem.classList.remove('is-open');
-                    futureCheckbox.checked = false;
+            for (let i = n + 1; i <= 6; i++) {
+                const item = document.getElementById(`it${i}`);
+                if (item) {
+                    item.classList.add('locked');
+                    item.classList.remove('completed');
+                    document.getElementById(`c${i}`).checked = false;
                 }
             }
         }
     }
 
-    // Final Validation Logic
     function finalValidate() {
-        const checkbox = document.getElementById('c4');
-        const currentItem = document.getElementById('it4');
-        
+        const checkbox = document.getElementById('c6');
+        const currentItem = document.getElementById('it6');
         if (checkbox.checked) {
             currentItem.classList.add('completed');
             currentItem.classList.remove('is-open'); 
@@ -2915,35 +3130,77 @@ The confidence we gain from seeing the exact stress distribution in a joint is w
         }
     }
 
-    // FAQ Accordion Logic
     function toggleFaq(element) {
-        const parent = element.parentElement;
-        parent.classList.toggle('active');
+        element.parentElement.classList.toggle('active');
     }
     
-    // Initial setup check for next button if loading on page 4
-    if(stepCount === 4) {
-        document.getElementById('nextBtn').disabled = !document.getElementById('c4').checked;
+    function openSysReqFaq() {
+        const sysReqItem = document.getElementById('faq-sys-req');
+        if (sysReqItem) {
+            sysReqItem.classList.add('active');
+            sysReqItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const items = document.querySelectorAll('.reveal-on-scroll');
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.18,
-        rootMargin: '0px 0px -40px 0px'
+    function onBimTypeChange(val) {
+        document.getElementById('bimTypeEn').value = val;
+        document.getElementById('bimTypeAr').value = val;
+        updateBimLink();
+    }
+    
+    let currentBimGroup = '';
+    function setBimGroup(val, btn) {
+        document.querySelectorAll('.bim-group-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentBimGroup = val;
+        updateBimLink();
+    }
+    
+    function updateBimLink() {
+        const currentBimType = document.getElementById('bimTypeEn').value; 
+        let url = 'https://www.ideastatica.com/bim-integrations';
+        let params = [];
+        if (currentBimType) params.push('type=' + currentBimType);
+        if (currentBimGroup) params.push('group=' + currentBimGroup);
+        if (params.length > 0) url += '?' + params.join('&');
+        const btn = document.getElementById('bimLinkBtn');
+        if(btn) btn.href = url;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll('.reveal-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.18 });
+        items.forEach(item => observer.observe(item));
+
+        const cards = document.querySelectorAll(".testimonial-card");
+        const dotsContainer = document.getElementById("dynamicDots");
+        let index = 0;
+        if (cards.length > 1) {
+            cards.forEach((_, i) => {
+                const dot = document.createElement("span");
+                dot.className = "testimonial-dot";
+                if (i === 0) dot.classList.add("active");
+                dot.addEventListener("click", () => {
+                    cards.forEach((c, idx) => c.classList.toggle("active", idx === i));
+                    document.querySelectorAll('.testimonial-dot').forEach((d, idx) => d.classList.toggle("active", idx === i));
+                    index = i;
+                });
+                dotsContainer.appendChild(dot);
+            });
+            setInterval(() => {
+                index = (index + 1) % cards.length;
+                cards.forEach((c, i) => c.classList.toggle("active", i === index));
+                document.querySelectorAll('.testimonial-dot').forEach((d, i) => d.classList.toggle("active", i === index));
+            }, 6000);
+        }
     });
-
-    items.forEach((item) => observer.observe(item));
-});
 </script>
 </body>
 </html>
