@@ -770,19 +770,19 @@
 
         /* SUPPORT CONTACT BOX */
         .support-contact-box {
-            width: 1000px;
-            max-width: 92%;
-            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
-            border: 1px solid var(--border-color);
-            border-left: 6px solid var(--primary-color);
-            border-radius: 16px;
-            margin-top: 24px;
-            padding: 24px 64px;
-            box-sizing: border-box;
-            box-shadow: var(--shadow-md);
-            display: none; /* Controlled by JS */
-            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+    width: auto;
+    max-width: none;
+    background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+    border: 1px solid var(--border-color);
+    border-left: 6px solid var(--primary-color);
+    border-radius: 16px;
+    margin: 24px 64px 0 64px;
+    padding: 24px 32px;
+    box-sizing: border-box;
+    box-shadow: var(--shadow-md);
+    display: none;
+    animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
         .support-contact-content {
             display: flex;
             align-items: center;
@@ -1070,8 +1070,12 @@
             /* Main Structure */
             .main-card { margin-top: 16px; width: 100%; max-width: 95%; border-radius: 12px; }
             .faq-box { margin-top: 16px; width: 100%; max-width: 95%; border-radius: 12px; padding: 24px 20px; }
-            .support-contact-box { width: 100%; max-width: 95%; padding: 20px; }
-
+.support-contact-box {
+    width: auto;
+    max-width: none;
+    margin: 16px 20px 0 20px;
+    padding: 20px;
+}
             /* Protocol Mobile stacking */
             .protocol-item {
                 grid-template-columns: 1fr;
@@ -2823,28 +2827,7 @@
             </div>
         </main>
 
-        <!-- Navigation Controls -->
-        <footer class="footer-actions">
-            <button class="btn btn-back" id="backBtn" onclick="goPage(-1)" style="visibility: hidden;">
-                <i class="ph ph-caret-left"></i>
-                <span class="lang-en">Back</span>
-                <span class="lang-ar">السابق</span>
-            </button>
-            <button class="btn btn-next" id="nextBtn" onclick="goPage(1)" style="display: inline-flex;">
-                <span id="nextBtnStartText">
-                    <span class="lang-en">Start my onboarding</span>
-                    <span class="lang-ar">ابدأ رحلة الإعداد</span>
-                </span>
-                <span id="nextBtnStandardText" style="display: none;">
-                    <span class="lang-en">Next</span>
-                    <span class="lang-ar">التالي</span>
-                </span>
-                <i class="ph ph-caret-right"></i>            
-            </button>
-        </footer>
-    </div>
-
-    <!-- SUPPORT CONTACT SECTION (Global from Page 4 onwards) -->
+        <!-- SUPPORT CONTACT SECTION (Global from Page 4 onwards) -->
     <div class="support-contact-box" id="supportContactBox">
         <div class="support-contact-content">
             <div class="support-contact-icon">
@@ -2866,6 +2849,29 @@
         </div>
     </div>
 
+
+        <!-- Navigation Controls -->
+        <footer class="footer-actions">
+            <button class="btn btn-back" id="backBtn" onclick="goPage(-1)" style="visibility: hidden;">
+                <i class="ph ph-caret-left"></i>
+                <span class="lang-en">Back</span>
+                <span class="lang-ar">السابق</span>
+            </button>
+            <button class="btn btn-next" id="nextBtn" onclick="goPage(1)" style="display: inline-flex;">
+                <span id="nextBtnStartText">
+                    <span class="lang-en">Start my onboarding</span>
+                    <span class="lang-ar">ابدأ رحلة الإعداد</span>
+                </span>
+                <span id="nextBtnStandardText" style="display: none;">
+                    <span class="lang-en">Next</span>
+                    <span class="lang-ar">التالي</span>
+                </span>
+                <i class="ph ph-caret-right"></i>            
+            </button>
+        </footer>
+    </div>
+
+    
     <!-- FAQ BOX -->
     <div class="faq-box" id="faqBox">
         
