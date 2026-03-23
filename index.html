@@ -174,7 +174,7 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            cursor: default;
+            cursor: pointer;
         }
         .nav-item i { font-size: 1.2rem; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .nav-item.active { 
@@ -3051,6 +3051,29 @@
         if(newFaqGroup) newFaqGroup.classList.add('active');
     }
 
+
+
+    function goToPage(targetStep) {
+        targetStep = Number(targetStep);
+        if (!Number.isInteger(targetStep) || targetStep < 1 || targetStep > 5 || targetStep === stepCount) return;
+
+        const direction = targetStep > stepCount ? 1 : -1;
+        while (stepCount !== targetStep) {
+            const before = stepCount;
+            goPage(direction);
+            if (stepCount === before) break;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        for (let i = 1; i <= 5; i++) {
+            const nav = document.getElementById(`nav${i}`);
+            if (!nav) continue;
+            nav.addEventListener('click', function () {
+                goToPage(i);
+            });
+        }
+    });
     function toggleAccordion(n) {
         const item = document.getElementById(`it${n}`);
         if (item.classList.contains('locked')) return;
