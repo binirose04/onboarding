@@ -893,52 +893,52 @@
         [dir="rtl"] .faq-item.active .faq-icon { transform: scaleX(-1) rotate(-90deg); }
 
         /* SUPPORT CONTACT BOX */
-        .support-contact-box {
+.support-contact-box {
     width: auto;
     max-width: none;
     background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
     border: 1px solid var(--border-color);
     border-left: 6px solid var(--primary-color);
     border-radius: 16px;
-    margin: 24px 64px 0 64px;
+    margin: 24px 64px 32px 64px; /* <--- Updated: 32px bottom margin added here */
     padding: 24px 32px;
     box-sizing: border-box;
     box-shadow: var(--shadow-md);
     display: none;
     animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-        .support-contact-content {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-        .support-contact-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            flex-shrink: 0;
-        }
-        .support-contact-text h4 {
-            margin: 0 0 6px 0;
-            font-size: 1.4rem;
-            color: var(--secondary-color);
-        }
-        .support-contact-text p {
-            margin: 0;
-            font-size: 0.95rem;
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-        .support-contact-email {
-            font-weight: 800;
-            color: var(--primary-color);
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.2s;
-        }
-        .support-contact-email:hover {
-            border-bottom-color: var(--primary-color);
-        }
-
+.support-contact-content {
+    display: flex;
+    align-items: flex-start; /* Pins the icon to the top instead of the center */
+    gap: 18px; /* Tightened up slightly from 24px to group the icon and text better */
+}
+.support-contact-icon {
+    font-size: 2.2rem; /* Slightly reduced so it doesn't overpower the text */
+    color: var(--primary-color);
+    flex-shrink: 0;
+    margin-top: 2px; /* Small nudge to visually align the icon with the first line of text */
+}
+.support-contact-text h4 {
+    margin: 0 0 6px 0;
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+}
+.support-contact-text p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+.support-contact-email {
+    font-weight: 800;
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+.support-contact-email:hover {
+    border-bottom-color: var(--primary-color);
+}
         /* SCHEDULE PAGE */
         .premium-schedule { 
             background: radial-gradient(circle at top, rgba(255, 80, 0, 0.08) 0%, #ffffff 40%);
@@ -1197,7 +1197,7 @@
 .support-contact-box {
     width: auto;
     max-width: none;
-    margin: 16px 20px 0 20px;
+    margin: 16px 20px 24px 20px;
     padding: 20px;
 }
             /* Protocol Mobile stacking */
@@ -1422,12 +1422,13 @@
         }
 
         .testimonial-quote {
-            margin: 0 0 20px 0;
-            color: var(--text-main);
-            font-size: 1rem;
-            line-height: 1.75;
-            font-weight: 500;
-        }
+    margin: 0 0 20px 0;
+    color: var(--text-main);
+    font-size: 1rem;
+    line-height: 1.75;
+    font-weight: 500;
+    font-style: italic; /* Move it here */
+}
 
         .testimonial-footer {
             display: flex;
@@ -1499,6 +1500,23 @@
             background: var(--primary-color);
             transform: scale(1.2);
         }
+       .testimonial-progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;        /* Spans full width of the box */
+    height: 4px;        /* Thickness of the "border" */
+    background: rgba(0, 0, 0, 0.05);
+    margin: 0;
+    border-radius: 0;
+}
+
+.testimonial-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.1s linear;
+}
 
         /* RTL */
         [dir="rtl"] .testimonials-header { text-align: right; }
@@ -1709,14 +1727,15 @@
         }
 
         .testimonials-panel {
-            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: var(--shadow-lg);
-            position: sticky;
-            top: 24px;
-        }
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 24px 24px 32px 24px; /* Increased bottom padding for breathing room */
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 24px;
+    overflow: hidden; /* This is crucial to clip the loader bar to the rounded corners */
+}
 
         @media (max-width: 900px) {
             .overview-premium-layout {
@@ -2017,6 +2036,9 @@ Thank you for choosing GSD IDEA as you IDEA StatiCa partner. This roadmap will g
 
                         <!-- Dynamic Clickable Dots (Auto-generates based on testimonial count) -->
                         <div class="testimonial-dots" id="dynamicDots"></div>
+<div class="testimonial-progress-container">
+    <div class="testimonial-progress-bar" id="testimonialLoader"></div>
+</div>
                     </section>
                 </div>
             </div>
@@ -2139,7 +2161,7 @@ email you received
 </a>.</li>
                 <li>Identify that admin, then have them sign in to the User Portal.</li>
             </ul>
-            <p class="protocol-note lang-en"><strong>Why this matters:</strong> Only the assigned administrator can start adding users to the license pool.</p>
+            <p class="protocol-note lang-en"><strong>Note:</strong> Only the assigned administrator can start adding users to the license pool.</p>
 
             <ul class="protocol-points lang-ar">
                 <li>لكل مجموعة تراخيص مسؤول معيّن.</li>
@@ -2177,7 +2199,7 @@ email you received
                 <li>Select <strong>Create New User</strong>.</li>
                 <li>This starts the process of adding the user to the commercial license pool.</li>
             </ul>
-            <p class="protocol-note lang-en"><strong>Tip:</strong> Use the user’s correct official email ID to avoid access issues later.</p>
+            <p class="protocol-note lang-en"><strong>Note:</strong> Use the user’s correct official email ID to avoid access issues later.</p>
 
             <ul class="protocol-points lang-ar">
                 <li>انتقل إلى علامة التبويب <strong>License Users</strong> داخل البوابة.</li>
@@ -2215,7 +2237,7 @@ email you received
                 <li>Save the username to move that user into the commercial license pool.</li>
                 <li>After migration or new-user creation, log in again to start using the commercial license.</li>
             </ul>
-            <p class="protocol-note lang-en"><strong>Result:</strong> The user becomes part of the commercial pool and can access licensed workflows.</p>
+            <p class="protocol-note lang-en"><strong>Note:</strong> The user becomes part of the commercial pool and can access licensed workflows.</p>
 
             <ul class="protocol-points lang-ar">
                 <li>إذا كان المستخدم موجودًا بالفعل أو يستخدم نسخة تجريبية، اختر <strong>Migrate User</strong>.</li>
@@ -3232,35 +3254,39 @@ email you received
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">I cannot find the activation email.</span>
+                        <span class="lang-en">I cannot find the activation email. What should I do?
+</span>
                         <span class="lang-ar">لا يمكنني العثور على بريد التفعيل الإلكتروني.</span>
                     </div>
                     <div class="faq-answer">
-                        <span class="lang-en">Ensure your IT admin has added your email to the license pool. Also check your spam or junk folder.</span>
+                        <span class="lang-en">Please check your spam or junk folder. If you still cannot find it, please email us at support@gsdidea.ae
+, and we will assist you.</span>
                         <span class="lang-ar">تأكد من أن مسؤول تكنولوجيا المعلومات قد أضاف بريدك الإلكتروني وتحقق من مجلد البريد العشوائي.</span>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">What if the admin mailbox doesn’t have it yet?</span>
+                        <span class="lang-en">I could not find the Admin username in the email. What should I do?
+</span>
                         <span class="lang-ar">ما هو الغرض من هذه البوابة؟</span>
                     </div>
                     <div class="faq-answer">
-                        <span class="lang-en">If the admin mailbox doesnt have our email yet, please write to support@gsdidea.ae
- from your official email address. We will be happy to assist.</span>
+                        <span class="lang-en">Please email us at support@gsdidea.ae
+ using your company email address. We will provide the Admin details or add you directly to the license pool.</span>
                         <span class="lang-ar">لإرشادك وفريقك بأمان عبر الإعداد الفني والترخيص قبل مكالمة الانطلاق الاستراتيجية الخاصة بنا.</span>
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <i class="ph ph-caret-right faq-icon"></i>
-                        <span class="lang-en">How can I assign or transfer admin details?.</span>
+                        <span class="lang-en">I want to be added as an Admin user. What should I do?
+</span>
                         <span class="lang-ar">لا يمكنني العثور على بريد التفعيل الإلكتروني.</span>
                     </div>
                     <div class="faq-answer">
                         <span class="lang-en">Please email us at support@gsdidea.ae
-, and we’ll assign you as an Admin.</span>
+ using your official email ID, and we will assist you in getting added as an Admin.</span>
                         <span class="lang-ar">تأكد من أن مسؤول تكنولوجيا المعلومات قد أضاف بريدك الإلكتروني وتحقق من مجلد البريد العشوائي.</span>
                     </div>
                 </div>
@@ -3272,6 +3298,7 @@ email you received
             <h2 class="lang-en">Implementation FAQs</h2>
             <h2 class="lang-ar">الأسئلة الشائعة حول التنفيذ</h2>
             <div class="faq-list">
+               
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <i class="ph ph-caret-right faq-icon"></i>
@@ -3306,6 +3333,19 @@ email you received
                         </div>
                     </div>
                 </div>
+                <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">
+        <i class="ph ph-caret-right faq-icon"></i>
+        <span class="lang-en">I am confused about where to begin with connection design. What should I do?</span>
+        <span class="lang-ar">هل أحتاج إلى صلاحيات المسؤول للتثبيت؟</span>
+    </div>
+    <div class="faq-answer">
+        <span class="lang-en">Please start with this beginner-friendly tutorial:<br>
+            <a href="https://www.ideastatica.com/support-center/beam-to-column-connection-design-en" target="_blank" class="inline-link">Beam to Column Connection Design</a>
+        </span>
+        <span class="lang-ar">نعم، يتطلب تثبيت IDEA StatiCa وروابط BIM صلاحيات مسؤول محلي.</span>
+    </div>
+</div>
             </div>
         </div>
 
@@ -3536,6 +3576,7 @@ function closeLightbox(event) {
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // 1. Reveal on Scroll logic (keeps your cards sliding in)
         const items = document.querySelectorAll('.reveal-on-scroll');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -3547,28 +3588,55 @@ function closeLightbox(event) {
         }, { threshold: 0.18 });
         items.forEach(item => observer.observe(item));
 
+        // 2. Testimonial Slider with Progress Loader
         const cards = document.querySelectorAll(".testimonial-card");
         const dotsContainer = document.getElementById("dynamicDots");
+        const loader = document.getElementById("testimonialLoader");
+        
         let index = 0;
+        let progress = 0;
+        const duration = 6000; // Duration in milliseconds (6 seconds)
+        const intervalTime = 100; // Update frequency (0.1 seconds)
+
         if (cards.length > 1) {
+            // Function to sync dots and active card
+            const updateUI = (targetIndex) => {
+                cards.forEach((c, idx) => c.classList.toggle("active", idx === targetIndex));
+                document.querySelectorAll('.testimonial-dot').forEach((d, idx) => d.classList.toggle("active", idx === targetIndex));
+            };
+
+            // Create dots and handle clicks
             cards.forEach((_, i) => {
                 const dot = document.createElement("span");
                 dot.className = "testimonial-dot";
                 if (i === 0) dot.classList.add("active");
+                
                 dot.addEventListener("click", () => {
-                    cards.forEach((c, idx) => c.classList.toggle("active", idx === i));
-                    document.querySelectorAll('.testimonial-dot').forEach((d, idx) => d.classList.toggle("active", idx === i));
                     index = i;
+                    progress = 0; // Reset progress bar on manual click
+                    updateUI(index);
                 });
                 dotsContainer.appendChild(dot);
             });
+
+            // Timer for the progress bar and slide switching
             setInterval(() => {
-                index = (index + 1) % cards.length;
-                cards.forEach((c, i) => c.classList.toggle("active", i === index));
-                document.querySelectorAll('.testimonial-dot').forEach((d, i) => d.classList.toggle("active", i === index));
-            }, 6000);
+                progress += (intervalTime / duration) * 100;
+                
+                if (progress >= 100) {
+                    progress = 0;
+                    index = (index + 1) % cards.length;
+                    updateUI(index);
+                }
+                
+                if (loader) {
+                    loader.style.width = progress + "%";
+                }
+            }, intervalTime);
         }
-         document.addEventListener('keydown', (e) => {
+
+        // 3. Lightbox Escape key logic (keeps your image preview closeable)
+        document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const overlay = document.getElementById('lightboxOverlay');
                 if (overlay && overlay.classList.contains('active')) {
