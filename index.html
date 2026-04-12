@@ -307,65 +307,189 @@
         .bolt-grid span { background: var(--primary-color); border-radius: 50%; width: 6px; height: 6px; }
 
         /* PROTOCOL LAYOUT (PAGE 3) */
-        .protocol-section {
-            margin-top: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-        .protocol-item {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 40px;
-            align-items: center;
-        }
-        .protocol-img-placeholder {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            min-height: 160px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: box-shadow 0.3s ease;
-        }
-        .protocol-img-placeholder:hover {
-            box-shadow: var(--shadow-md);
-        }
-        .protocol-content {
-            display: flex;
-            flex-direction: column;
-        }
-        .protocol-eyebrow {
-            color: var(--primary-color);
-            font-family: 'Inter', -apple-system, sans-serif;
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-        .protocol-title {
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif; /* Overrides global Teko for this specific element to match reference */
-            font-size: 1.45rem;
-            font-weight: 800;
-            margin: 0 0 12px 0;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            text-transform: none; /* Disables uppercase from global headings */
-        }
-        .protocol-desc {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.6;
-            margin: 0;
-        }
+  .protocol-section {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.protocol-item {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.protocol-img-placeholder {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    min-height: 220px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    cursor: zoom-in;
+}
+
+.protocol-img-placeholder:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.protocol-img-placeholder img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.protocol-img-hint {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background: #ff5000;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.protocol-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.protocol-eyebrow {
+    color: var(--primary-color);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.protocol-title {
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    margin: 0 0 14px 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-transform: none;
+}
+
+.protocol-desc {
+    display: none;
+}
+
+.protocol-points {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-main);
+}
+
+.protocol-points li {
+    margin-bottom: 10px;
+    line-height: 1.65;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.protocol-points li::marker {
+    color: var(--primary-color);
+}
+
+.protocol-note {
+    margin-top: 10px;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.protocol-note strong {
+    color: var(--text-main);
+}
+
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.82);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 9999;
+}
+
+.lightbox-overlay.active {
+    display: flex;
+}
+
+.lightbox-dialog {
+    position: relative;
+    max-width: min(1200px, 96vw);
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #111827;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) {
+    .protocol-item {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .protocol-img-placeholder {
+        min-height: 180px;
+    }
+
+    .protocol-points {
+        padding-left: 18px;
+    }
+
+    .protocol-points li {
+        font-size: 0.96rem;
+    }
+
+    .lightbox-overlay {
+        padding: 16px;
+    }
+
+    .lightbox-close {
+        top: -10px;
+        right: -6px;
+    }
+}
 
         /* ACCORDION CHECKLIST */
         .checklist-item { 
@@ -1149,7 +1273,7 @@
             /* LinkedIn Card Scaling */
             .li-custom-banner {
     height: 140px;
-    background: #005A9C url('licover.jpeg') center/cover;
+    background: #005A9C url('licover.jpg') center/cover;
     position: relative;
     border-bottom: 2px solid var(--border-color);
 }
@@ -1447,26 +1571,132 @@
             .roadmap-header h2{ font-size:2rem; }
         }
 
-        /* LINKEDIN EMBED STYLE */
-        .linkedin-embed-card{ margin-top: 28px; background: #ffffff; border: 1px solid #d9dee3; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-        .linkedin-embed-banner{ height: 120px; background: linear-gradient(135deg, #0a66c2 0%, #378fe9 100%); position: relative; display: flex; align-items: center; justify-content: center; z-index: 1; }
-        .linkedin-banner-logo{ max-height: 42px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.95; }
-        .linkedin-embed-body{ padding: 0 24px 22px; position: relative; }
-        .linkedin-embed-logo-wrap{ display: flex; justify-content: flex-start; margin-top: -34px; margin-bottom: 14px; position: relative; z-index: 10; }
-        .linkedin-embed-logo{ width: 72px; height: 72px; border-radius: 14px; background: #ffffff; border: 4px solid #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.18); overflow: hidden; }
-        .linkedin-embed-logo img{ width: 100%; height: 100%; object-fit: cover; }
-        .linkedin-embed-platform{ display: inline-flex; align-items: center; gap: 8px; color: #0a66c2; font-size: 0.84rem; font-weight: 700; margin-bottom: 10px; }
-        .linkedin-embed-title{ margin: 0 0 8px 0; font-size: 1.28rem; font-weight: 700; line-height: 1.3; color: #191919; }
-        .linkedin-embed-subtitle{ margin: 0 0 18px 0; font-size: 0.95rem; line-height: 1.6; color: #5e5e5e; }
-        .linkedin-embed-stats{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
-        .linkedin-stat-item{ display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid #e7e7e7; border-radius: 10px; background: #fafafa; color: #333333; font-size: 0.92rem; font-weight: 600; line-height: 1.45; }
-        .linkedin-stat-item i{ color: #0a66c2; font-size: 1rem; flex-shrink: 0; }
-        .linkedin-embed-footer{ display: flex; justify-content: flex-start; padding-top: 16px; border-top: 1px solid #e7e7e7; }
-        .linkedin-open-btn{ display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #0a66c2; color: #ffffff; text-decoration: none; font-size: 0.94rem; font-weight: 700; transition: background 0.2s ease, transform 0.2s ease; }
-        .linkedin-open-btn:hover{ background: #004182; transform: translateY(-1px); }
-        .linkedin-open-btn i{ font-size: 1rem; }
-        @media (max-width: 768px){ .linkedin-embed-stats{ grid-template-columns: 1fr; } .linkedin-embed-body{ padding: 0 18px 18px; } .linkedin-embed-title{ font-size: 1.14rem; } }
+       /* LINKEDIN EMBED – CLEAN FINAL */
 
+.linkedin-embed-card{
+    margin-top: 28px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* Banner behaves like real LinkedIn cover */
+.linkedin-embed-banner{
+    width: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.linkedin-banner-image{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Body */
+.linkedin-embed-body{
+    padding: 0 24px 24px;
+    position: relative;
+}
+
+/* Overlapping logo */
+.linkedin-embed-logo-wrap{
+    margin-top: -55px;
+    margin-bottom: 16px;
+}
+
+.linkedin-embed-logo{
+    width: 104px;
+    height: 104px;
+    border-radius: 12px;
+    background: #fff;
+    border: 4px solid #fff;
+    overflow: hidden;
+}
+
+.linkedin-embed-logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Text */
+.linkedin-embed-platform{
+    color: #0a66c2;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.linkedin-embed-title{
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0 0 6px;
+    color: #111827;
+}
+
+.linkedin-embed-subtitle{
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 16px;
+}
+
+/* CTA */
+.linkedin-embed-footer{
+    border-top: 1px solid #e5e7eb;
+    padding-top: 16px;
+}
+
+.linkedin-open-btn{
+    background: #0a66c2;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+}
+
+.linkedin-open-btn:hover{
+    background: #004182;
+}
+
+/* Stats */
+.linkedin-embed-stats{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.linkedin-stat-item{
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Mobile */
+@media (max-width: 768px){
+    .linkedin-embed-banner{
+        height: 140px;
+    }
+
+    .linkedin-embed-logo{
+        width: 80px;
+        height: 80px;
+    }
+
+    .linkedin-embed-stats{
+        grid-template-columns: 1fr;
+    }
+}
         /* PREMIUM OVERVIEW SPLIT LAYOUT */
         .overview-premium-layout {
             display: grid;
@@ -1571,7 +1801,18 @@
         .language-ai-text[data-ai-marker-tooltip]:hover::before {
             opacity: 1;
         }
+.inline-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(255, 80, 0, 0.4);
+    transition: all 0.2s ease;
+}
 
+.inline-link:hover {
+    color: var(--primary-dark);
+    border-bottom-color: var(--primary-dark);
+}
     </style>
 </head>
 <body>
@@ -1601,7 +1842,7 @@
         <!-- Progress Navigation -->
         <nav class="nav-bar">
             <div class="nav-item active" id="nav1"><i class="ph ph-handshake"></i><span class="lang-en">Overview</span><span class="lang-ar">نظرة عامة</span></div>
-            <div class="nav-item" id="nav2"><i class="ph ph-users-three"></i><span class="lang-en">Network</span><span class="lang-ar">الشبكة</span></div>
+            <div class="nav-item" id="nav2"><i class="ph ph-users-three"></i><span class="lang-en">Community</span><span class="lang-ar">الشبكة</span></div>
             <div class="nav-item" id="nav3"><i class="ph ph-stack"></i><span class="lang-en">Licence</span><span class="lang-ar">مساحة العمل</span></div>
             <div class="nav-item" id="nav4"><i class="ph ph-list-checks"></i><span class="lang-en">PRE ONBOARDING</span><span class="lang-ar">التنفيذ</span></div>
             <div class="nav-item" id="nav5"><i class="ph ph-rocket-launch"></i><span class="lang-en">ONBOARDING</span><span class="lang-ar">الانطلاق</span></div>
@@ -1617,12 +1858,11 @@
                     <span class="lang-ar">التأهيل المنظم</span></span>
                 </div>
                 
-                <h1 class="lang-en"><span style="color: var(--primary-color)">Welcome to IDEA StatiCa</span></h1>
+                <h1 class="lang-en"><span style="color: var(--primary-color)">Welcome to IDEA StatiCa Onboarding</span></h1>
                 <h1 class="lang-ar">مرحبًا بكم في رحلة نجاحكم</h1>
 
                 <p class="lang-en">
-                    Thank you for choosing GSD IDEA. This onboarding roadmap guides your team through the key steps required to successfully implement IDEA StatiCa within your structural engineering workflow.
-                </p>
+Thank you for choosing GSD IDEA as you IDEA StatiCa partner. This roadmap will guide you through 4 steps required to successfully implement IDEA StatiCa into your structural workflow. This can take 15 minutes.                </p>
                 <p class="lang-ar">
                     تهانينا لاختياركم IDEA StatiCa. صُممت هذه الخارطة التفاعلية لنقل فريقكم من مرحلة الإعداد إلى مستوى متقدم في النمذجة الإنشائية خلال وقت قياسي. أكملوا هذه الخطوات للاستفادة الكاملة من إمكاناتكم.
                 </p>
@@ -1637,15 +1877,15 @@
                                 <span class="lang-ar">التأهيل المنظم</span>
                             </div>
 
-                            <h2 class="lang-en">On-Boarding Roadmap</h2>
+                            <h2 class="lang-en">Four steps to initiate your IDEA StatiCa journey</h2>
                             <h2 class="lang-ar">مساركم نحو الإتقان</h2>
 
-                            <p class="lang-en">
+                           <!-- <p class="lang-en">
                                 Please complete the steps below to confirm your setup and proceed with scheduling your onboarding session.        
                             </p>
                             <p class="lang-ar">
                                 خارطة نجاح موجهة صُممت لنقل فريقكم من الإعداد إلى التنفيذ بثقة ووضوح وسرعة وتقدم ملموس.
-                            </p>
+                            </p> -->
                         </div>
 
                         <div class="roadmap-timeline">
@@ -1653,8 +1893,8 @@
                                 <div class="roadmap-card">
                                     <div class="roadmap-card-top">
                                         <div class="roadmap-badge">
-                                            <i class="ph ph-users-three"></i>
-                                            <span class="lang-en">NETWORK</span>
+                                            
+                                            <span class="lang-en">1. COMMUNITY</span>
                                             <span class="lang-ar">الشبكة</span>
                                         </div>
                                     </div>
@@ -1667,12 +1907,12 @@
                                 <div class="roadmap-card">
                                     <div class="roadmap-card-top">
                                         <div class="roadmap-badge">
-                                            <i class="ph ph-stack"></i>
-                                            <span class="lang-en">LICENCE</span>
+                                          
+                                            <span class="lang-en">2. LICENCE</span>
                                             <span class="lang-ar">بيئة العمل</span>
                                         </div>
                                     </div>
-                                    <p class="lang-en">Confirm access to your organization’s license pool and ensure the software is ready for use.</p>
+                                    <p class="lang-en">Get access to your organization’s license pool and ensure the software is ready for use.</p>
                                     <p class="lang-ar">تهيئة روابط BIM والمواد لتبسيط سير عمل اليومي.</p>
                                 </div>
                             </article>
@@ -1681,8 +1921,8 @@
                                 <div class="roadmap-card">
                                     <div class="roadmap-card-top">
                                         <div class="roadmap-badge">
-                                            <i class="ph ph-list-checks"></i>
-                                            <span class="lang-en">PRE-ONBOARDING</span>
+                                           
+                                            <span class="lang-en">3. PRE-ONBOARDING</span>
                                             <span class="lang-ar">التنفيذ</span>
                                         </div>
                                     </div>
@@ -1695,8 +1935,8 @@
                                 <div class="roadmap-card">
                                     <div class="roadmap-card-top">
                                         <div class="roadmap-badge">
-                                            <i class="ph ph-rocket-launch"></i>
-                                            <span class="lang-en">ONBOARDING</span>
+                                          
+                                            <span class="lang-en">4. ONBOARDING SESSION</span>
                                             <span class="lang-ar">المراجعة النهائية</span>
                                         </div>
                                     </div>
@@ -1711,13 +1951,13 @@
                     <section class="testimonials-shell testimonials-panel">
                         <div class="testimonials-header">
                             <div class="testimonials-header-copy">
-                                <div class="testimonials-eyebrow">
+                              <!--  <div class="testimonials-eyebrow">
                                     <i class="ph-fill ph-seal-check"></i>
                                     <span class="lang-en">Trusted Engineering Outcomes</span>
                                     <span class="lang-ar">نتائج هندسية موثوقة</span>
-                                </div>
+                                </div>-->
 
-                                <h2 class="lang-en">How engineering leaders describe the value</h2>
+                                <h2 class="lang-en">How leaders describe the value</h2>
                                 <h2 class="lang-ar">كيف يصف القادة الهندسيون القيمة</h2>
                             </div>
                         </div>
@@ -1787,32 +2027,21 @@
                 <h1 class="lang-ar">انضم إلى مجتمعنا</h1>
 
                 <p class="lang-en">
-                    You now have access to the IDEA StatiCa Gulf User Group, a regional network of structural engineers using IDEA StatiCa across the Middle East.
+                    You now have access to the IDEA StatiCa Gulf User Group, a regional Community of structural engineers using IDEA StatiCa across the Middle East.
                 </p>
                 <p class="lang-ar">
                     أصبح لديكم الآن إمكانية الوصول إلى مجموعة مستخدمي IDEA StatiCa Gulf، وهي شبكة إقليمية من المهندسين الإنشائيين الذين يستخدمون IDEA StatiCa في أنحاء الشرق الأوسط.
                 </p>
                 <div class="linkedin-embed-card">
                     <div class="linkedin-embed-banner">
-                        <!-- Placeholder SVG for Banner Logo -->
-                        <img src="licover.jpeg" alt="Admin Portal">
-                            <path d="M10 10 h15 v30 h-15 z" fill="white"/>
-                            <path d="M35 10 h25 v6 h-18 v6 h15 v6 h-15 v6 h18 v6 h-25 z" fill="white"/>
-                            <text x="75" y="36" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="28">StatiCa</text>
-                        </svg>
-                    </div>
+    <img src="licover.jpeg" alt="IDEA StatiCa Gulf banner" class="linkedin-banner-image">
+</div>
 
                     <div class="linkedin-embed-body">
                         <div class="linkedin-embed-logo-wrap">
-                            <div class="linkedin-embed-logo">
-                                <!-- Placeholder SVG for Group Logo (Engineering Node) -->
-                                <img src="lidp.jpeg" alt="Admin Portal">
-                                    <rect width="120" height="120" fill="#f8fafc"/>
-                                    <path d="M60 20 L100 45 V85 L60 110 L20 85 V45 Z" fill="none" stroke="#ff5000" stroke-width="10" stroke-linejoin="round"/>
-                                    <circle cx="60" cy="65" r="16" fill="#ff5000"/>
-                                    <path d="M60 20 V65 M20 45 L60 65 M100 45 L60 65" stroke="#ff5000" stroke-width="6"/>
-                                </svg>
-                            </div>
+                           <div class="linkedin-embed-logo">
+    <img src="lidp.jpeg" alt="IDEA StatiCa Gulf group logo">
+</div>
                         </div>
 
                         <div class="linkedin-embed-meta">
@@ -1826,7 +2055,7 @@
                             <h3 class="linkedin-embed-title lang-ar">مجموعة مستخدمي IDEA StatiCa Gulf</h3>
 
                             <p class="linkedin-embed-subtitle">
-                                <span class="lang-en">Private group • Regional structural engineering network</span>
+                                <span class="lang-en">Private group • Regional structural engineering Community</span>
                                 <span class="lang-ar">مجموعة خاصة • شبكة إقليمية للهندسة الإنشائية</span>
                             </p>
                         </div>
@@ -1869,7 +2098,7 @@
 
             <!-- PAGE 3: License / Workspace -->
             <div id="page3" class="page">
-                <h1 class="lang-en">License Administration</h1>
+                <h1 class="lang-en">License Setup</h1>
                 <h1 class="lang-ar">إدارة التراخيص</h1>
                 
                 <p class="lang-en" style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 32px;">
@@ -1880,52 +2109,123 @@
                 </p>
 
                 <div class="protocol-section">
-                    <!-- Protocol 1 -->
-                    <div class="protocol-item">
-                        
-                        <div class="protocol-img-placeholder" style="padding: 0; overflow: hidden;">
-    <img src="step1.jpeg" alt="Admin Portal" style="width: 100%; height: 100%; object-fit: cover;">
-</div>
-                        <div class="protocol-content">
-                            <span class="protocol-eyebrow lang-en">STEP 01</span>
-                            <span class="protocol-eyebrow lang-ar">البروتوكول 01</span>
-                            <h3 class="protocol-title lang-en">Admin Portal Login</h3>
-                            <h3 class="protocol-title lang-ar">تسجيل الدخول لبوابة المسؤول</h3>
-                            <p class="protocol-desc lang-en">Each license pool has a designated administrator. The email address of the administrator for your license pool is included in this email. Please check the email to identify your admin. The administrator must sign in to the User Portal to add users to the license pool.</p>
-                            <p class="protocol-desc lang-ar">تحتوي كل مجموعة تراخيص على مسؤول معين. تم تضمين عنوان البريد الإلكتروني للمسؤول في هذا البريد. يرجى التحقق من البريد لتحديد المسؤول الخاص بك. يجب على المسؤول تسجيل الدخول إلى بوابة المستخدم لإضافة مستخدمين إلى مجموعة التراخيص.</p>
-                        </div>
-                    </div>
+    <!-- Protocol 1 -->
+    <div class="protocol-item">
+        <div class="protocol-img-placeholder" onclick="openLightbox('step1.jpeg', 'Admin Portal Login screenshot')">
+            <img src="step1.jpeg" alt="Admin Portal Login screenshot">
+           <span class="protocol-img-hint lang-en">
+    <i class="ph ph-magnifying-glass-plus"></i>
+</span>
+            <span class="protocol-img-hint lang-ar">
+    <i class="ph ph-magnifying-glass-plus"></i>
+</span>
+        </div>
 
-                    <!-- Protocol 2 -->
-                    <div class="protocol-item">
-                       <div class="protocol-img-placeholder" style="padding: 0; overflow: hidden;">
-    <img src="step2.jpeg" alt="Admin Portal" style="width: 100%; height: 100%; object-fit: cover;">
-</div>
-                        <div class="protocol-content">
-                            <span class="protocol-eyebrow lang-en">STEP 02</span>
-                            <span class="protocol-eyebrow lang-ar">البروتوكول 02</span>
-                            <h3 class="protocol-title lang-en">User Creation in License Pool</h3>
-                            <h3 class="protocol-title lang-ar">إنشاء مستخدم في مجموعة التراخيص</h3>
-                            <p class="protocol-desc lang-en">Under the License Users tab, the administrator must select Create New User. This initiates the process of adding a user to the commercial license pool.</p>
-                            <p class="protocol-desc lang-ar">ضمن علامة التبويب "مستخدمي الترخيص" (License Users)، يجب على المسؤول تحديد "إنشاء مستخدم جديد" (Create New User). يؤدي هذا إلى بدء عملية إضافة مستخدم إلى مجموعة التراخيص التجارية.</p>
-                        </div>
-                    </div>
+        <div class="protocol-content">
+            <span class="protocol-eyebrow lang-en">STEP 01</span>
+            <span class="protocol-eyebrow lang-ar">الخطوة 01</span>
 
-                    <!-- Protocol 3 -->
-                    <div class="protocol-item">
-                       <div class="protocol-img-placeholder" style="padding: 0; overflow: hidden;">
-    <img src="step3.jpeg" alt="Admin Portal" style="width: 100%; height: 100%; object-fit: cover;">
+            <h3 class="protocol-title lang-en">Admin Portal Login</h3>
+            <h3 class="protocol-title lang-ar">تسجيل الدخول لبوابة المسؤول</h3>
+
+            <p class="protocol-desc lang-en">Each license pool has a designated administrator. The email address of the administrator for your license pool is included in this email. Please check the email to identify your admin. The administrator must sign in to the User Portal to add users to the license pool.</p>
+            <p class="protocol-desc lang-ar">تحتوي كل مجموعة تراخيص على مسؤول معين. تم تضمين عنوان البريد الإلكتروني للمسؤول في هذا البريد. يرجى التحقق من البريد لتحديد المسؤول الخاص بك. يجب على المسؤول تسجيل الدخول إلى بوابة المستخدم لإضافة مستخدمين إلى مجموعة التراخيص.</p>
+
+            <ul class="protocol-points lang-en">
+                <li>Each license pool has one designated administrator.</li>
+                <li>The administrator email address is already included in the 
+<a href="mailto:support@gsdidea.ae" class="inline-link" title="Can't find it? Drop a mail to support@gsdidea.ae">
+email you received
+</a>.</li>
+                <li>Identify that admin, then have them sign in to the User Portal.</li>
+            </ul>
+            <p class="protocol-note lang-en"><strong>Why this matters:</strong> Only the assigned administrator can start adding users to the license pool.</p>
+
+            <ul class="protocol-points lang-ar">
+                <li>لكل مجموعة تراخيص مسؤول معيّن.</li>
+                <li>تم تضمين البريد الإلكتروني الخاص بالمسؤول في الرسالة التي استلمتها.</li>
+                <li>حدّد المسؤول أولاً، ثم اطلب منه تسجيل الدخول إلى بوابة المستخدم.</li>
+            </ul>
+            <p class="protocol-note lang-ar"><strong>لماذا هذا مهم:</strong> فقط المسؤول المعيّن يمكنه البدء في إضافة المستخدمين إلى مجموعة التراخيص.</p>
+        </div>
+    </div>
+
+    <!-- Protocol 2 -->
+    <div class="protocol-item">
+        <div class="protocol-img-placeholder" onclick="openLightbox('step2.jpeg', 'User Creation in License Pool screenshot')">
+            <img src="step2.jpeg" alt="User Creation in License Pool screenshot">
+            <span class="protocol-img-hint lang-en">
+    <i class="ph ph-magnifying-glass-plus"></i>
+</span>
+            <span class="protocol-img-hint lang-ar">
+    <i class="ph ph-magnifying-glass-plus"></i>
+</span>
+        </div>
+
+        <div class="protocol-content">
+            <span class="protocol-eyebrow lang-en">STEP 02</span>
+            <span class="protocol-eyebrow lang-ar">الخطوة 02</span>
+
+            <h3 class="protocol-title lang-en">User Creation in License Pool</h3>
+            <h3 class="protocol-title lang-ar">إنشاء مستخدم في مجموعة التراخيص</h3>
+
+            <p class="protocol-desc lang-en">Under the License Users tab, the administrator must select Create New User. This initiates the process of adding a user to the commercial license pool.</p>
+            <p class="protocol-desc lang-ar">ضمن علامة التبويب "مستخدمي الترخيص" (License Users)، يجب على المسؤول تحديد "إنشاء مستخدم جديد" (Create New User). يؤدي هذا إلى بدء عملية إضافة مستخدم إلى مجموعة التراخيص التجارية.</p>
+
+            <ul class="protocol-points lang-en">
+                <li>Go to the <strong>License Users</strong> tab inside the portal.</li>
+                <li>Select <strong>Create New User</strong>.</li>
+                <li>This starts the process of adding the user to the commercial license pool.</li>
+            </ul>
+            <p class="protocol-note lang-en"><strong>Tip:</strong> Use the user’s correct official email ID to avoid access issues later.</p>
+
+            <ul class="protocol-points lang-ar">
+                <li>انتقل إلى علامة التبويب <strong>License Users</strong> داخل البوابة.</li>
+                <li>اختر <strong>Create New User</strong>.</li>
+                <li>يبدأ هذا عملية إضافة المستخدم إلى مجموعة التراخيص التجارية.</li>
+            </ul>
+            <p class="protocol-note lang-ar"><strong>ملاحظة:</strong> استخدم البريد الإلكتروني الرسمي الصحيح للمستخدم لتجنب مشاكل الوصول لاحقًا.</p>
+        </div>
+    </div>
+
+    <!-- Protocol 3 -->
+    <div class="protocol-item">
+        <div class="protocol-img-placeholder" onclick="openLightbox('step3.jpeg', 'User Migration and License Activation screenshot')">
+            <img src="step3.jpeg" alt="User Migration and License Activation screenshot">
+            <span class="protocol-img-hint lang-en">
+    <i class="ph ph-magnifying-glass-plus"></i>
+</span>
+            <span class="protocol-img-hint lang-ar">
+    <i class="ph ph-magnifying-glass-plus"></i>
+</span>
+        </div>
+
+        <div class="protocol-content">
+            <span class="protocol-eyebrow lang-en">STEP 03</span>
+            <span class="protocol-eyebrow lang-ar">الخطوة 03</span>
+
+            <h3 class="protocol-title lang-en">User Migration & License Activation</h3>
+            <h3 class="protocol-title lang-ar">ترحيل المستخدم وتفعيل الترخيص</h3>
+
+            <p class="protocol-desc lang-en">If you are an existing or trial user, the administrator can select the Migrate User option to transfer your trial license to the commercial license. Once the administrator saves your username, you will be fully integrated into the commercial license pool. After the migration or creation of a new user, you may log in again to start using your commercial license.</p>
+            <p class="protocol-desc lang-ar">إذا كنت مستخدمًا حاليًا أو في فترة تجريبية، يمكن للمسؤول تحديد خيار "ترحيل المستخدم" (Migrate User) لنقل ترخيصك التجريبي إلى الترخيص التجاري. بمجرد أن يحفظ المسؤول اسم المستخدم الخاص بك، سيتم دمجك بالكامل في مجموعة التراخيص التجارية. بعد الترحيل أو إنشاء مستخدم جديد، يمكنك تسجيل الدخول مرة أخرى لبدء استخدام ترخيصك التجاري.</p>
+
+            <ul class="protocol-points lang-en">
+                <li>If the user already exists or is on trial, select <strong>Migrate User</strong>.</li>
+                <li>Save the username to move that user into the commercial license pool.</li>
+                <li>After migration or new-user creation, log in again to start using the commercial license.</li>
+            </ul>
+            <p class="protocol-note lang-en"><strong>Result:</strong> The user becomes part of the commercial pool and can access licensed workflows.</p>
+
+            <ul class="protocol-points lang-ar">
+                <li>إذا كان المستخدم موجودًا بالفعل أو يستخدم نسخة تجريبية، اختر <strong>Migrate User</strong>.</li>
+                <li>احفظ اسم المستخدم لنقله إلى مجموعة التراخيص التجارية.</li>
+                <li>بعد الترحيل أو إنشاء المستخدم، سجّل الدخول مرة أخرى لبدء استخدام الترخيص التجاري.</li>
+            </ul>
+            <p class="protocol-note lang-ar"><strong>النتيجة:</strong> يصبح المستخدم جزءًا من المجموعة التجارية ويمكنه الوصول إلى سير العمل المرخّص.</p>
+        </div>
+    </div>
 </div>
-                        <div class="protocol-content">
-                            <span class="protocol-eyebrow lang-en">STEP 03</span>
-                            <span class="protocol-eyebrow lang-ar">البروتوكول 03</span>
-                            <h3 class="protocol-title lang-en">User Migration & License Activation</h3>
-                            <h3 class="protocol-title lang-ar">ترحيل المستخدم وتفعيل الترخيص</h3>
-                            <p class="protocol-desc lang-en">If you are an existing or trial user, the administrator can select the Migrate User option to transfer your trial license to the commercial license. Once the administrator saves your username, you will be fully integrated into the commercial license pool. After the migration or creation of a new user, you may log in again to start using your commercial license.</p>
-                            <p class="protocol-desc lang-ar">إذا كنت مستخدمًا حاليًا أو في فترة تجريبية، يمكن للمسؤول تحديد خيار "ترحيل المستخدم" (Migrate User) لنقل ترخيصك التجريبي إلى الترخيص التجاري. بمجرد أن يحفظ المسؤول اسم المستخدم الخاص بك، سيتم دمجك بالكامل في مجموعة التراخيص التجارية. بعد الترحيل أو إنشاء مستخدم جديد، يمكنك تسجيل الدخول مرة أخرى لبدء استخدام ترخيصك التجاري.</p>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="email-collection-box">
                     <label for="userEmailInput" class="lang-en">Enter your registered official email ID to proceed:</label>
@@ -2907,7 +3207,7 @@
 
         <!-- STEP 2 FAQS -->
         <div class="faq-group" id="faq-group-2">
-            <h2 class="lang-en">Network FAQs</h2>
+            <h2 class="lang-en">COMMUNITY FAQs</h2>
             <h2 class="lang-ar">الأسئلة الشائعة حول الشبكة</h2>
             <div class="faq-list">
                 <div class="faq-item">
@@ -2936,7 +3236,31 @@
                         <span class="lang-ar">لا يمكنني العثور على بريد التفعيل الإلكتروني.</span>
                     </div>
                     <div class="faq-answer">
-                        <span class="lang-en">Ensure your IT Admin has added your email to the license pool and check your spam/junk folder.</span>
+                        <span class="lang-en">Ensure your IT admin has added your email to the license pool. Also check your spam or junk folder.</span>
+                        <span class="lang-ar">تأكد من أن مسؤول تكنولوجيا المعلومات قد أضاف بريدك الإلكتروني وتحقق من مجلد البريد العشوائي.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">What if the admin mailbox doesn’t have it yet?</span>
+                        <span class="lang-ar">ما هو الغرض من هذه البوابة؟</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">If the admin mailbox doesnt have our email yet, please write to support@gsdidea.ae
+ from your official email address. We will be happy to assist.</span>
+                        <span class="lang-ar">لإرشادك وفريقك بأمان عبر الإعداد الفني والترخيص قبل مكالمة الانطلاق الاستراتيجية الخاصة بنا.</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <i class="ph ph-caret-right faq-icon"></i>
+                        <span class="lang-en">How can I assign or transfer admin details?.</span>
+                        <span class="lang-ar">لا يمكنني العثور على بريد التفعيل الإلكتروني.</span>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="lang-en">Please email us at support@gsdidea.ae
+, and we’ll assign you as an Admin.</span>
                         <span class="lang-ar">تأكد من أن مسؤول تكنولوجيا المعلومات قد أضاف بريدك الإلكتروني وتحقق من مجلد البريد العشوائي.</span>
                     </div>
                 </div>
@@ -2987,6 +3311,12 @@
 
     </div>
 </div>
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox(event)">
+    <div class="lightbox-dialog">
+        <button class="lightbox-close" type="button" onclick="closeLightbox(event)">✕</button>
+        <img id="lightboxImage" class="lightbox-image" src="" alt="Expanded preview">
+    </div>
+</div>
 
 <script>
     let stepCount = 1;
@@ -3009,17 +3339,39 @@
             document.getElementById('optEn').classList.add('active');
         }
     }
-
-    function goPage(delta) {
+function goPage(delta) {
+        // Page 3 Validation & Google Form Submission
         if (stepCount === 3 && delta > 0) {
             const emailInput = document.getElementById('userEmailInput').value;
+            
+            // Validation Check
             if (!emailInput || !emailInput.includes('@')) {
                 const isAr = document.getElementById('onboarding-app').classList.contains('ar-active');
                 alert(isAr ? "يرجى إدخال بريد إلكتروني رسمي صحيح للمتابعة." : "Please enter a valid official email ID to proceed.");
-                return;
+                return; // Stops the user from going to Page 4
             }
+
+            // --- GOOGLE FORM SUBMISSION LOGIC ---
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfMbStwFSczyhFgcX8_QRBuoM5xcgW5mxIORjuhzXfj5o4OKQ/formResponse"; 
+            const entryId = "entry.259862658"; 
+
+            const formData = new FormData();
+            formData.append(entryId, emailInput);
+
+            // Send the data silently
+            fetch(formUrl, {
+                method: "POST",
+                mode: "no-cors", // Bypasses cross-origin restrictions
+                body: formData
+            }).then(() => {
+                console.log("Email silently submitted to Google Forms.");
+            }).catch(error => {
+                console.error("Submission error:", error);
+            });
+            // ------------------------------------
         }
 
+        // Page 4 Validation
         if (stepCount === 4 && delta > 0 && !document.getElementById('c6').checked) {
             const isAr = document.getElementById('onboarding-app').classList.contains('ar-active');
             alert(isAr ? "يرجى إكمال جميع متطلبات التنفيذ أولاً" : "Please complete all implementation steps first.");
@@ -3050,7 +3402,6 @@
         const newFaqGroup = document.getElementById(`faq-group-${stepCount}`);
         if(newFaqGroup) newFaqGroup.classList.add('active');
     }
-
 
 
     function goToPage(targetStep) {
@@ -3128,6 +3479,28 @@
     function toggleFaq(element) {
         element.parentElement.classList.toggle('active');
     }
+
+    function openLightbox(src, altText) {
+    const overlay = document.getElementById('lightboxOverlay');
+    const image = document.getElementById('lightboxImage');
+    image.src = src;
+    image.alt = altText || 'Expanded preview';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(event) {
+    if (
+        event.target.id === 'lightboxOverlay' ||
+        event.target.classList.contains('lightbox-close')
+    ) {
+        const overlay = document.getElementById('lightboxOverlay');
+        const image = document.getElementById('lightboxImage');
+        overlay.classList.remove('active');
+        image.src = '';
+        document.body.style.overflow = '';
+    }
+}
     
     function openSysReqFaq() {
         const sysReqItem = document.getElementById('faq-sys-req');
@@ -3195,6 +3568,16 @@
                 document.querySelectorAll('.testimonial-dot').forEach((d, i) => d.classList.toggle("active", i === index));
             }, 6000);
         }
+         document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const overlay = document.getElementById('lightboxOverlay');
+                if (overlay && overlay.classList.contains('active')) {
+                    overlay.classList.remove('active');
+                    document.getElementById('lightboxImage').src = '';
+                    document.body.style.overflow = '';
+                }
+            }
+        });
     });
 </script>
 </body>
