@@ -1,0 +1,31 @@
+name: Sync HTML to WordPress Page
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'index.html' 
+
+jobs:
+  update-wp-page:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update WordPress Page
+        env:
+          WP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+        run: |
+          # Read the HTML file
+          FILE_CONTENT=$(cat index.html)
+          
+          # Safely package the content into a JSON format
+          jq -n --arg content "$FILE_CONTENT" '{"content": $content}' > payload.json
+          
+          # Send it to WordPress via the REST API
+         curl -X POST "https://gsdidea.ae/wp-json/wp/v2/pages/1919" \
+            -H "Content-Type: application/json" \
+            -u "Rose:$WP_PASSWORD" \
+            -d @payload.json
